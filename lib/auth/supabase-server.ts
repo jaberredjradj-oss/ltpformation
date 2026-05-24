@@ -1,9 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import {
+  getResolvedSupabasePublishableKey,
+  getResolvedSupabaseUrl,
+} from "@/lib/db/supabase-env";
 
 export async function createSupabaseServerClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = getResolvedSupabaseUrl();
+  const anonKey = getResolvedSupabasePublishableKey();
 
   if (!url || !anonKey) {
     throw new Error("Supabase server client is not configured.");

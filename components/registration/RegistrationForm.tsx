@@ -33,7 +33,7 @@ import {
 } from "@/components/documents/PreinscriptionDocumentsUpload";
 import type { DocumentKind } from "@/lib/documents/types";
 import { RegistrationConsent } from "@/components/registration/RegistrationConsent";
-import { uploadCandidateDocuments } from "@/lib/documents/actions";
+import { uploadCandidateDocumentsRequest } from "@/lib/documents/client-upload";
 import { RegistrationSessionInsight } from "@/components/registration/RegistrationSessionInsight";
 import { RegistrationTrustStrip } from "@/components/registration/RegistrationTrustStrip";
 
@@ -203,7 +203,13 @@ export function RegistrationForm({
         });
       }
 
-      const uploadResult = await uploadCandidateDocuments(formData);
+      const expectedFileCount =
+        intent === "preinscription"
+          ? countPreinscriptionDocuments(preinscriptionDocuments)
+          : attachedFiles.length;
+      formData.append("expectedFileCount", String(expectedFileCount));
+
+      const uploadResult = await uploadCandidateDocumentsRequest(formData);
       if (!uploadResult.ok) {
         setFileError(uploadResult.error);
         setSubmitError(

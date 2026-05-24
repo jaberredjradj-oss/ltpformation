@@ -1,19 +1,22 @@
+import {
+  getResolvedSupabasePublishableKey,
+  getResolvedSupabaseSecretKey,
+  getResolvedSupabaseUrl,
+} from "@/lib/db/supabase-env";
+
+function envFlag(name: string): boolean {
+  return process.env[name]?.trim() === "true";
+}
+
 export function isRealDataEnabled(): boolean {
-  return (
-    process.env.USE_REAL_DATA === "true" &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY)
-  );
+  return envFlag("USE_REAL_DATA") && Boolean(getResolvedSupabaseSecretKey());
 }
 
 export function isSupabaseConfigured(): boolean {
-  return (
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
-  );
+  return Boolean(getResolvedSupabasePublishableKey());
 }
 
 /** Real Supabase Auth for /admin — independent of USE_REAL_DATA. */
 export function isAdminAuthEnabled(): boolean {
-  return process.env.ADMIN_AUTH === "true" && isSupabaseConfigured();
+  return envFlag("ADMIN_AUTH") && isSupabaseConfigured();
 }

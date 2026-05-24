@@ -1,5 +1,10 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { isRealDataEnabled } from "@/lib/db/env";
+import {
+  ensureSupabaseEnvironmentValidated,
+  getResolvedSupabaseSecretKey,
+  getResolvedSupabaseUrl,
+} from "@/lib/db/supabase-env";
 
 let client: SupabaseClient | null = null;
 
@@ -8,18 +13,25 @@ export function getSupabaseServerClient(): SupabaseClient | null {
     return null;
   }
 
+  const url = getResolvedSupabaseUrl();
+  const secretKey = getResolvedSupabaseSecretKey();
+  if (!url || !secretKey) {
+    return null;
+  }
+
   if (!client) {
-    client = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
+    client = createClient(url, secretKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
       },
-    );
+    });
   }
 
   return client;
+}
+
+export async function getSupabaseServerClientAsync(): Promise<SupabaseClient | null> {
+  await ensureSupabaseEnvironmentValidated();
+  return getSupabaseServerClient();
 }

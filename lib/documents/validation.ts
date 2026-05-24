@@ -28,11 +28,26 @@ function hasAllowedExtension(fileName: string): boolean {
   return ALLOWED_DOCUMENT_EXTENSIONS.some((ext) => lower.endsWith(ext));
 }
 
-function hasAllowedMime(type: string): boolean {
-  if (!type) return false;
+function hasAllowedMime(type: string, fileName: string): boolean {
+  if (!type || type === "application/octet-stream") {
+    return hasAllowedExtension(fileName);
+  }
+
   return ALLOWED_DOCUMENT_MIME_TYPES.includes(
     type as (typeof ALLOWED_DOCUMENT_MIME_TYPES)[number],
   );
+}
+
+export function resolveDocumentMimeType(fileName: string, type: string): string {
+  if (type && type !== "application/octet-stream") {
+    return type;
+  }
+
+  const lower = fileName.toLowerCase();
+  if (lower.endsWith(".pdf")) return "application/pdf";
+  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
+  if (lower.endsWith(".png")) return "image/png";
+  return type || "application/octet-stream";
 }
 
 export function validateDocumentFile(file: ValidatedFileInput): string | null {
@@ -52,7 +67,7 @@ export function validateDocumentFile(file: ValidatedFileInput): string | null {
     return "Format non autorisé (PDF, JPG, JPEG, PNG uniquement).";
   }
 
-  if (file.type && !hasAllowedMime(file.type) && !hasAllowedExtension(file.name)) {
+  if (!hasAllowedMime(file.type, file.name)) {
     return "Format non autorisé (PDF, JPG, JPEG, PNG uniquement).";
   }
 

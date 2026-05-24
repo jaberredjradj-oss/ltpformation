@@ -1,16 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-
-function isAdminAuthEnabled(): boolean {
-  return (
-    process.env.ADMIN_AUTH === "true" &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
-  );
-}
+import { isAdminAuthEnabled } from "@/lib/db/env";
+import {
+  getResolvedSupabasePublishableKey,
+  getResolvedSupabaseUrl,
+} from "@/lib/db/supabase-env";
 
 export async function proxy(request: NextRequest) {
   if (!isAdminAuthEnabled()) {
+    return NextResponse.next();
+  }
+
+  const url = getResolvedSupabaseUrl();
+  const anonKey = getResolvedSupabasePublishableKey();
+  if (!url || !anonKey) {
     return NextResponse.next();
   }
 
@@ -25,8 +28,8 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         getAll() {
