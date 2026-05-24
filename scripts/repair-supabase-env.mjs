@@ -1,6 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
-import { createClient } from "@supabase/supabase-js";
 
 const ROOT = process.cwd();
 const ENV_PATH = path.join(ROOT, ".env.local");
@@ -151,23 +150,38 @@ function keyFingerprint(key) {
 }
 
 async function verify(url, key) {
-  const client = createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-  const { error } = await client.from("planning_sessions").select("id").limit(1);
-  if (!error) return { ok: true, error: null };
+  const baseUrl = url.replace(/\/$/, "");
 
-  const message = error.message ?? "Unknown Supabase error.";
-  const lower = message.toLowerCase();
-  if (
-    lower.includes("invalid api key") ||
-    lower.includes("invalid compact jws") ||
-    lower.includes("jwt")
-  ) {
-    return { ok: false, error: message };
+  try {
+    const response = await fetch(
+      `${baseUrl}/rest/v1/planning_sessions?select=id&limit=1`,
+      {
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          Accept: "application/json",
+        },
+      },
+    );
+
+    if (response.status === 401 || response.status === 403) {
+      let message = `HTTP ${response.status}`;
+      try {
+        const payload = await response.json();
+        message = payload.message ?? message;
+      } catch {
+        // ignore JSON parse errors
+      }
+      return { ok: false, error: message };
+    }
+
+    return { ok: true, error: null };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Supabase connectivity check failed.",
+    };
   }
-
-  return { ok: true, error: null };
 }
 
 async function validateAndCache() {

@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { isAdminAuthEnabled } from "@/lib/db/env";
+import { SUPABASE_NO_REALTIME_OPTIONS } from "@/lib/db/supabase-client-options";
 import {
   getResolvedSupabasePublishableKey,
   getResolvedSupabaseUrl,
@@ -31,6 +32,7 @@ export async function proxy(request: NextRequest) {
     url,
     anonKey,
     {
+      ...SUPABASE_NO_REALTIME_OPTIONS,
       cookies: {
         getAll() {
           return request.cookies.getAll();

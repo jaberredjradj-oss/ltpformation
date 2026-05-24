@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
-import { createClient } from "@supabase/supabase-js";
+import { verifySupabaseKeyViaRest } from "@/lib/db/supabase-rest-verify";
 
 export type SupabaseKeyKind =
   | "publishable"
@@ -253,32 +253,7 @@ export async function verifySupabaseConnectivity(
   url: string,
   key: string,
 ): Promise<{ ok: boolean; error: string | null }> {
-  try {
-    const client = createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
-
-    const { error } = await client.from("planning_sessions").select("id").limit(1);
-    if (!error) return { ok: true, error: null };
-
-    const message = error.message ?? "Unknown Supabase error.";
-    const lower = message.toLowerCase();
-    if (
-      lower.includes("invalid api key") ||
-      lower.includes("invalid compact jws") ||
-      lower.includes("jwt")
-    ) {
-      return { ok: false, error: message };
-    }
-
-    // Missing table or permission issues still prove the key is accepted by Supabase.
-    return { ok: true, error: null };
-  } catch (error) {
-    return {
-      ok: false,
-      error: error instanceof Error ? error.message : "Supabase connectivity check failed.",
-    };
-  }
+  return verifySupabaseKeyViaRest(url, key);
 }
 
 function logSnapshot(snapshot: SupabaseEnvSnapshot): void {

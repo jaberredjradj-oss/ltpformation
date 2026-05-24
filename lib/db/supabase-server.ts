@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { isRealDataEnabled } from "@/lib/db/env";
+import { SUPABASE_SERVER_CLIENT_OPTIONS } from "@/lib/db/supabase-client-options";
 import {
   ensureSupabaseEnvironmentValidated,
   getResolvedSupabaseSecretKey,
@@ -20,12 +21,7 @@ export function getSupabaseServerClient(): SupabaseClient | null {
   }
 
   if (!client) {
-    client = createClient(url, secretKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    });
+    client = createClient(url, secretKey, SUPABASE_SERVER_CLIENT_OPTIONS);
   }
 
   return client;
