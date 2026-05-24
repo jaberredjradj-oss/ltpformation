@@ -1,19 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { isAdminAuthEnabled } from "@/lib/db/env";
 import { SUPABASE_NO_REALTIME_OPTIONS } from "@/lib/db/supabase-client-options";
 import {
-  getResolvedSupabasePublishableKey,
-  getResolvedSupabaseUrl,
-} from "@/lib/db/supabase-env";
+  getPublicSupabasePublishableKey,
+  getPublicSupabaseUrl,
+  isPublicAdminAuthEnabled,
+} from "@/lib/db/supabase-env-public";
 
 export async function proxy(request: NextRequest) {
-  if (!isAdminAuthEnabled()) {
+  if (!isPublicAdminAuthEnabled()) {
     return NextResponse.next();
   }
 
-  const url = getResolvedSupabaseUrl();
-  const anonKey = getResolvedSupabasePublishableKey();
+  const url = getPublicSupabaseUrl();
+  const anonKey = getPublicSupabasePublishableKey();
   if (!url || !anonKey) {
     return NextResponse.next();
   }

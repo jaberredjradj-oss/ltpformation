@@ -183,6 +183,21 @@ body {
   animation: particle-float linear infinite;
 }
 
+/* Production safety: homepage sections must stay visible even if motion JS fails to hydrate. */
+.section-flow section,
+.section-flow footer {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.section-flow [style*="opacity:0"],
+.section-flow [style*="opacity: 0"],
+.section-flow [style*="opacity:0;"],
+.section-flow [style*="opacity: 0;"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .section-flow > * + * { border-top: none; position: relative; }
 
 .section-flow > * + *::before {
