@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { processCandidateDocumentUpload } from "@/lib/documents/candidate-upload";
 import { withUploadTimeout } from "@/lib/documents/upload-timeout";
+import { ensureSupabaseEnvironmentValidated } from "@/lib/db/supabase-env";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -8,6 +9,7 @@ export const maxDuration = 30;
 const UPLOAD_REQUEST_TIMEOUT_MS = 25000;
 
 async function handleUpload(request: Request) {
+  await ensureSupabaseEnvironmentValidated();
   const formData = await request.formData();
   return processCandidateDocumentUpload(formData);
 }

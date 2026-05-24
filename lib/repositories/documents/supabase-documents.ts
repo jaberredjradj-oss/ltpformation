@@ -10,8 +10,21 @@ import {
   getManifestDocumentById,
   listManifestDocuments,
 } from "@/lib/documents/storage-manifest";
+import { withUploadTimeout } from "@/lib/documents/upload-timeout";
 import type { CreateEntityDocumentInput, EntityDocument } from "@/lib/documents/types";
 import type { DocumentsRepository } from "@/lib/repositories/documents/types";
+
+const DB_TIMEOUT_MS = 8000;
+
+function isMissingEntityDocumentsError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return (
+    lower.includes("entity_documents") &&
+    (lower.includes("schema cache") ||
+      lower.includes("does not exist") ||
+      lower.includes("could not find the table"))
+  );
+}
 
 async function listFromTable(
   entityType: EntityDocument["entityType"],
@@ -20,14 +33,18 @@ async function listFromTable(
   const client = getSupabaseServerClient();
   if (!client) return [];
 
-  const { data, error } = await client
+  const listQuery = client
     .from("entity_documents")
     .select("*")
     .eq("entity_type", entityType)
     .eq("entity_id", entityId)
     .order("uploaded_at", { ascending: false });
+  const { data, error } = await withUploadTimeout(listQuery, DB_TIMEOUT_MS, "list entity documents");
 
   if (error) {
+    if (isMissingEntityDocumentsError(error.message)) {
+      return listManifestDocuments(entityType, entityId);
+    }
     throw new Error(error.message);
   }
 
@@ -38,13 +55,13 @@ async function getFromTable(id: string): Promise<EntityDocument | null> {
   const client = getSupabaseServerClient();
   if (!client) return null;
 
-  const { data, error } = await client
-    .from("entity_documents")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
+  const getQuery = client.from("entity_documents").select("*").eq("id", id).maybeSingle();
+  const { data, error } = await withUploadTimeout(getQuery, DB_TIMEOUT_MS, "get entity document");
 
   if (error) {
+    if (isMissingEntityDocumentsError(error.message)) {
+      return getManifestDocumentById(id);
+    }
     throw new Error(error.message);
   }
 
@@ -57,7 +74,7 @@ async function createInTable(input: CreateEntityDocumentInput): Promise<EntityDo
     throw new Error("Supabase non configuré.");
   }
 
-  const { data, error } = await client
+  const createQuery = client
     .from("entity_documents")
     .insert({
       entity_type: input.entityType,
@@ -71,6 +88,7 @@ async function createInTable(input: CreateEntityDocumentInput): Promise<EntityDo
     })
     .select("*")
     .single();
+  const { data, error } = await withUploadTimeout(createQuery, DB_TIMEOUT_MS, "create entity document");
 
   if (error) {
     throw new Error(error.message);
@@ -101,6 +119,15 @@ export const supabaseDocumentsRepository: DocumentsRepository = {
     if (getDocumentsStorageMode() === "manifest") {
       return createManifestDocument(input);
     }
-    return createInTable(input);
+
+    try {
+      return await createInTable(input);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "";
+      if (isMissingEntityDocumentsError(message)) {
+        return createManifestDocument(input);
+      }
+      throw error;
+    }
   },
 };

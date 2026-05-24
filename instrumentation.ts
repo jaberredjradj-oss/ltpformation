@@ -9,12 +9,4 @@ export async function register() {
       error instanceof Error ? error.message : error,
     );
   });
-
-  const { ensureDocumentsInfrastructure } = await import("@/lib/documents/infrastructure");
-  void ensureDocumentsInfrastructure().catch((error) => {
-    console.error(
-      "[documents:infra] startup bootstrap failed:",
-      error instanceof Error ? error.message : error,
-    );
-  });
 }

@@ -151,6 +151,8 @@ function keyFingerprint(key) {
 
 async function verify(url, key) {
   const baseUrl = url.replace(/\/$/, "");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
 
   try {
     const response = await fetch(
@@ -161,6 +163,7 @@ async function verify(url, key) {
           Authorization: `Bearer ${key}`,
           Accept: "application/json",
         },
+        signal: controller.signal,
       },
     );
 
@@ -177,10 +180,15 @@ async function verify(url, key) {
 
     return { ok: true, error: null };
   } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      return { ok: false, error: "Supabase connectivity check timed out." };
+    }
     return {
       ok: false,
       error: error instanceof Error ? error.message : "Supabase connectivity check failed.",
     };
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

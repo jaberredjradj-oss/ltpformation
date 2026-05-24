@@ -6,7 +6,9 @@ import {
   validateDocumentFile,
 } from "@/lib/documents/validation";
 import { getSupabaseServerClient } from "@/lib/db/supabase-server";
+import { ensureSupabaseEnvironmentValidated } from "@/lib/db/supabase-env";
 import { isRealDataEnabled } from "@/lib/db/env";
+import { withUploadTimeout } from "@/lib/documents/upload-timeout";
 import { getDocumentsRepository, getSubmissionsRepository } from "@/lib/repositories";
 
 export type DocumentUploadResult =
@@ -69,11 +71,8 @@ async function verifyOwnership(
     if (!client) return false;
 
     const table = entityType === "preinscription" ? "preinscriptions" : "devis_requests";
-    const { data, error } = await client
-      .from(table)
-      .select("email")
-      .eq("id", entityId)
-      .maybeSingle();
+    const ownershipQuery = client.from(table).select("email").eq("id", entityId).maybeSingle();
+    const { data, error } = await withUploadTimeout(ownershipQuery, 8000, "ownership verification");
 
     if (error || !data?.email) return false;
     if (email && data.email.toLowerCase() !== email.trim().toLowerCase()) return false;
@@ -147,6 +146,8 @@ async function persistOneFile(
 export async function processCandidateDocumentUpload(
   formData: FormData,
 ): Promise<DocumentUploadResult> {
+  await ensureSupabaseEnvironmentValidated();
+
   const entityType = formData.get("entityType") as EntityDocumentType | null;
   const entityId = formData.get("entityId")?.toString().trim() ?? "";
   const email = formData.get("email")?.toString().trim() ?? "";

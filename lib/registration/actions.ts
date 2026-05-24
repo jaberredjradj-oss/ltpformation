@@ -16,6 +16,7 @@ import type {
 import { loadPlanningSessions } from "@/lib/repositories/planning";
 import { getSubmissionsRepository } from "@/lib/repositories";
 import { notificationDispatcher } from "@/lib/notifications/dispatcher";
+import { ensureSupabaseEnvironmentValidated } from "@/lib/db/supabase-env";
 
 export interface RegistrationSubmitPayload {
   intent: RegistrationIntent;
@@ -95,6 +96,7 @@ export async function submitRegistration(
     : null;
 
   const sessionSnapshot = session ? buildSessionSnapshot(session) : null;
+  await ensureSupabaseEnvironmentValidated();
   const submissionsRepo = await getSubmissionsRepository();
 
   try {

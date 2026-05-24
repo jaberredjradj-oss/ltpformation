@@ -1,7 +1,10 @@
 import { randomUUID } from "node:crypto";
 import { DOCUMENTS_BUCKET } from "@/lib/documents/constants";
 import type { CreateEntityDocumentInput, EntityDocument } from "@/lib/documents/types";
+import { withUploadTimeout } from "@/lib/documents/upload-timeout";
 import { getSupabaseServerClient } from "@/lib/db/supabase-server";
+
+const MANIFEST_TIMEOUT_MS = 8000;
 
 const DOCUMENT_META_PREFIX = "_meta/documents";
 const ENTITY_INDEX_PREFIX = "_meta/entities";
@@ -18,7 +21,11 @@ async function readJson<T>(storagePath: string): Promise<T | null> {
   const client = getSupabaseServerClient();
   if (!client) return null;
 
-  const { data, error } = await client.storage.from(DOCUMENTS_BUCKET).download(storagePath);
+  const { data, error } = await withUploadTimeout(
+    client.storage.from(DOCUMENTS_BUCKET).download(storagePath),
+    MANIFEST_TIMEOUT_MS,
+    "manifest read",
+  );
   if (error || !data) return null;
 
   try {
@@ -35,10 +42,14 @@ async function writeJson(storagePath: string, payload: unknown): Promise<void> {
   }
 
   const bytes = Buffer.from(JSON.stringify(payload), "utf8");
-  const { error } = await client.storage.from(DOCUMENTS_BUCKET).upload(storagePath, bytes, {
-    contentType: "application/json",
-    upsert: true,
-  });
+  const { error } = await withUploadTimeout(
+    client.storage.from(DOCUMENTS_BUCKET).upload(storagePath, bytes, {
+      contentType: "application/json",
+      upsert: true,
+    }),
+    MANIFEST_TIMEOUT_MS,
+    "manifest write",
+  );
 
   if (error) {
     throw new Error(error.message);

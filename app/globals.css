@@ -17,11 +17,17 @@
   --blue-600: #1d5eb0;
   --blue-500: #2b7fd4;
   --blue-400: #4a9ee8;
+  --blue-300: #93c5fd;
+  --blue-200: #bfdbfe;
   --blue-100: #e8f2fc;
+  --blue-700: #1d4ed8;
   --gold-600: #96740f;
   --gold-500: #c9a227;
   --gold-400: #d4af37;
+  --gold-300: #e0c04a;
+  --gold-200: #e8d48a;
   --gold-100: #faf6e8;
+  --gold-700: #7a5c0a;
   --prose-width: 36rem;
   --display-width: 32rem;
   --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
@@ -53,11 +59,17 @@
   --color-blue-600: var(--blue-600);
   --color-blue-500: var(--blue-500);
   --color-blue-400: var(--blue-400);
+  --color-blue-300: var(--blue-300);
+  --color-blue-200: var(--blue-200);
   --color-blue-100: var(--blue-100);
+  --color-blue-700: var(--blue-700);
   --color-gold-600: var(--gold-600);
   --color-gold-500: var(--gold-500);
   --color-gold-400: var(--gold-400);
+  --color-gold-300: var(--gold-300);
+  --color-gold-200: var(--gold-200);
   --color-gold-100: var(--gold-100);
+  --color-gold-700: var(--gold-700);
   --font-sans: var(--font-sans), system-ui, sans-serif;
   --font-serif: var(--font-serif), Georgia, serif;
 }

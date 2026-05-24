@@ -1,5 +1,5 @@
 export async function withUploadTimeout<T>(
-  promise: Promise<T>,
+  promise: PromiseLike<T>,
   ms: number,
   label: string,
 ): Promise<T> {
@@ -7,7 +7,7 @@ export async function withUploadTimeout<T>(
 
   try {
     return await Promise.race([
-      promise,
+      Promise.resolve(promise),
       new Promise<T>((_, reject) => {
         timer = setTimeout(() => {
           reject(new Error(`${label} timed out after ${ms}ms.`));

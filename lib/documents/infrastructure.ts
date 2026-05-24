@@ -52,7 +52,7 @@ async function probeEntityDocumentsTable(): Promise<boolean> {
   const { error } = await client.from("entity_documents").select("id").limit(1);
   if (!error) return true;
   if (isMissingTableError(error.message)) return false;
-  return false;
+  return true;
 }
 
 async function runBootstrap(): Promise<DocumentsStorageMode> {

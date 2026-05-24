@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { verifySupabaseKeyViaRest } from "@/lib/db/supabase-rest-verify";
+import { withUploadTimeout } from "@/lib/documents/upload-timeout";
 
 export type SupabaseKeyKind =
   | "publishable"
@@ -253,7 +254,11 @@ export async function verifySupabaseConnectivity(
   url: string,
   key: string,
 ): Promise<{ ok: boolean; error: string | null }> {
-  return verifySupabaseKeyViaRest(url, key);
+  return withUploadTimeout(
+    verifySupabaseKeyViaRest(url, key),
+    8000,
+    "Supabase env verification",
+  );
 }
 
 function logSnapshot(snapshot: SupabaseEnvSnapshot): void {
@@ -392,7 +397,11 @@ function isKnownInvalid(
   current: SupabaseConnectivityStatus,
   cached: SupabaseConnectivityStatus,
 ): boolean {
-  return current === "invalid" || cached === "invalid";
+  if (current === "invalid") return true;
+  if (process.env.NEXT_PHASE === "phase-production-build" && cached === "invalid") {
+    return true;
+  }
+  return false;
 }
 
 function isKnownValid(

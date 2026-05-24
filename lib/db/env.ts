@@ -1,7 +1,6 @@
 import {
   getResolvedSupabasePublishableKey,
   getResolvedSupabaseSecretKey,
-  getResolvedSupabaseUrl,
 } from "@/lib/db/supabase-env";
 
 function envFlag(name: string): boolean {
