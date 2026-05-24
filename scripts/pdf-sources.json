@@ -1,0 +1,22 @@
+{
+  "downloadsDir": "c:/Users/W10/Downloads",
+  "sources": {
+    "ssiap-1-initial": "ssiap1-initial.pdf",
+    "ssiap-1-recyclage": "ssiap1-recyclage.pdf",
+    "ssiap-1-remise-a-niveau": "ssiap1-remise-a-niveau.pdf",
+    "ssiap-2-initial": "ssiap2-initial.pdf",
+    "ssiap-2-recyclage": "ssiap2-recyclage.pdf",
+    "ssiap-2-remise-a-niveau": "ssiap2-remise-a-niveau.pdf",
+    "ssiap-3-initial": "ssiap3-initial.pdf",
+    "ssiap-3-recyclage": "ssiap3-recyclage.pdf",
+    "ssiap-3-remise-a-niveau": "ssiap3-remise-a-niveau.pdf",
+    "epi": "epi.pdf",
+    "ssi": "ssi.pdf",
+    "sst-initial": "sst-initial.pdf",
+    "mac-sst": "mac-sst.pdf",
+    "tfp-aps": "tfp-aps.pdf",
+    "mac-aps": "mac-aps.pdf",
+    "h0b0-h0v": "habilitation-electrique-h0b0.pdf",
+    "bsbe": "habilitation-electrique-bsbe.pdf"
+  }
+}

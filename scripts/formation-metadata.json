@@ -1,0 +1,192 @@
+{
+  "ssiap-1-initial": {
+    "title": "SSIAP 1 — Formation initiale agent de sécurité incendie",
+    "shortTitle": "SSIAP 1 Initial",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "initial",
+    "typeLabel": "Initial",
+    "level": "1",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5641"
+  },
+  "ssiap-1-recyclage": {
+    "title": "SSIAP 1 — Recyclage",
+    "shortTitle": "SSIAP 1 Recyclage",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "recyclage",
+    "typeLabel": "Recyclage",
+    "level": "1",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5641"
+  },
+  "ssiap-1-remise-a-niveau": {
+    "title": "SSIAP 1 — Remise à niveau",
+    "shortTitle": "SSIAP 1 Remise à niveau",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "remise-a-niveau",
+    "typeLabel": "Remise à niveau",
+    "level": "1",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5641"
+  },
+  "ssiap-2-initial": {
+    "title": "SSIAP 2 — Formation initiale",
+    "shortTitle": "SSIAP 2 Initial",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "initial",
+    "typeLabel": "Initial",
+    "level": "2",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5642"
+  },
+  "ssiap-2-recyclage": {
+    "title": "SSIAP 2 — Recyclage",
+    "shortTitle": "SSIAP 2 Recyclage",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "recyclage",
+    "typeLabel": "Recyclage",
+    "level": "2",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5642"
+  },
+  "ssiap-2-remise-a-niveau": {
+    "title": "SSIAP 2 — Remise à niveau",
+    "shortTitle": "SSIAP 2 Remise à niveau",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "remise-a-niveau",
+    "typeLabel": "Remise à niveau",
+    "level": "2",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5642"
+  },
+  "ssiap-3-initial": {
+    "title": "SSIAP 3 — Formation initiale",
+    "shortTitle": "SSIAP 3 Initial",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "initial",
+    "typeLabel": "Initial",
+    "level": "3",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5643"
+  },
+  "ssiap-3-recyclage": {
+    "title": "SSIAP 3 — Recyclage",
+    "shortTitle": "SSIAP 3 Recyclage",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "recyclage",
+    "typeLabel": "Recyclage",
+    "level": "3",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5643"
+  },
+  "ssiap-3-remise-a-niveau": {
+    "title": "SSIAP 3 — Remise à niveau",
+    "shortTitle": "SSIAP 3 Remise à niveau",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "remise-a-niveau",
+    "typeLabel": "Remise à niveau",
+    "level": "3",
+    "imageKey": "incendie",
+    "cpfEligible": true,
+    "certificationCode": "RS5643"
+  },
+  "epi": {
+    "title": "EPI — Équipier de première intervention",
+    "shortTitle": "EPI",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "certification",
+    "typeLabel": "Certification",
+    "level": null,
+    "imageKey": "professionals"
+  },
+  "ssi": {
+    "title": "SSI — Système de sécurité incendie",
+    "shortTitle": "SSI",
+    "category": "securite-incendie",
+    "categoryLabel": "Sécurité incendie",
+    "type": "certification",
+    "typeLabel": "Certification",
+    "level": null,
+    "imageKey": "incendie"
+  },
+  "sst-initial": {
+    "title": "SST — Formation initiale",
+    "shortTitle": "SST Initial",
+    "category": "secourisme",
+    "categoryLabel": "Secourisme",
+    "type": "initial",
+    "typeLabel": "Initial",
+    "level": null,
+    "imageKey": "secourisme"
+  },
+  "mac-sst": {
+    "title": "MAC SST — Maintien et actualisation des compétences",
+    "shortTitle": "MAC SST",
+    "category": "secourisme",
+    "categoryLabel": "Secourisme",
+    "type": "mac",
+    "typeLabel": "MAC",
+    "level": null,
+    "imageKey": "secourisme"
+  },
+  "tfp-aps": {
+    "title": "TFP APS — Agent de prévention et de sécurité",
+    "shortTitle": "TFP APS",
+    "category": "surete",
+    "categoryLabel": "Sûreté",
+    "type": "initial",
+    "typeLabel": "Initial",
+    "level": null,
+    "imageKey": "surete",
+    "cpfEligible": true,
+    "certificationCode": "RNCP37035"
+  },
+  "mac-aps": {
+    "title": "MAC APS — Maintien et actualisation des compétences",
+    "shortTitle": "MAC APS",
+    "category": "surete",
+    "categoryLabel": "Sûreté",
+    "type": "mac",
+    "typeLabel": "MAC",
+    "level": null,
+    "imageKey": "surete"
+  },
+  "h0b0-h0v": {
+    "title": "H0B0-H0V — Habilitation électrique",
+    "shortTitle": "H0B0-H0V",
+    "category": "habilitation-electrique",
+    "categoryLabel": "Habilitation électrique",
+    "type": "certification",
+    "typeLabel": "Certification",
+    "level": null,
+    "imageKey": "habilitation"
+  },
+  "bsbe": {
+    "title": "BSBE — Habilitation électrique",
+    "shortTitle": "BSBE",
+    "category": "habilitation-electrique",
+    "categoryLabel": "Habilitation électrique",
+    "type": "certification",
+    "typeLabel": "Certification",
+    "level": null,
+    "imageKey": "habilitation"
+  }
+}

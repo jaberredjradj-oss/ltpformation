@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="960" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0b1f3a"/>
+      <stop offset="1" stop-color="#1a3358"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <path d="M220 460h520M340 460V200l140-56 140 56v260" stroke="#4a9ee8" stroke-opacity="0.45" stroke-width="4"/>
+  <circle cx="700" cy="170" r="72" fill="#d4af37" fill-opacity="0.18"/>
+  <path d="M680 150l20 20 40-40" stroke="#d4af37" stroke-opacity="0.6" stroke-width="4"/>
+  <text x="56" y="72" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="30" font-weight="700">Habilitation �lectrique</text>
+  <text x="56" y="108" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="16">NF C 18-510 � B0, H0, B1�</text>
+</svg>
