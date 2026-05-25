@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local document uploads (demo mode)
 .data/
+
+# generated at prebuild — ties HTML to hashed static assets for this deploy
+build-id.json
