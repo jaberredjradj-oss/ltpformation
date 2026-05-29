@@ -4,6 +4,7 @@ export const ADMIN_NAV_ITEMS = [
   { href: "/admin/demandes", label: "Devis" },
   { href: "/admin/preinscriptions", label: "Pré-inscriptions" },
   { href: "/admin/messages", label: "Messages" },
+  { href: "/admin/communication", label: "Communication" },
 ] as const;
 
 export const DEVIS_STATUS_LABELS = {
