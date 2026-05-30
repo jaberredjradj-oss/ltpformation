@@ -1,8 +1,22 @@
 import { AdminPlanningTable } from "@/components/admin/planning/AdminPlanningTable";
-import { getAdminPlanningRows } from "@/lib/admin/planning/get-admin-sessions";
+import {
+  getAdminPlanningRows,
+  getEditableSessions,
+  getFormationOptions,
+} from "@/lib/admin/planning/get-admin-sessions";
 
 export default async function AdminPlanningPage() {
-  const rows = await getAdminPlanningRows();
+  const [rows, editableSessions] = await Promise.all([
+    getAdminPlanningRows(),
+    getEditableSessions(),
+  ]);
+  const formations = getFormationOptions();
 
-  return <AdminPlanningTable rows={rows} />;
+  return (
+    <AdminPlanningTable
+      rows={rows}
+      editableSessions={editableSessions}
+      formations={formations}
+    />
+  );
 }

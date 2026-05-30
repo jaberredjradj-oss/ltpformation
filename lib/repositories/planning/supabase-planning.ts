@@ -79,4 +79,12 @@ export const supabasePlanningRepository: PlanningRepository = {
     const { error } = await client.from("planning_sessions").upsert(rows, { onConflict: "id" });
     if (error) throw error;
   },
+
+  async delete(id) {
+    const client = getSupabaseServerClient();
+    if (!client) throw new Error("Supabase client unavailable.");
+
+    const { error } = await client.from("planning_sessions").delete().eq("id", id);
+    if (error) throw error;
+  },
 };

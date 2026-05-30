@@ -1,7 +1,12 @@
 import { resolveSessionAvailability } from "@/lib/planning/availability";
 import { formatSessionDateRange } from "@/lib/planning/format";
-import type { AdminPlanningRow } from "@/lib/admin/types";
+import type {
+  AdminEditableSession,
+  AdminFormationOption,
+  AdminPlanningRow,
+} from "@/lib/admin/types";
 import type { PlanningSession } from "@/lib/planning/types";
+import { FORMATIONS } from "@/lib/formations/catalog";
 import { loadPlanningSessions } from "@/lib/repositories/planning";
 
 function parseIsoDate(iso: string): Date {
@@ -41,6 +46,41 @@ export async function getAdminPlanningRows(): Promise<AdminPlanningRow[]> {
       visible: session.visible,
     };
   });
+}
+
+export async function getEditableSessions(): Promise<AdminEditableSession[]> {
+  const sessions = await loadPlanningSessions();
+
+  return sessions.map((session) => ({
+    id: session.id,
+    formationSlug: session.formationSlug,
+    formationTitle: session.formationTitle,
+    sessionType: session.sessionType,
+    category: session.category,
+    categoryLabel: session.categoryLabel,
+    startDate: session.startDate,
+    endDate: session.endDate,
+    examDate: session.examDate,
+    scheduleLabel: session.scheduleLabel,
+    location: session.location,
+    seatsTotal: session.seatsTotal,
+    seatsTaken: session.seatsTaken,
+    status: session.status,
+    visible: session.visible,
+    cpfEligible: session.cpfEligible,
+    certificationCode: session.certificationCode,
+  }));
+}
+
+export function getFormationOptions(): AdminFormationOption[] {
+  return FORMATIONS.map((formation) => ({
+    slug: formation.slug,
+    title: formation.title,
+    category: formation.category,
+    categoryLabel: formation.categoryLabel,
+    cpfEligible: formation.cpfEligible,
+    certificationCode: formation.certificationCode ?? null,
+  })).sort((a, b) => a.title.localeCompare(b.title, "fr"));
 }
 
 export async function countUpcomingSessions(referenceDate = new Date()): Promise<number> {

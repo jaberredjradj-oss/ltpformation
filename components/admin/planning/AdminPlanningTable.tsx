@@ -2,11 +2,18 @@
 
 import { useRouter } from "next/navigation";
 import { Fragment, useMemo, useState, useTransition } from "react";
-import type { AdminPlanningRow } from "@/lib/admin/types";
+import type {
+  AdminEditableSession,
+  AdminFormationOption,
+  AdminPlanningRow,
+  AdminSessionInput,
+} from "@/lib/admin/types";
 import {
+  archiveSession,
+  deleteSession,
   markSessionFull,
+  saveSession,
   toggleSessionVisibility,
-  updateSessionSeats,
 } from "@/lib/admin/actions";
 import {
   DEFAULT_PLANNING_QUERY,
@@ -38,10 +45,15 @@ import {
   AdminTableHeaderCell,
   AdminTableRow,
 } from "@/components/admin/AdminDataTable";
-import { AdminSessionSeatsDialog } from "@/components/admin/planning/AdminSessionSeatsDialog";
+import { AdminSessionEditorDialog } from "@/components/admin/planning/AdminSessionEditorDialog";
+import { AdminSessionDeleteDialog } from "@/components/admin/planning/AdminSessionDeleteDialog";
+import { adminStyles } from "@/components/admin/admin-styles";
+import { cn } from "@/lib/utils";
 
 interface AdminPlanningTableProps {
   rows: AdminPlanningRow[];
+  editableSessions: AdminEditableSession[];
+  formations: AdminFormationOption[];
 }
 
 const VISIBILITY_OPTIONS = [
@@ -56,13 +68,24 @@ function availabilityTone(label: string) {
   return "success" as const;
 }
 
-export function AdminPlanningTable({ rows }: AdminPlanningTableProps) {
+export function AdminPlanningTable({
+  rows,
+  editableSessions,
+  formations,
+}: AdminPlanningTableProps) {
   const router = useRouter();
   const { showToast } = useAdminToast();
   const [pending, startTransition] = useTransition();
   const [confirmFull, setConfirmFull] = useState<AdminPlanningRow | null>(null);
-  const [editRow, setEditRow] = useState<AdminPlanningRow | null>(null);
+  const [deleteRow, setDeleteRow] = useState<AdminPlanningRow | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editSession, setEditSession] = useState<AdminEditableSession | null>(null);
   const [query, setQuery] = useState(DEFAULT_PLANNING_QUERY);
+
+  const sessionsById = useMemo(
+    () => new Map(editableSessions.map((session) => [session.id, session])),
+    [editableSessions],
+  );
 
   const filterOptions = useMemo(() => getPlanningFilterOptions(rows), [rows]);
   const queryResult = useMemo(() => queryPlanningRows(rows, query), [rows, query]);
@@ -103,18 +126,41 @@ export function AdminPlanningTable({ rows }: AdminPlanningTableProps) {
     }
   }
 
-  async function handleSaveSeats(
-    sessionId: string,
-    seatsTotal: number | null,
-    seatsTaken: number | null,
-  ) {
-    try {
-      await updateSessionSeats(sessionId, seatsTotal, seatsTaken);
-      showToast("Places mises à jour.");
+  function handleCreate() {
+    setEditSession(null);
+    setEditorOpen(true);
+  }
+
+  function handleEdit(row: AdminPlanningRow) {
+    setEditSession(sessionsById.get(row.id) ?? null);
+    setEditorOpen(true);
+  }
+
+  async function handleSaveSession(input: AdminSessionInput) {
+    const result = await saveSession(input);
+    if (result.ok) {
+      showToast(input.id ? "Session mise à jour." : "Session créée.");
       refresh();
-    } catch {
-      showToast("Enregistrement impossible.", "error");
     }
+    return result;
+  }
+
+  async function handleArchive(sessionId: string) {
+    const result = await archiveSession(sessionId);
+    if (result.ok) {
+      showToast("Session archivée.");
+      refresh();
+    }
+    return result;
+  }
+
+  async function handleDelete(sessionId: string) {
+    const result = await deleteSession(sessionId);
+    if (result.ok) {
+      showToast("Session supprimée.");
+      refresh();
+    }
+    return result;
   }
 
   function renderRow(row: AdminPlanningRow) {
@@ -157,12 +203,13 @@ export function AdminPlanningTable({ rows }: AdminPlanningTableProps) {
         </AdminTableCell>
         <AdminTableCell>
           <div className="flex flex-wrap gap-2">
-            <AdminActionButton label="Modifier" onClick={() => setEditRow(row)} />
+            <AdminActionButton label="Modifier" onClick={() => handleEdit(row)} />
             <AdminActionButton
               label={row.visible ? "Masquer" : "Afficher"}
               onClick={() => handleToggleVisibility(row)}
             />
             <AdminActionButton label="Complet" onClick={() => setConfirmFull(row)} />
+            <AdminActionButton label="Supprimer" onClick={() => setDeleteRow(row)} />
           </div>
         </AdminTableCell>
       </AdminTableRow>
@@ -171,16 +218,21 @@ export function AdminPlanningTable({ rows }: AdminPlanningTableProps) {
 
   return (
     <>
-      <AdminPageHeader
-        eyebrow="Planning"
-        title="Sessions de formation"
-        description="Gestion des sessions publiées sur le site. Les modifications sont visibles sur le planning public."
-      />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <AdminPageHeader
+          eyebrow="Planning"
+          title="Sessions de formation"
+          description="Gestion des sessions publiées sur le site. Les modifications sont visibles sur le planning public."
+        />
+        <button type="button" onClick={handleCreate} className={cn(adminStyles.btnPrimary, "shrink-0")}>
+          Créer une session
+        </button>
+      </div>
 
       {rows.length === 0 ? (
         <AdminEmptyState
           title="Aucune session"
-          description="Les sessions apparaîtront ici une fois le planning alimenté."
+          description="Créez votre première session avec le bouton « Créer une session »."
         />
       ) : (
         <>
@@ -288,11 +340,20 @@ export function AdminPlanningTable({ rows }: AdminPlanningTableProps) {
         onCancel={() => setConfirmFull(null)}
       />
 
-      <AdminSessionSeatsDialog
-        row={editRow}
-        open={editRow !== null}
-        onClose={() => setEditRow(null)}
-        onSave={handleSaveSeats}
+      <AdminSessionEditorDialog
+        open={editorOpen}
+        session={editSession}
+        formations={formations}
+        onClose={() => setEditorOpen(false)}
+        onSave={handleSaveSession}
+      />
+
+      <AdminSessionDeleteDialog
+        row={deleteRow}
+        open={deleteRow !== null}
+        onClose={() => setDeleteRow(null)}
+        onArchive={handleArchive}
+        onDelete={handleDelete}
       />
 
       {pending && <p className="mt-3 text-xs text-body-strong">Actualisation…</p>}

@@ -1,4 +1,5 @@
 import { loadActiveAnnouncement } from "@/lib/repositories/announcements";
+import { resolveAnnouncementImage } from "@/lib/announcements/formation-image";
 import { AnnouncementBanner } from "@/components/announcement/AnnouncementBanner";
 
 /**
@@ -11,5 +12,7 @@ export async function AnnouncementMount() {
 
   if (!announcement) return null;
 
-  return <AnnouncementBanner announcement={announcement} />;
+  const image = resolveAnnouncementImage(announcement.ctaUrl);
+
+  return <AnnouncementBanner announcement={announcement} image={image} />;
 }

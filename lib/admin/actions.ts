@@ -10,6 +10,8 @@ import type {
 } from "@/lib/admin/types";
 import type { PlanningSession } from "@/lib/planning/types";
 import { getFormation } from "@/lib/formations/catalog";
+import { FORMATION_CATEGORY_BY_ID } from "@/lib/formations/categories";
+import type { FormationCategoryId } from "@/lib/formations/types";
 import { getPlanningRepository } from "@/lib/repositories/planning";
 import { getMessagesRepository, getSubmissionsRepository } from "@/lib/repositories";
 
@@ -27,26 +29,88 @@ function revalidateAdminPaths() {
   revalidatePath("/admin/messages");
 }
 
+function generateSessionId(): string {
+  return `session-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+/** Server-side validation mirroring the editor. Returns a French message or null. */
+function validateSessionInput(input: AdminSessionInput): string | null {
+  if (!input.formationTitle.trim()) {
+    return "Le nom de la session est obligatoire.";
+  }
+  if (!input.startDate) {
+    return "La date de début est obligatoire.";
+  }
+  if (!input.endDate) {
+    return "La date de fin est obligatoire.";
+  }
+  if (input.endDate < input.startDate) {
+    return "La date de fin doit être identique ou postérieure à la date de début.";
+  }
+  if (input.examDate && input.examDate < input.startDate) {
+    return "La date d'examen ne peut pas précéder le début de la session.";
+  }
+  if (!input.location.trim()) {
+    return "Le lieu est obligatoire.";
+  }
+  if (input.seatsTotal !== null && input.seatsTotal < 0) {
+    return "Le nombre de places totales ne peut pas être négatif.";
+  }
+  if (input.seatsTaken !== null && input.seatsTaken < 0) {
+    return "Le nombre de places prises ne peut pas être négatif.";
+  }
+  if (
+    input.seatsTotal !== null &&
+    input.seatsTaken !== null &&
+    input.seatsTaken > input.seatsTotal
+  ) {
+    return "Les places prises ne peuvent pas dépasser les places totales.";
+  }
+  return null;
+}
+
 function buildSessionFromInput(input: AdminSessionInput, existing?: PlanningSession): PlanningSession {
   const formation = input.formationSlug ? getFormation(input.formationSlug) : null;
   const year = Number(input.startDate.slice(0, 4));
 
+  const category = (formation?.category ??
+    input.category ??
+    existing?.category ??
+    "securite-incendie") as FormationCategoryId;
+  const categoryLabel =
+    formation?.categoryLabel ||
+    input.categoryLabel ||
+    existing?.categoryLabel ||
+    FORMATION_CATEGORY_BY_ID[category]?.label ||
+    "";
+
+  // Safety: a session at (or over) capacity is always "full".
+  let status = input.status;
+  if (
+    input.seatsTotal !== null &&
+    input.seatsTaken !== null &&
+    input.seatsTaken >= input.seatsTotal &&
+    status !== "cancelled"
+  ) {
+    status = "full";
+  }
+
   return {
-    id: input.id ?? existing?.id ?? `session-${Date.now().toString(36)}`,
+    id: input.id ?? existing?.id ?? generateSessionId(),
     formationSlug: input.formationSlug,
-    formationTitle: input.formationTitle || formation?.title || existing?.formationTitle || "",
-    sessionType: input.sessionType || existing?.sessionType || "Session",
-    category: (formation?.category ?? existing?.category ?? "securite-incendie") as PlanningSession["category"],
-    categoryLabel: formation?.categoryLabel ?? existing?.categoryLabel ?? "",
+    formationTitle: input.formationTitle.trim() || formation?.title || existing?.formationTitle || "",
+    sessionType: input.sessionType.trim() || formation?.typeLabel || existing?.sessionType || "Session",
+    category,
+    categoryLabel,
     startDate: input.startDate,
     endDate: input.endDate,
     examDate: input.examDate,
-    scheduleLabel: input.scheduleLabel || existing?.scheduleLabel || "9h00 - 17h00",
-    location: input.location || existing?.location || "",
+    scheduleLabel: input.scheduleLabel.trim() || existing?.scheduleLabel || "9h00 - 17h00",
+    location: input.location.trim() || existing?.location || "",
     notes: existing?.notes ?? [],
     cpfEligible: input.cpfEligible ?? formation?.cpfEligible ?? false,
     certificationCode: input.certificationCode ?? formation?.certificationCode ?? null,
-    status: input.status,
+    status,
     seatsTotal: input.seatsTotal,
     seatsTaken: input.seatsTaken,
     visible: input.visible,
@@ -109,18 +173,65 @@ export async function updateSessionSeats(
 
 export async function saveSession(input: AdminSessionInput) {
   await assertAdminAccess();
-  const repo = await getPlanningRepository();
-  const session = buildSessionFromInput(input);
 
-  if (input.id) {
-    await repo.update(input.id, session);
-  } else {
-    await repo.create(session);
+  const validationError = validateSessionInput(input);
+  if (validationError) {
+    return { ok: false as const, error: validationError };
   }
 
+  const repo = await getPlanningRepository();
+
+  try {
+    if (input.id) {
+      const existing = await repo.getById(input.id);
+      if (!existing) {
+        return { ok: false as const, error: "Session introuvable." };
+      }
+      const session = buildSessionFromInput(input, existing);
+      await repo.update(input.id, session);
+      revalidatePublicPaths();
+      revalidateAdminPaths();
+      return { ok: true as const, id: session.id };
+    }
+
+    const session = buildSessionFromInput(input);
+    await repo.create(session);
+    revalidatePublicPaths();
+    revalidateAdminPaths();
+    return { ok: true as const, id: session.id };
+  } catch {
+    return { ok: false as const, error: "Enregistrement impossible. Réessayez." };
+  }
+}
+
+export async function archiveSession(sessionId: string) {
+  await assertAdminAccess();
+  const repo = await getPlanningRepository();
+  try {
+    await repo.update(sessionId, { status: "cancelled", visible: false });
+  } catch {
+    return { ok: false as const, error: "Archivage impossible. Réessayez." };
+  }
   revalidatePublicPaths();
   revalidateAdminPaths();
-  return { ok: true as const, id: session.id };
+  return { ok: true as const };
+}
+
+export async function deleteSession(sessionId: string) {
+  await assertAdminAccess();
+  const repo = await getPlanningRepository();
+  try {
+    await repo.delete(sessionId);
+  } catch {
+    return {
+      ok: false as const,
+      error:
+        "Suppression impossible : des inscriptions sont peut-être liées à cette session. Archivez-la plutôt.",
+    };
+  }
+  revalidatePublicPaths();
+  revalidateAdminPaths();
+  return { ok: true as const };
 }
 
 export async function updateDevisStatus(id: string, status: DevisRequestStatus) {

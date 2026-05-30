@@ -5,6 +5,7 @@ import {
 } from "@/lib/announcements/types";
 import { getAnnouncementsRepository } from "@/lib/repositories/announcements";
 import { FORMATIONS } from "@/lib/formations/catalog";
+import { THEME_IMAGES } from "@/lib/training-images";
 
 export default async function AdminCommunicationPage() {
   let current: SiteAnnouncement | null = null;
@@ -21,6 +22,7 @@ export default async function AdminCommunicationPage() {
   const formations = FORMATIONS.map((formation) => ({
     slug: formation.slug,
     title: formation.title,
+    image: THEME_IMAGES[formation.imageKey] ?? null,
   }));
 
   return (

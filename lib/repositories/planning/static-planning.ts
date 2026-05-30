@@ -41,6 +41,14 @@ export const staticPlanningRepository: PlanningRepository = {
   async upsertMany(sessions) {
     memorySessions = sessions.map((session) => ({ ...session, notes: [...session.notes] }));
   },
+
+  async delete(id) {
+    const index = memorySessions.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new Error(`Session introuvable: ${id}`);
+    }
+    memorySessions = memorySessions.filter((item) => item.id !== id);
+  },
 };
 
 export function resetStaticPlanningSessions(): void {

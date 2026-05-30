@@ -100,3 +100,18 @@ export interface AdminSessionInput {
   cpfEligible: boolean;
   certificationCode: string | null;
 }
+
+/** Full editable snapshot of a session for the admin editor (prefill). */
+export interface AdminEditableSession extends Required<Omit<AdminSessionInput, "id">> {
+  id: string;
+}
+
+/** Formation choice for the session editor dropdown. */
+export interface AdminFormationOption {
+  slug: string;
+  title: string;
+  category: string;
+  categoryLabel: string;
+  cpfEligible: boolean;
+  certificationCode: string | null;
+}

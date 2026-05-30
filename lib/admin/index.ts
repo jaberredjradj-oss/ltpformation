@@ -15,6 +15,8 @@ export type {
 export { getRecentAdminActivity, getAdminDashboardStats } from "@/lib/admin/dashboard/get-dashboard-stats";
 export { getAdminPlanningRows } from "@/lib/admin/planning/get-admin-sessions";
 export {
+  archiveSession,
+  deleteSession,
   markSessionFull,
   saveSession,
   toggleSessionVisibility,

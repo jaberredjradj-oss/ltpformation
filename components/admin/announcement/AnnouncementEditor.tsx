@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useCallback, useMemo, useState, useTransition } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
   ANNOUNCEMENT_ANIMATION_LABELS,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/announcements/types";
 import { saveAnnouncement } from "@/lib/admin/announcement-actions";
 import { AnnouncementCard } from "@/components/announcement/AnnouncementCard";
+import { AnnouncementIntro } from "@/components/announcement/AnnouncementIntro";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { useAdminToast } from "@/components/admin/AdminToast";
 import { adminStyles } from "@/components/admin/admin-styles";
@@ -19,6 +21,7 @@ import { cn } from "@/lib/utils";
 interface FormationOption {
   slug: string;
   title: string;
+  image: string | null;
 }
 
 interface AnnouncementEditorProps {
@@ -69,17 +72,34 @@ export function AnnouncementEditor({
   const [isPending, startTransition] = useTransition();
   const [form, setForm] = useState<FormState>(() => toFormState(initial, defaults));
   const [previewKey, setPreviewKey] = useState(0);
+  const [previewPhase, setPreviewPhase] = useState<"intro" | "card">("card");
+
+  const replayPreview = useCallback((animationType: AnnouncementAnimationType) => {
+    setPreviewKey((key) => key + 1);
+    setPreviewPhase(animationType === "none" ? "card" : "intro");
+  }, []);
 
   const update = <Key extends keyof FormState>(key: Key, value: FormState[Key]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const selectedFormationSlug = useMemo(() => {
-    const match = formations.find(
-      (formation) => `/formations/${formation.slug}` === form.ctaUrl,
-    );
-    return match?.slug ?? "";
-  }, [formations, form.ctaUrl]);
+  const selectedFormation = useMemo(
+    () =>
+      formations.find(
+        (formation) => `/formations/${formation.slug}` === form.ctaUrl,
+      ) ?? null,
+    [formations, form.ctaUrl],
+  );
+
+  const selectedFormationSlug = selectedFormation?.slug ?? "";
+
+  const previewImage = useMemo(
+    () =>
+      selectedFormation?.image
+        ? { src: selectedFormation.image, alt: selectedFormation.title }
+        : null,
+    [selectedFormation],
+  );
 
   const previewAnnouncement: SiteAnnouncement = useMemo(
     () => ({
@@ -259,11 +279,9 @@ export function AnnouncementEditor({
                   id="ann-animation"
                   value={form.animationType}
                   onChange={(event) => {
-                    update(
-                      "animationType",
-                      event.target.value as AnnouncementAnimationType,
-                    );
-                    setPreviewKey((key) => key + 1);
+                    const next = event.target.value as AnnouncementAnimationType;
+                    update("animationType", next);
+                    replayPreview(next);
                   }}
                   className={cn(adminStyles.input, "mt-1 px-3 py-2")}
                 >
@@ -331,25 +349,57 @@ export function AnnouncementEditor({
             <p className="text-sm font-semibold text-slate-900">Aperçu en direct</p>
             <button
               type="button"
-              onClick={() => setPreviewKey((key) => key + 1)}
+              onClick={() => replayPreview(form.animationType)}
               className={adminStyles.btnSecondary}
             >
               Rejouer l&apos;animation
             </button>
           </div>
 
-          <div className="mt-4 rounded-xl border border-slate-200/70 bg-[radial-gradient(ellipse_at_top,#eef4fb,#f8fafc)] p-5">
-            <AnnouncementCard
-              key={`${form.animationType}-${previewKey}`}
-              announcement={previewAnnouncement}
-              interactive={false}
-            />
+          <div className="relative mt-4 flex min-h-[280px] items-center justify-center overflow-hidden rounded-xl border border-slate-200/70 bg-[radial-gradient(ellipse_at_top,#0b1f3a,#15294a_55%,#0b1f3a)] p-6">
+            {previewPhase === "intro" && (
+              <div
+                key={`intro-${previewKey}`}
+                className="pointer-events-none absolute inset-0"
+              >
+                <AnnouncementIntro
+                  type={form.animationType}
+                  anchor="center"
+                  onDone={() => setPreviewPhase("card")}
+                />
+              </div>
+            )}
+
+            {previewPhase === "card" && (
+              <motion.div
+                key={`card-${previewKey}`}
+                className="w-full max-w-sm"
+                initial={
+                  form.animationType === "none"
+                    ? { opacity: 0, y: 24, scale: 0.94, filter: "blur(10px)" }
+                    : false
+                }
+                animate={
+                  form.animationType === "none"
+                    ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+                    : undefined
+                }
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <AnnouncementCard
+                  announcement={previewAnnouncement}
+                  image={previewImage}
+                  interactive={false}
+                  reveal={form.animationType === "none" ? "none" : "materialize"}
+                />
+              </motion.div>
+            )}
           </div>
 
           <p className="mt-3 text-xs leading-relaxed text-slate-500">
-            Aperçu non interactif. Sur le site, la carte apparaît en bas à droite
-            après le délai configuré et se ferme via la croix (mémorisée par
-            visiteur).
+            Aperçu non interactif. Sur le site, l&apos;animation d&apos;entrée se
+            joue une fois, puis la carte apparaît en bas à droite et reste
+            cliquable jusqu&apos;à fermeture (mémorisée par visiteur).
           </p>
         </section>
       </div>

@@ -6,6 +6,7 @@ export interface PlanningRepository {
   create(session: PlanningSession): Promise<PlanningSession>;
   update(id: string, patch: Partial<PlanningSession>): Promise<PlanningSession>;
   upsertMany(sessions: PlanningSession[]): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
 export interface CreateDevisInput {
