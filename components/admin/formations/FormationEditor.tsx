@@ -20,6 +20,8 @@ import { adminStyles } from "@/components/admin/admin-styles";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { useAdminToast } from "@/components/admin/AdminToast";
 import { FormationCoverField } from "@/components/admin/formations/FormationCoverField";
+import { AdminStringListField } from "@/components/admin/formations/AdminStringListField";
+import { FormationProgrammeEditor } from "@/components/admin/formations/FormationProgrammeEditor";
 import { cn } from "@/lib/utils";
 
 interface FormationEditorProps {
@@ -318,6 +320,118 @@ export function FormationEditor({
             onChange={(e) => setActive(e.target.checked)}
           />
           Active (visible sur le site public)
+        </label>
+      </Section>
+
+      <Section title="Présentation & public concerné">
+        <label className="block min-w-0 sm:col-span-2">
+          <span className={`mb-1.5 block ${adminStyles.label}`}>Présentation</span>
+          <textarea
+            className={cn(adminStyles.input, "min-h-32 px-3 py-2")}
+            value={formation.presentation}
+            placeholder="Texte de présentation détaillé affiché sur la page publique."
+            onChange={(e) => patch("presentation", e.target.value)}
+          />
+        </label>
+        <AdminStringListField
+          label="Public concerné"
+          items={formation.publicConcerned}
+          onChange={(items) => patch("publicConcerned", items)}
+          placeholder="ex. Agents de sécurité incendie"
+          addLabel="Ajouter un public"
+        />
+        <AdminStringListField
+          label="Pré-requis"
+          items={formation.prerequisites}
+          onChange={(items) => patch("prerequisites", items)}
+          placeholder="ex. Être titulaire du SST en cours de validité"
+          addLabel="Ajouter un pré-requis"
+        />
+      </Section>
+
+      <Section title="Objectifs pédagogiques">
+        <AdminStringListField
+          label="Objectifs"
+          items={formation.objectives}
+          onChange={(items) => patch("objectives", items)}
+          placeholder="ex. Maîtriser les techniques d'extinction"
+          addLabel="Ajouter un objectif"
+        />
+      </Section>
+
+      <Section title="Programme & modules">
+        <FormationProgrammeEditor
+          programme={formation.programme}
+          onChange={(programme) => patch("programme", programme)}
+        />
+      </Section>
+
+      <Section title="Informations pratiques">
+        <AdminStringListField
+          label="Modalités d'inscription"
+          items={formation.registration}
+          onChange={(items) => patch("registration", items)}
+          placeholder="ex. Inscription en ligne ou par téléphone"
+          addLabel="Ajouter une modalité d'inscription"
+        />
+        <AdminStringListField
+          label="Évaluation"
+          items={formation.evaluation}
+          onChange={(items) => patch("evaluation", items)}
+          placeholder="ex. QCM et mise en situation pratique"
+          addLabel="Ajouter une modalité d'évaluation"
+        />
+        <AdminStringListField
+          label="Équipe pédagogique"
+          items={formation.pedagogicalTeam}
+          onChange={(items) => patch("pedagogicalTeam", items)}
+          placeholder="ex. Formateurs SSIAP qualifiés"
+          addLabel="Ajouter un intervenant"
+        />
+        <AdminStringListField
+          label="Moyens pédagogiques"
+          items={formation.pedagogicalMeans}
+          onChange={(items) => patch("pedagogicalMeans", items)}
+          placeholder="ex. Salle équipée, matériel d'extinction"
+          addLabel="Ajouter un moyen"
+        />
+        <AdminStringListField
+          label="Suivi et évaluation"
+          items={formation.followUp}
+          onChange={(items) => patch("followUp", items)}
+          placeholder="ex. Attestation de fin de formation"
+          addLabel="Ajouter un suivi"
+        />
+      </Section>
+
+      <Section title="Certification & débouchés">
+        <AdminStringListField
+          label="Certifications et labels"
+          items={formation.certifications}
+          onChange={(items) => patch("certifications", items)}
+          placeholder="ex. Certification reconnue par le Ministère de l'Intérieur"
+          addLabel="Ajouter une certification"
+        />
+        <AdminStringListField
+          label="Débouchés et évolution"
+          items={formation.careerOutcomes}
+          onChange={(items) => patch("careerOutcomes", items)}
+          placeholder="ex. Agent de sécurité incendie (SSIAP 1)"
+          addLabel="Ajouter un débouché"
+        />
+      </Section>
+
+      <Section title="Accessibilité handicap">
+        <label className="block min-w-0 sm:col-span-2">
+          <span className={`mb-1.5 block ${adminStyles.label}`}>
+            Accessibilité et aménagements
+          </span>
+          <textarea
+            className={cn(adminStyles.input, "min-h-24 px-3 py-2")}
+            value={formation.accessibility}
+            placeholder="Informations sur l'accessibilité et les aménagements possibles."
+            onChange={(e) => patch("accessibility", e.target.value)}
+          />
         </label>
       </Section>
 

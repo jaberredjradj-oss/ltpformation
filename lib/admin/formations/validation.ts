@@ -6,6 +6,8 @@ import {
   type Formation,
   type FormationCategoryId,
   type FormationLevel,
+  type FormationModule,
+  type FormationProgramme,
   type FormationType,
 } from "@/lib/formations/types";
 
@@ -38,6 +40,34 @@ function asStringArray(value: unknown): string[] {
     .filter((item): item is string => typeof item === "string")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function clampOptionalHours(value: unknown): number | undefined {
+  if (value === undefined || value === null || value === "") return undefined;
+  const parsed = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) return undefined;
+  return Math.min(100000, Math.round(parsed));
+}
+
+/** Deep-sanitize the programme: drop empty modules, trim, clamp hours. */
+function sanitizeProgramme(value: unknown): FormationProgramme {
+  if (!value || typeof value !== "object") return { modules: [] };
+  const raw = value as Partial<FormationProgramme>;
+  const modules: FormationModule[] = Array.isArray(raw.modules)
+    ? raw.modules
+        .map((module): FormationModule => {
+          const title = trimStr((module as FormationModule)?.title, 160);
+          return {
+            title,
+            hours: clampOptionalHours((module as FormationModule)?.hours),
+            content: asStringArray((module as FormationModule)?.content),
+          };
+        })
+        .filter((module) => module.title || module.content.length > 0)
+    : [];
+
+  const totalHours = clampOptionalHours(raw.totalHours);
+  return totalHours === undefined ? { modules } : { totalHours, modules };
 }
 
 /** Accept an absolute (https) or root-relative cover URL, else drop it. */
@@ -125,10 +155,7 @@ export function normalizeFormationDraft(input: Formation): NormalizeResult {
     prerequisites: asStringArray(input.prerequisites),
     presentation: typeof input.presentation === "string" ? input.presentation : "",
     objectives: asStringArray(input.objectives),
-    programme:
-      input.programme && Array.isArray(input.programme.modules)
-        ? input.programme
-        : { modules: [] },
+    programme: sanitizeProgramme(input.programme),
     registration: asStringArray(input.registration),
     evaluation: asStringArray(input.evaluation),
     pedagogicalTeam: asStringArray(input.pedagogicalTeam),
