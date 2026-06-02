@@ -18,7 +18,7 @@ export function WhyChooseUs() {
       <SectionHeading
         eyebrow="Notre engagement"
         title="Pourquoi choisir LT Protect Formation"
-        description="Un centre institutionnel, ancré dans le terrain, reconnu par les certifications nationales et dédié à la réussite de chaque participant."
+        description="Un centre de formation ancré dans le terrain, dédié à la transmission des compétences, à la sécurité professionnelle et à la réussite de chaque participant."
         spacious
       />
 

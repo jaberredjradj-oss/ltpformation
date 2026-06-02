@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
 
 const highlights = [
-  "Formateurs experts et certifiés",
+  "Formateurs experts issus du terrain",
   "Pédagogie pratique et immersive",
   "Accompagnement entreprise & OPCO",
   "Sessions intra et inter-entreprises",
