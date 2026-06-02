@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ABOUT_APPROVALS,
   ABOUT_CTA,
   ABOUT_HERO,
   ABOUT_INTRO,
@@ -18,7 +16,6 @@ import { easeCinematic, revealStagger } from "@/lib/motion";
 import { AboutSplitSection } from "@/components/about/AboutSplitSection";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { GoogleMapEmbed } from "@/components/ui/GoogleMapEmbed";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
@@ -164,60 +161,6 @@ export function AboutView() {
         />
       </Section>
 
-      <Section variant="white" size="default">
-        <SectionHeading
-          eyebrow={ABOUT_APPROVALS.eyebrow}
-          title={ABOUT_APPROVALS.title}
-          description={ABOUT_APPROVALS.description}
-          spacious
-        />
-
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-10">
-          <ul className="space-y-3">
-            {ABOUT_APPROVALS.points.map((point, index) => (
-              <motion.li
-                key={point}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.75, delay: index * 0.05, ease: easeCinematic }}
-                className="refined-card flex items-start gap-3 px-5 py-4"
-              >
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-100 text-[10px] font-bold text-gold-700">
-                  ✓
-                </span>
-                <span className="text-sm leading-relaxed text-body-strong">{point}</span>
-              </motion.li>
-            ))}
-          </ul>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {ABOUT_APPROVALS.certifications.map((cert, index) => (
-              <motion.article
-                key={cert.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.8, delay: index * 0.08, ease: easeCinematic }}
-                className="refined-card flex flex-col p-5"
-              >
-                <Image
-                  src={cert.image}
-                  alt={cert.name}
-                  width={120}
-                  height={48}
-                  className="h-8 w-auto object-contain"
-                />
-                <h3 className="mt-4 text-sm font-semibold text-navy-950">{cert.shortName}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-body-strong">
-                  {cert.description}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </Section>
-
       <Section variant="surface" size="default" wash="blend">
         <AboutSplitSection
           eyebrow={ABOUT_TRAINERS.eyebrow}
@@ -283,7 +226,14 @@ export function AboutView() {
               <p className="mt-3 text-sm font-medium leading-relaxed text-navy-950">
                 {SITE.address.full}
               </p>
-              <GoogleMapEmbed className="mt-4" />
+              <Link
+                href={SITE.address.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex text-sm font-semibold text-blue-600 hover:text-blue-700"
+              >
+                Itinéraire Google Maps ↗
+              </Link>
             </div>
           </div>
         </div>

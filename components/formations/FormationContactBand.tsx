@@ -1,7 +1,6 @@
 import { SITE } from "@/lib/constants";
 import type { Formation } from "@/lib/formations/types";
 import { FormationCTA } from "@/components/formations/FormationCTA";
-import { GoogleMapEmbed } from "@/components/ui/GoogleMapEmbed";
 import { Container } from "@/components/ui/Container";
 
 interface FormationContactBandProps {
@@ -14,7 +13,7 @@ export function FormationContactBand({ formation }: FormationContactBandProps) {
       <Container>
         <div className="refined-card overflow-hidden">
           <div className="gradient-bar-animated" />
-          <div className="grid lg:grid-cols-[1fr_1.1fr]">
+          <div>
             <div className="p-6 md:p-8 lg:p-10">
               <p className="section-eyebrow">Contact & inscription</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-navy-950">
@@ -40,13 +39,6 @@ export function FormationContactBand({ formation }: FormationContactBandProps) {
               <div className="mt-8">
                 <FormationCTA formation={formation} />
               </div>
-            </div>
-
-            <div className="border-t border-slate-100 p-6 md:p-8 lg:border-l lg:border-t-0">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
-                Nous trouver
-              </p>
-              <GoogleMapEmbed className="mt-4" />
             </div>
           </div>
         </div>

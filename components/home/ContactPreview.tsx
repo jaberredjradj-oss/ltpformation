@@ -6,7 +6,6 @@ import { TRAINING_IMAGES } from "@/lib/training-images";
 import { easeCinematic } from "@/lib/motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GoogleMapEmbed } from "@/components/ui/GoogleMapEmbed";
 import { Button } from "@/components/ui/Button";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
 
@@ -72,7 +71,6 @@ export function ContactPreview() {
                   Itinéraire Google Maps
                   <span aria-hidden>↗</span>
                 </a>
-                <GoogleMapEmbed className="mt-4" />
               </li>
               <li>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
