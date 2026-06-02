@@ -199,9 +199,17 @@ export function FormationCoverField({
                 )}
               </div>
               <p className="mt-2 text-xs text-slate-400">
-                JPEG, PNG ou WebP — 3 Mo maximum. Sans image personnalisée, le
-                thème «&nbsp;{imageKey}&nbsp;» est utilisé.
+                JPEG, PNG ou WebP — 3 Mo maximum.
               </p>
+              {hasCustom ? (
+                <p className="mt-1 text-xs font-medium text-blue-700">
+                  Cette image personnalisée remplace le thème par défaut.
+                </p>
+              ) : (
+                <p className="mt-1 text-xs text-slate-400">
+                  Sans image personnalisée, le thème par défaut ci-dessus est utilisé.
+                </p>
+              )}
             </>
           )}
 

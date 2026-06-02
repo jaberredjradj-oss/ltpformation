@@ -8,7 +8,6 @@ import {
   updateFormation,
   type SaveFormationInput,
 } from "@/lib/admin/formations/actions";
-import { CATEGORY_VISUAL_THEMES } from "@/lib/category-visuals";
 import { FORMATION_CATEGORIES } from "@/lib/formations/categories";
 import {
   FORMATION_TYPE_LABELS,
@@ -26,6 +25,7 @@ import {
   FormationPdfField,
   type FormationPdfValue,
 } from "@/components/admin/formations/FormationPdfField";
+import { FormationThemeField } from "@/components/admin/formations/FormationThemeField";
 import { cn } from "@/lib/utils";
 
 interface FormationEditorProps {
@@ -34,10 +34,6 @@ interface FormationEditorProps {
   initialActive: boolean;
   initialSortOrder: number;
 }
-
-const THEME_OPTIONS = Object.keys(CATEGORY_VISUAL_THEMES) as Array<
-  keyof typeof CATEGORY_VISUAL_THEMES
->;
 
 function Field({
   label,
@@ -277,19 +273,11 @@ export function FormationEditor({
             required
           />
         </label>
-        <Field label="Visuel (thème)" hint="Utilisé comme image par défaut si aucune couverture personnalisée.">
-          <select
-            className={cn(adminStyles.input, "px-3 py-2")}
-            value={formation.imageKey}
-            onChange={(e) => patch("imageKey", e.target.value as Formation["imageKey"])}
-          >
-            {THEME_OPTIONS.map((theme) => (
-              <option key={theme} value={theme}>
-                {theme}
-              </option>
-            ))}
-          </select>
-        </Field>
+        <FormationThemeField
+          value={formation.imageKey}
+          onChange={(theme) => patch("imageKey", theme)}
+          hasCustomCover={Boolean(formation.coverImageUrl)}
+        />
         <FormationCoverField
           mode={mode}
           slug={formation.slug}
