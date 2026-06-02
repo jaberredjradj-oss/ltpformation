@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import type { AdminFormationRow } from "@/lib/admin/formations/types";
 import { FORMATION_CATEGORIES } from "@/lib/formations/categories";
 import type { FormationSource } from "@/lib/repositories/formations/types";
@@ -89,6 +90,12 @@ export function AdminFormationsTable({ rows }: AdminFormationsTableProps) {
         description={`${rows.length} formations au catalogue • ${activeCount} actives. Recherchez et filtrez le catalogue.`}
       />
 
+      <div className="mb-5 flex justify-end">
+        <Link href="/admin/formations/new" className={adminStyles.btnPrimary}>
+          + Nouvelle formation
+        </Link>
+      </div>
+
       <div className="mb-5 grid gap-3 sm:grid-cols-[1fr_auto_auto] sm:items-end">
         <label className="block min-w-0">
           <span className={`mb-1.5 block ${adminStyles.label}`}>Recherche</span>
@@ -123,9 +130,12 @@ export function AdminFormationsTable({ rows }: AdminFormationsTableProps) {
             {filtered.map((row) => (
               <div key={row.slug} className={adminStyles.mobileCard}>
                 <div className="flex flex-wrap items-start justify-between gap-2">
-                  <p className="text-base font-semibold break-words text-navy-950">
+                  <Link
+                    href={`/admin/formations/${row.slug}/edit`}
+                    className="text-base font-semibold break-words text-navy-950 hover:text-blue-600"
+                  >
                     {row.title}
-                  </p>
+                  </Link>
                   {renderStatus(row)}
                 </div>
                 <p className="mt-1 break-all text-xs text-slate-500">{row.slug}</p>
@@ -143,6 +153,14 @@ export function AdminFormationsTable({ rows }: AdminFormationsTableProps) {
                   <p>{row.priceLabel}</p>
                   <p>CPF : {row.cpfEligible ? "Oui" : "Non"}</p>
                 </div>
+                <div className="mt-4 border-t border-slate-100 pt-3">
+                  <Link
+                    href={`/admin/formations/${row.slug}/edit`}
+                    className={adminStyles.btnSecondary}
+                  >
+                    Éditer
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -159,13 +177,19 @@ export function AdminFormationsTable({ rows }: AdminFormationsTableProps) {
                   <th className="px-4 py-3 text-left font-medium text-blue-600">CPF</th>
                   <th className="px-4 py-3 text-left font-medium text-blue-600">Source</th>
                   <th className="px-4 py-3 text-left font-medium text-blue-600">Statut</th>
+                  <th className="px-4 py-3 text-left font-medium text-blue-600">Actions</th>
                 </tr>
               </AdminTableHead>
               <AdminTableBody>
                 {filtered.map((row) => (
                   <AdminTableRow key={row.slug}>
                     <AdminTableCell>
-                      <p className="font-semibold break-words text-navy-950">{row.title}</p>
+                      <Link
+                        href={`/admin/formations/${row.slug}/edit`}
+                        className="font-semibold break-words text-navy-950 hover:text-blue-600"
+                      >
+                        {row.title}
+                      </Link>
                       <p className="mt-0.5 break-all text-xs text-slate-500">{row.slug}</p>
                     </AdminTableCell>
                     <AdminTableCell>
@@ -191,6 +215,14 @@ export function AdminFormationsTable({ rows }: AdminFormationsTableProps) {
                       />
                     </AdminTableCell>
                     <AdminTableCell>{renderStatus(row)}</AdminTableCell>
+                    <AdminTableCell>
+                      <Link
+                        href={`/admin/formations/${row.slug}/edit`}
+                        className={adminStyles.btnSecondary}
+                      >
+                        Éditer
+                      </Link>
+                    </AdminTableCell>
                   </AdminTableRow>
                 ))}
               </AdminTableBody>

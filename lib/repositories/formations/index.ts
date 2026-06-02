@@ -92,6 +92,18 @@ export async function loadFormation(slug: string): Promise<Formation | null> {
   return managed.find((item) => item.formation.slug === slug)?.formation ?? null;
 }
 
+/**
+ * Admin single read by slug, including inactive (hidden) formations.
+ * Returns null only when the slug exists in neither the DB nor the static
+ * catalog. Used by the admin edit screen.
+ */
+export async function loadManagedFormationBySlug(
+  slug: string,
+): Promise<ManagedFormation | null> {
+  const managed = await loadManagedFormations({ includeInactive: true });
+  return managed.find((item) => item.formation.slug === slug) ?? null;
+}
+
 /** All publicly visible slugs (for params / sitemaps). */
 export async function loadPublicFormationSlugs(): Promise<string[]> {
   const formations = await loadFormations();
