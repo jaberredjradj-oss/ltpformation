@@ -1,5 +1,6 @@
 export const ADMIN_NAV_ITEMS = [
   { href: "/admin", label: "Tableau de bord" },
+  { href: "/admin/formations", label: "Formations" },
   { href: "/admin/planning", label: "Planning" },
   { href: "/admin/demandes", label: "Devis" },
   { href: "/admin/preinscriptions", label: "Pré-inscriptions" },
