@@ -5,7 +5,7 @@ export const SITE = {
   tagline: "Apprendre aujourd'hui, protéger demain",
   description:
     "Centre de formation professionnelle en sécurité incendie, sûreté, secourisme et habilitations réglementaires.",
-  logo: "/logo.png",
+  logo: "/ltprotectformationlogo-transparent.png",
   address: {
     street: "26 Av. René Duguay Trouin",
     building: "Bâtiment A – Premier Étage",
