@@ -74,7 +74,7 @@ export async function createFormation(
       formation: normalized.formation,
       active: input.active,
       sortOrder: input.sortOrder,
-      coverImageUrl: null,
+      coverImageUrl: normalized.formation.coverImageUrl ?? null,
       source: "admin",
     });
   } catch (error) {
@@ -149,10 +149,10 @@ export async function updateFormation(
       return { ok: false, error: "Formation introuvable." };
     }
 
-    // Preserve an existing cover image (managed in Phase 3b) and source.
+    // The editor manages the cover image directly (Phase 3b); persist its value.
     const source: "admin" | "static-override" =
       existing && existing.source === "admin" ? "admin" : "static-override";
-    const coverImageUrl = existing?.coverImageUrl ?? null;
+    const coverImageUrl = normalized.formation.coverImageUrl ?? null;
 
     const payload = {
       formation: normalized.formation,

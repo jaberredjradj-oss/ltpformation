@@ -40,6 +40,16 @@ function asStringArray(value: unknown): string[] {
     .filter(Boolean);
 }
 
+/** Accept an absolute (https) or root-relative cover URL, else drop it. */
+function normalizeCoverImageUrl(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  if (trimmed.length > 500) return null;
+  if (!/^(https?:\/\/|\/)/.test(trimmed)) return null;
+  return trimmed;
+}
+
 export type NormalizeResult =
   | { ok: true; formation: Formation }
   | { ok: false; error: string };
@@ -105,6 +115,7 @@ export function normalizeFormationDraft(input: Formation): NormalizeResult {
     certifications: asStringArray(input.certifications),
     summary,
     imageKey,
+    coverImageUrl: normalizeCoverImageUrl(input.coverImageUrl),
     pdfFilename,
     pdfUrl,
     pdfAvailable,

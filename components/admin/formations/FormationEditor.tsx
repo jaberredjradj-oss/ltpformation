@@ -19,6 +19,7 @@ import {
 import { adminStyles } from "@/components/admin/admin-styles";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { useAdminToast } from "@/components/admin/AdminToast";
+import { FormationCoverField } from "@/components/admin/formations/FormationCoverField";
 import { cn } from "@/lib/utils";
 
 interface FormationEditorProps {
@@ -270,7 +271,7 @@ export function FormationEditor({
             required
           />
         </label>
-        <Field label="Visuel (thème)" hint="Image de couverture personnalisée à venir (Phase 3b).">
+        <Field label="Visuel (thème)" hint="Utilisé comme image par défaut si aucune couverture personnalisée.">
           <select
             className={cn(adminStyles.input, "px-3 py-2")}
             value={formation.imageKey}
@@ -283,6 +284,13 @@ export function FormationEditor({
             ))}
           </select>
         </Field>
+        <FormationCoverField
+          mode={mode}
+          slug={formation.slug}
+          imageKey={formation.imageKey}
+          value={formation.coverImageUrl}
+          onChange={(url) => patch("coverImageUrl", url)}
+        />
         <Field label="Statut du contenu">
           <select
             className={cn(adminStyles.input, "px-3 py-2")}
