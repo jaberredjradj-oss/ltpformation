@@ -1,5 +1,59 @@
-import type { FormationCategoryId } from "@/lib/formations/types";
+import type {
+  FormationCategoryId,
+  FormationContentStatus,
+  FormationPrice,
+  FormationProgramme,
+  FormationType,
+} from "@/lib/formations/types";
+import type { CategoryVisualTheme } from "@/lib/category-visuals";
 import type { PlanningSessionStatus } from "@/lib/planning/types";
+
+/**
+ * Admin-managed formation row (table `formations`, migration 006).
+ * Optional at runtime — overlays the static catalog. jsonb columns are
+ * returned already parsed by supabase-js.
+ */
+export interface FormationRow {
+  slug: string;
+  title: string;
+  short_title: string;
+  category: FormationCategoryId;
+  category_label: string;
+  type: FormationType;
+  type_label: string;
+  level: string | null;
+  duration_hours: number;
+  duration_label: string;
+  price: FormationPrice | null;
+  cpf_eligible: boolean;
+  cpf_note: string | null;
+  certification_code: string | null;
+  certifications: string[];
+  summary: string;
+  image_key: CategoryVisualTheme;
+  cover_image_url: string | null;
+  pdf_filename: string;
+  pdf_url: string;
+  pdf_available: boolean;
+  content_status: FormationContentStatus;
+  public_concerned: string[];
+  prerequisites: string[];
+  presentation: string;
+  objectives: string[];
+  programme: FormationProgramme;
+  registration: string[];
+  evaluation: string[];
+  pedagogical_team: string[];
+  pedagogical_means: string[];
+  follow_up: string[];
+  career_outcomes: string[];
+  accessibility: string;
+  active: boolean;
+  sort_order: number;
+  source: "admin" | "static-override";
+  created_at?: string;
+  updated_at?: string;
+}
 
 export interface PlanningSessionRow {
   id: string;
