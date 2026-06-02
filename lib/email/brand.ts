@@ -12,7 +12,7 @@ export const EMAIL_BRAND = {
   phone: SITE.phone,
   mobile: SITE.mobile,
   websiteUrl: getSiteUrl(),
-  logoPath: "/logo.png",
+  logoPath: "/ltprotectformationlogo-transparent.png",
   disclaimer:
     "Ce message est envoyé dans le cadre de votre demande auprès de LT Protect Formation.",
 } as const;

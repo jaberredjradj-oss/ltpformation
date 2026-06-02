@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/ltprotectformationlogo-transparent.png",
+    apple: "/ltprotectformationlogo-transparent.png",
   },
   other: {
     "build-id": PUBLIC_BUILD_ID,

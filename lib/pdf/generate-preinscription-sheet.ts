@@ -64,7 +64,9 @@ export async function generatePreinscriptionSheetPdf(
   let y = PAGE_HEIGHT - MARGIN;
 
   try {
-    const logoBytes = await readFile(path.join(process.cwd(), "public", "logo.png"));
+    const logoBytes = await readFile(
+      path.join(process.cwd(), "public", "ltprotectformationlogo-transparent.png"),
+    );
     const logo = await pdf.embedPng(logoBytes);
     const logoHeight = 52;
     const logoWidth = (logo.width / logo.height) * logoHeight;
