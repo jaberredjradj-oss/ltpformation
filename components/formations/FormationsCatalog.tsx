@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FORMATIONS } from "@/lib/formations/catalog";
 import {
   buildFormationsSearchParams,
   parseFormationFilters,
@@ -10,6 +9,7 @@ import {
   queryFormations,
 } from "@/lib/formations/search";
 import type {
+  Formation,
   FormationCategoryId,
   FormationFilters,
   FormationSort,
@@ -19,7 +19,11 @@ import { FormationsGrid } from "@/components/formations/FormationsGrid";
 import { FormationsToolbar } from "@/components/formations/FormationsToolbar";
 import { Container } from "@/components/ui/Container";
 
-export function FormationsCatalog() {
+interface FormationsCatalogProps {
+  formations: Formation[];
+}
+
+export function FormationsCatalog({ formations }: FormationsCatalogProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -31,25 +35,25 @@ export function FormationsCatalog() {
   const sort = useMemo(() => parseFormationSort(searchParams), [searchParams]);
 
   const results = useMemo(
-    () => queryFormations(FORMATIONS, filters, sort),
-    [filters, sort],
+    () => queryFormations(formations, filters, sort),
+    [formations, filters, sort],
   );
 
   const counts = useMemo(() => {
     const base = {
-      all: FORMATIONS.length,
+      all: formations.length,
       "securite-incendie": 0,
       secourisme: 0,
       surete: 0,
       "habilitation-electrique": 0,
     } as Record<FormationCategoryId | "all", number>;
 
-    for (const formation of FORMATIONS) {
+    for (const formation of formations) {
       base[formation.category] += 1;
     }
 
     return base;
-  }, []);
+  }, [formations]);
 
   function syncUrl(nextFilters: FormationFilters, nextSort: FormationSort) {
     const params = buildFormationsSearchParams(nextFilters, nextSort);

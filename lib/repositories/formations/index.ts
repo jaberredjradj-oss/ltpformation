@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { isRealDataEnabled } from "@/lib/db/env";
 import { FORMATIONS } from "@/lib/formations/catalog";
 import type { Formation } from "@/lib/formations/types";
@@ -27,15 +28,37 @@ export function getFormationsRepository(): FormationsRepository {
 }
 
 /**
+ * Fetch the raw database overlay once per request (deduped via React `cache`).
+ *
+ * Returns an empty list when real data is disabled OR on any failure (missing
+ * `formations` table, Supabase outage). An empty overlay is equivalent to
+ * "static only", so the public site and admin keep working with zero regression.
+ */
+const loadOverlayRows = cache(async (): Promise<ManagedFormation[]> => {
+  if (!isRealDataEnabled()) {
+    return [];
+  }
+
+  try {
+    return await supabaseFormationsRepository.listAll();
+  } catch (error) {
+    console.error(
+      "[formations] overlay unavailable, using static catalog:",
+      error instanceof Error ? error.message : error,
+    );
+    return [];
+  }
+});
+
+/**
  * Merge the static baseline with the database overlay.
  *
  * - A DB row whose slug matches a static formation OVERRIDES it.
  * - A DB row with a new slug ADDS a formation.
  * - A DB row with `active = false` HIDES that slug (unless includeInactive).
  *
- * Safety: never throws. Any failure (real data disabled, missing `formations`
- * table, Supabase outage) falls back to the static catalog so the public site
- * and admin keep working with zero regression.
+ * Safety: never throws. The DB read is cached and falls back to an empty
+ * overlay on any failure, so this always returns at least the static catalog.
  */
 export async function loadManagedFormations(options?: {
   includeInactive?: boolean;
@@ -46,25 +69,12 @@ export async function loadManagedFormations(options?: {
     merged.set(item.formation.slug, item);
   }
 
-  if (!isRealDataEnabled()) {
-    return Array.from(merged.values());
-  }
-
-  try {
-    const overrides = await supabaseFormationsRepository.listAll();
-    for (const managed of overrides) {
-      if (!managed.active && !includeInactive) {
-        merged.delete(managed.formation.slug);
-        continue;
-      }
-      merged.set(managed.formation.slug, managed);
+  for (const managed of await loadOverlayRows()) {
+    if (!managed.active && !includeInactive) {
+      merged.delete(managed.formation.slug);
+      continue;
     }
-  } catch (error) {
-    console.error(
-      "[formations] overlay unavailable, using static catalog:",
-      error instanceof Error ? error.message : error,
-    );
-    return staticBaseline();
+    merged.set(managed.formation.slug, managed);
   }
 
   return Array.from(merged.values());

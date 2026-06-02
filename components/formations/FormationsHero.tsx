@@ -1,13 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FORMATIONS } from "@/lib/formations/catalog";
 import { FORMATION_CATEGORIES } from "@/lib/formations/categories";
+import type { Formation } from "@/lib/formations/types";
 import { easeCinematic } from "@/lib/motion";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { Container } from "@/components/ui/Container";
 
-export function FormationsHero() {
+interface FormationsHeroProps {
+  formations: Formation[];
+}
+
+export function FormationsHero({ formations }: FormationsHeroProps) {
   return (
     <section className="relative overflow-hidden section-wash-blend pb-10 pt-14 md:pb-14 md:pt-20 lg:pt-24">
       <div className="pointer-events-none absolute inset-0 animated-mesh opacity-40" />
@@ -36,7 +40,7 @@ export function FormationsHero() {
           className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4"
         >
           {FORMATION_CATEGORIES.map((category) => {
-            const count = FORMATIONS.filter((f) => f.category === category.id).length;
+            const count = formations.filter((f) => f.category === category.id).length;
             return (
               <div
                 key={category.id}
