@@ -24,7 +24,12 @@ export const FORMATION_COVER_IMAGES: Record<string, string> = {
 };
 
 export function getFormationCoverImage(
-  formation: Pick<Formation, "slug" | "imageKey">,
+  formation: Pick<Formation, "slug" | "imageKey" | "coverImageUrl">,
 ): string {
-  return FORMATION_COVER_IMAGES[formation.slug] ?? THEME_IMAGES[formation.imageKey];
+  // Priority: admin custom cover → per-slug static banner → category theme.
+  return (
+    formation.coverImageUrl ||
+    FORMATION_COVER_IMAGES[formation.slug] ||
+    THEME_IMAGES[formation.imageKey]
+  );
 }

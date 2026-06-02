@@ -54,6 +54,12 @@ export interface Formation {
   certifications: string[];
   summary: string;
   imageKey: CategoryVisualTheme;
+  /**
+   * Optional admin-managed custom cover image (Supabase Storage public URL).
+   * When set, it overrides the per-slug static banner and the imageKey theme.
+   * Static catalog formations leave this undefined.
+   */
+  coverImageUrl?: string | null;
   pdfFilename: string;
   pdfUrl: string;
   pdfAvailable: boolean;

@@ -56,6 +56,7 @@ export function mapRowToFormation(row: FormationRow): Formation {
     certifications: asStringArray(row.certifications),
     summary: row.summary || "",
     imageKey: (row.image_key ?? "incendie") as CategoryVisualTheme,
+    coverImageUrl: row.cover_image_url ?? undefined,
     pdfFilename: row.pdf_filename || "",
     pdfUrl: row.pdf_url || "",
     pdfAvailable: Boolean(row.pdf_available),
