@@ -21,13 +21,13 @@ export function FormationCTA({ formation, layout = "inline", className }: Format
     >
       <Link
         href={devisHref}
-        className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)] whitespace-normal text-center leading-snug"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)] whitespace-normal text-center leading-snug sm:w-auto"
       >
         Demander un devis
       </Link>
       <Link
         href={preinscriptionHref}
-        className="inline-flex items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600 whitespace-normal text-center leading-snug"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600 whitespace-normal text-center leading-snug sm:w-auto"
       >
         Prendre rendez-vous
       </Link>
@@ -36,12 +36,12 @@ export function FormationCTA({ formation, layout = "inline", className }: Format
           href={formation.pdfUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full border border-gold-400/35 bg-gold-100/50 px-5 py-3 text-sm font-semibold text-gold-700 transition-all duration-300 hover:bg-gold-100 whitespace-normal text-center leading-snug"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-gold-400/35 bg-gold-100/50 px-5 py-3 text-sm font-semibold text-gold-700 transition-all duration-300 hover:bg-gold-100 whitespace-normal text-center leading-snug sm:w-auto"
         >
           Télécharger le programme PDF
         </a>
       ) : (
-        <span className="inline-flex items-center justify-center rounded-full border border-dashed border-slate-200/90 bg-surface/70 px-5 py-3 text-sm font-medium text-lead-strong">
+        <span className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-dashed border-slate-200/90 bg-surface/70 px-5 py-3 text-center text-sm font-medium leading-snug text-lead-strong sm:w-auto">
           PDF officiel bientôt disponible
         </span>
       )}

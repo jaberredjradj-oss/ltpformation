@@ -27,10 +27,10 @@ import { GoogleReviewsSection } from "@/components/reviews/GoogleReviewsSection"
 export function AboutView() {
   return (
     <>
-      <section className="relative overflow-hidden section-wash-blend pb-12 pt-14 md:pb-16 md:pt-20 lg:pt-24">
+      <section className="relative overflow-hidden section-wash-blend pb-10 pt-10 md:pb-16 md:pt-20 lg:pt-24">
         <div className="pointer-events-none absolute inset-0 animated-mesh opacity-40" />
         <Container className="relative">
-          <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14">
+          <div className="grid items-end gap-7 sm:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -38,12 +38,12 @@ export function AboutView() {
               className="max-w-[44rem]"
             >
               <p className="section-eyebrow">{ABOUT_HERO.eyebrow}</p>
-              <h1 className="mt-4 text-[2.25rem] font-semibold leading-[1.05] tracking-[-0.034em] text-navy-950 sm:text-[2.85rem] lg:text-[3.5rem] xl:text-[3.85rem]">
+              <h1 className="mt-4 text-[2rem] font-semibold leading-[1.05] tracking-[-0.034em] text-navy-950 sm:text-[2.85rem] lg:text-[3.5rem] xl:text-[3.85rem]">
                 {ABOUT_HERO.lines[0]}
                 <br />
                 <span className="gradient-text-gold-blue">{ABOUT_HERO.lines[1]}</span>
               </h1>
-              <p className="mt-8 max-w-[40rem] text-[1.0625rem] leading-[1.75] tracking-[-0.014em] text-navy-950 md:text-lg md:leading-[1.78]">
+              <p className="mt-6 max-w-[40rem] text-base leading-[1.7] tracking-[-0.014em] text-navy-950 md:mt-8 md:text-lg md:leading-[1.78]">
                 {ABOUT_HERO.lead}
               </p>
             </motion.div>
@@ -54,7 +54,7 @@ export function AboutView() {
               transition={{ duration: 0.95, delay: 0.1, ease: easeCinematic }}
               className="refined-card overflow-hidden"
             >
-              <div className="relative aspect-[16/10] min-h-[240px]">
+              <div className="relative aspect-[16/10] min-h-[210px] sm:min-h-[240px]">
                 <TrainingPhoto
                   src={TRAINING_IMAGES.formation}
                   alt="Centre de formation LT Protect Formation"
@@ -83,12 +83,12 @@ export function AboutView() {
           >
             {ABOUT_INTRO.quote.author} · {ABOUT_INTRO.quote.role}
           </motion.p>
-          <div className="mt-10 space-y-5 text-left md:mt-12">
+          <div className="mt-8 space-y-4 text-left md:mt-12 md:space-y-5">
             {ABOUT_INTRO.paragraphs.map((paragraph, index) => (
               <motion.p
                 key={paragraph}
                 {...revealStagger(0.18 + index * 0.08)}
-                className="text-[1.0625rem] leading-[1.75] tracking-[-0.014em] text-navy-950 md:text-lg"
+                className="text-base leading-[1.7] tracking-[-0.014em] text-navy-950 md:text-lg"
               >
                 {paragraph}
               </motion.p>
@@ -262,15 +262,15 @@ export function AboutView() {
                 className="mb-0! text-left!"
               />
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Button href="/preinscription" variant="primary">
+                <Button href="/preinscription" variant="primary" className="w-full sm:w-auto">
                   Pré-inscription
                 </Button>
-                <Button href="/devis" variant="outline">
+                <Button href="/devis" variant="outline" className="w-full sm:w-auto">
                   Demander un devis
                 </Button>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-700"
                 >
                   Nous contacter
                 </Link>

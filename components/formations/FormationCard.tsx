@@ -36,7 +36,7 @@ function CardAction({
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center justify-center rounded-full px-4 py-2.5 text-xs font-semibold tracking-[-0.01em] transition-all duration-300 whitespace-normal text-center leading-snug",
+        "inline-flex min-h-11 w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-all duration-300 whitespace-normal text-center leading-snug sm:min-h-0 sm:w-auto sm:text-xs",
         styles[variant],
       )}
     >
@@ -60,7 +60,7 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
     >
       <div className="refined-card card-accent-glow flex h-full flex-col overflow-hidden">
         <div className="gradient-bar-animated" />
-        <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="relative aspect-[16/9] min-h-[190px] overflow-hidden sm:min-h-0">
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.04]"
             style={{ backgroundImage: `url(${getFormationCoverImage(formation)})` }}
@@ -72,7 +72,7 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
         </div>
 
         <div className="flex flex-1 flex-col p-5 md:p-6">
-          <h3 className="text-lg font-semibold tracking-[-0.018em] text-navy-950 transition-colors duration-300 group-hover:text-blue-600">
+          <h3 className="text-xl font-semibold leading-snug tracking-[-0.018em] text-navy-950 transition-colors duration-300 group-hover:text-blue-600 sm:text-lg">
             {formation.shortTitle}
           </h3>
 

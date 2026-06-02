@@ -109,17 +109,17 @@ export function FormationPreviewCard({
       <Link href={href} className="group relative flex h-full flex-col overflow-hidden refined-card">
         {layout === "split" && (
           <div className="grid md:grid-cols-[44%_1fr]">
-            <div className="relative min-h-[200px] overflow-hidden md:min-h-[240px]">
+            <div className="relative min-h-[190px] overflow-hidden md:min-h-[240px]">
               <CategoryVisual
                 theme={visual}
                 label={title}
                 subtitle={subtitle}
                 image={image}
                 hideLabels
-                className="h-full min-h-[200px] transition-transform duration-700 group-hover:scale-[1.04] md:min-h-[240px]"
+                className="h-full min-h-[190px] transition-transform duration-700 group-hover:scale-[1.04] md:min-h-[240px]"
               />
             </div>
-            <div className="relative flex flex-1 flex-col bg-gradient-to-br from-white to-blue-50/20 p-5 md:p-6">
+            <div className="relative flex flex-1 flex-col bg-gradient-to-br from-white to-blue-50/20 p-4 sm:p-5 md:p-6">
               <div className="absolute left-5 top-5 md:left-6 md:top-6">
                 <CardBadges subtitle={subtitle} badge={badge} />
               </div>
@@ -131,7 +131,7 @@ export function FormationPreviewCard({
         )}
 
         {layout === "immersion" && (
-          <div className="relative min-h-[320px] flex-1">
+          <div className="relative min-h-[360px] flex-1 sm:min-h-[320px]">
             <TrainingPhoto
               src={image}
               alt={title}
@@ -141,8 +141,8 @@ export function FormationPreviewCard({
               <div className="absolute left-4 top-4 z-10">
                 <CardBadges subtitle={subtitle} badge={badge} />
               </div>
-              <div className="absolute inset-x-0 bottom-0 z-10 p-4 md:p-5">
-                <div className="glass-panel-dark rounded-xl p-5 md:p-6">
+              <div className="absolute inset-x-0 bottom-0 z-10 p-3 sm:p-4 md:p-5">
+                <div className="glass-panel-dark rounded-xl p-4 sm:p-5 md:p-6">
                   <CardContent
                     title={title}
                     description={description}
@@ -157,7 +157,7 @@ export function FormationPreviewCard({
 
         {layout === "editorial" && (
           <div className="grid lg:grid-cols-2">
-            <div className="relative min-h-[220px] overflow-hidden lg:min-h-full">
+            <div className="relative min-h-[190px] overflow-hidden lg:min-h-full">
               <CategoryVisual
                 theme={visual}
                 label={title}
@@ -167,7 +167,7 @@ export function FormationPreviewCard({
                 className="h-full transition-transform duration-700 group-hover:scale-[1.03]"
               />
             </div>
-            <div className="flex flex-col bg-gradient-to-br from-white to-blue-50/20 p-5 md:p-6 lg:p-7">
+            <div className="flex flex-col bg-gradient-to-br from-white to-blue-50/20 p-4 sm:p-5 md:p-6 lg:p-7">
               <CardBadges subtitle={subtitle} badge={badge} />
               <div className="mt-5 flex flex-1 flex-col">
                 <CardContent title={title} description={description} highlights={highlights} />
@@ -178,7 +178,7 @@ export function FormationPreviewCard({
 
         {layout === "standard" && (
           <>
-            <div className="relative aspect-16/10 overflow-hidden">
+            <div className="relative aspect-[16/10] min-h-[190px] overflow-hidden sm:min-h-0">
               <CategoryVisual
                 theme={visual}
                 label={title}
@@ -190,7 +190,7 @@ export function FormationPreviewCard({
                 <CardBadges subtitle={subtitle} badge={badge} />
               </div>
             </div>
-            <div className="relative flex flex-1 flex-col bg-white p-5 md:p-6">
+            <div className="relative flex flex-1 flex-col bg-white p-4 sm:p-5 md:p-6">
               <CardContent title={title} description={description} highlights={highlights} />
             </div>
           </>

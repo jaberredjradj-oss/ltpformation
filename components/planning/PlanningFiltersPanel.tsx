@@ -25,7 +25,7 @@ export function PlanningFiltersPanel({
 }: PlanningFiltersPanelProps) {
   return (
     <div className={className}>
-      <div className="refined-card space-y-5 p-5 md:p-6">
+      <div className="refined-card space-y-5 p-4 sm:p-5 md:p-6">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
             Recherche
@@ -81,14 +81,14 @@ export function PlanningFiltersPanel({
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+        <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
           <p className="text-sm font-medium text-lead-strong">
             {resultCount} session{resultCount > 1 ? "s" : ""}
           </p>
           <button
             type="button"
             onClick={onReset}
-            className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+            className="min-h-10 rounded-full px-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-700"
           >
             Réinitialiser
           </button>

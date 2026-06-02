@@ -53,11 +53,11 @@ export function Navbar() {
       </div>
 
       <Container>
-        <nav className="flex h-[112px] sm:h-[124px] md:h-[144px] lg:h-[152px] items-center justify-between gap-6 lg:gap-8">
+        <nav className="flex h-[82px] sm:h-[92px] md:h-[116px] lg:h-[140px] items-center justify-between gap-3 sm:gap-5 lg:gap-8">
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="group flex shrink-0 items-center py-1 pr-5 md:pr-8 transition-opacity duration-300 hover:opacity-95"
+            className="group flex min-w-0 shrink-0 items-center py-1 pr-3 transition-opacity duration-300 hover:opacity-95 sm:pr-5 md:pr-8"
           >
             <BrandLogo size="nav" priority />
           </Link>
@@ -83,13 +83,7 @@ export function Navbar() {
             })}
           </ul>
 
-          <div className="hidden items-center gap-4 xl:flex">
-            <Link
-              href="/formations"
-              className="text-sm font-semibold text-navy-900 transition-colors hover:text-blue-600"
-            >
-              Formations
-            </Link>
+          <div className="hidden items-center xl:flex">
             <Button href="/devis" variant="primary" className="!py-2.5 !px-5 text-sm">
               Demander un devis
             </Button>
@@ -99,7 +93,7 @@ export function Navbar() {
             type="button"
             aria-label="Ouvrir le menu"
             aria-expanded={open}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-navy-900 xl:hidden"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white/80 text-navy-900 shadow-[0_4px_16px_rgba(7,21,37,0.06)] xl:hidden"
             onClick={() => setOpen(!open)}
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -120,10 +114,10 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: easePremium }}
-            className="overflow-hidden border-t border-slate-200 bg-white xl:hidden"
+            className="max-h-[calc(100svh-82px)] overflow-y-auto border-t border-slate-200 bg-white xl:hidden"
           >
-            <Container className="py-5">
-              <div className="mb-5 flex flex-wrap justify-center gap-4 border-b border-slate-100 pb-5">
+            <Container className="py-4 sm:py-5">
+              <div className="mb-4 flex flex-wrap justify-center gap-3 border-b border-slate-100 pb-4 sm:mb-5 sm:gap-4 sm:pb-5">
                 {CERTIFICATIONS.map((cert) => (
                   <Image
                     key={cert.id}
@@ -131,7 +125,7 @@ export function Navbar() {
                     alt={cert.name}
                     width={72}
                     height={32}
-                    className="h-7 w-auto object-contain"
+                    className="h-6 w-auto object-contain sm:h-7"
                   />
                 ))}
               </div>
@@ -141,7 +135,7 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="block rounded-xl px-4 py-3.5 text-sm font-medium text-navy-800 hover:bg-surface"
+                      className="block rounded-xl px-4 py-3.5 text-base font-semibold text-navy-800 hover:bg-surface sm:text-sm sm:font-medium"
                     >
                       {link.label}
                     </Link>

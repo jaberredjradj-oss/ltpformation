@@ -40,7 +40,7 @@ export function AdminShell({ children, demoMode, userEmail = null }: AdminShellP
           </aside>
 
           <div className="min-w-0 flex-1">
-            <div className="border-b border-slate-200 bg-white px-5 py-3 lg:hidden">
+            <div className="border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
               <button
                 type="button"
                 onClick={() => setMobileNavOpen((open) => !open)}
@@ -55,7 +55,7 @@ export function AdminShell({ children, demoMode, userEmail = null }: AdminShellP
               )}
             </div>
 
-            <main className="px-5 py-7 md:px-8 md:py-9">{children}</main>
+            <main className="px-4 py-6 sm:px-5 md:px-8 md:py-9">{children}</main>
           </div>
         </div>
       </div>

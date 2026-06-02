@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { SITE } from "@/lib/constants";
 
 const LOGO_WIDTH = 1024;
-const LOGO_HEIGHT = 1536;
+const LOGO_HEIGHT = 556;
 
 type BrandLogoSize = "nav" | "footer" | "hero" | "about";
 
@@ -12,27 +12,27 @@ const sizes: Record<
   { height: string; heightPx: number; maxW: string; glow: string }
 > = {
   nav: {
-    height: "h-[100px] sm:h-[116px] md:h-[132px] lg:h-[140px]",
-    heightPx: 140,
-    maxW: "max-w-[340px] sm:max-w-[380px] md:max-w-[420px]",
+    height: "h-[44px] sm:h-[54px] md:h-[67px] lg:h-[81px]",
+    heightPx: 81,
+    maxW: "max-w-[150px] sm:max-w-[184px] md:max-w-[219px] lg:max-w-[242px]",
     glow: "logo-glow-nav",
   },
   footer: {
-    height: "h-[96px] sm:h-[108px] md:h-[120px] lg:h-[128px]",
-    heightPx: 128,
-    maxW: "max-w-[300px] sm:max-w-[340px] md:max-w-[380px]",
+    height: "h-[55px] sm:h-[62px] md:h-[69px] lg:h-[74px]",
+    heightPx: 74,
+    maxW: "max-w-[173px] sm:max-w-[196px] md:max-w-[219px]",
     glow: "logo-glow-footer",
   },
   hero: {
-    height: "h-36 sm:h-44 md:h-52 lg:h-56",
-    heightPx: 224,
-    maxW: "max-w-[400px] sm:max-w-[460px] md:max-w-[520px] lg:max-w-[560px]",
+    height: "h-[104px] sm:h-[126px] md:h-[149px] lg:h-[161px]",
+    heightPx: 161,
+    maxW: "max-w-[288px] sm:max-w-[331px] md:max-w-[374px] lg:max-w-[403px]",
     glow: "logo-glow-footer",
   },
   about: {
-    height: "h-28 md:h-32",
-    heightPx: 128,
-    maxW: "max-w-[220px]",
+    height: "h-[81px] md:h-[92px]",
+    heightPx: 92,
+    maxW: "max-w-[158px]",
     glow: "logo-glow-nav",
   },
 };
@@ -50,7 +50,10 @@ export function BrandLogo({ size = "nav", className, priority }: BrandLogoProps)
   return (
     <span className={cn("relative inline-flex shrink-0 items-center", className)}>
       <span
-        className={cn("pointer-events-none absolute inset-0 -z-10 scale-150 rounded-full blur-2xl", dim.glow)}
+        className={cn(
+          "pointer-events-none absolute inset-0 -z-10 scale-125 rounded-full opacity-40 blur-2xl",
+          dim.glow,
+        )}
         aria-hidden
       />
       <Image
@@ -64,7 +67,7 @@ export function BrandLogo({ size = "nav", className, priority }: BrandLogoProps)
           dim.height,
           "relative w-auto object-contain object-left",
           dim.maxW,
-          "drop-shadow-[0_4px_20px_rgba(11,31,58,0.18)]",
+          "drop-shadow-[0_2px_10px_rgba(11,31,58,0.1)]",
           "transition-transform duration-500 ease-out hover:scale-[1.02]",
         )}
       />

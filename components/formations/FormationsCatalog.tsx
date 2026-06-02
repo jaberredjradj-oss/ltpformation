@@ -79,8 +79,8 @@ export function FormationsCatalog() {
   }
 
   return (
-    <section className="section-wash-surface pb-16 pt-8 md:pb-24 md:pt-10">
-      <Container className="space-y-8">
+    <section className="section-wash-surface pb-12 pt-6 md:pb-24 md:pt-10">
+      <Container className="space-y-6 md:space-y-8">
         <CategoryNav
           activeCategory={filters.category}
           onCategoryChange={handleCategoryChange}

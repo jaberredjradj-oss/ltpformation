@@ -19,7 +19,7 @@ export function CategoryPreview() {
         spacious
       />
 
-      <div className="grid gap-7 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
         {TRAINING_CATEGORIES.map((category, index) => (
           <FormationPreviewCard
             key={category.id}
@@ -37,8 +37,8 @@ export function CategoryPreview() {
         ))}
       </div>
 
-      <div className="mt-20 text-center">
-        <Button href="/formations" variant="primary">
+      <div className="mt-12 text-center md:mt-20">
+        <Button href="/formations" variant="primary" className="w-full sm:w-auto">
           Voir toutes les formations
         </Button>
       </div>

@@ -33,12 +33,12 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
     <>
       <FormationDetailHero formation={formation} />
 
-      <section className="section-wash-surface pb-16 md:pb-20">
+      <section className="section-wash-surface pb-12 md:pb-20">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-12">
             <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
               <div className="space-y-4">
-                <div className="refined-card min-w-0 space-y-5 p-5 md:p-6">
+                <div className="refined-card min-w-0 space-y-5 p-4 sm:p-5 md:p-6">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
                     Informations clés
                   </p>
@@ -84,7 +84,7 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
               </div>
             </aside>
 
-            <div className="space-y-12 md:space-y-14">
+            <div className="space-y-10 md:space-y-14">
               <FormationSectionGroup
                 id="apercu"
                 eyebrow="Vue d'ensemble"

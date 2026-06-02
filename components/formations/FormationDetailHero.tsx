@@ -16,7 +16,7 @@ interface FormationDetailHeroProps {
 
 export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
   return (
-    <section className="relative overflow-hidden section-wash-blend pb-10 pt-12 md:pb-14 md:pt-16">
+    <section className="relative overflow-hidden section-wash-blend pb-8 pt-10 md:pb-14 md:pt-16">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
           </Link>
         </motion.div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+        <div className="mt-6 grid gap-6 md:mt-8 md:gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             className="heading-accent-glow"
           >
             <p className="section-eyebrow">{formation.categoryLabel}</p>
-            <h1 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.35rem] lg:text-[2.75rem]">
+            <h1 className="mt-4 text-[1.8rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.35rem] lg:text-[2.75rem]">
               {formation.title}
             </h1>
             <div className="mt-5">
@@ -47,7 +47,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             </div>
             <p className="editorial-lead mt-6 max-w-2xl text-pretty">{formation.summary}</p>
 
-            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:max-w-xl">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:max-w-xl sm:grid-cols-2">
               <div className="refined-card min-w-0 px-4 py-4">
                 <FormationMetaValue
                   label="Durée"
@@ -77,7 +77,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             transition={{ duration: 0.95, delay: 0.12, ease: easeCinematic }}
             className="refined-card overflow-hidden"
           >
-            <div className="relative min-h-[280px] lg:min-h-full">
+            <div className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-full">
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${getFormationCoverImage(formation)})` }}

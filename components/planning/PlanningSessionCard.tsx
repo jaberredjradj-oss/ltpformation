@@ -37,7 +37,7 @@ function SessionAction({
   };
 
   const className = cn(
-    "inline-flex items-center justify-center rounded-full px-4 py-2.5 text-xs font-semibold tracking-[-0.01em] transition-all duration-300 whitespace-normal text-center leading-snug",
+    "inline-flex min-h-11 w-full items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-all duration-300 whitespace-normal text-center leading-snug sm:min-h-0 sm:w-auto sm:text-xs",
     styles[variant],
     disabled && "pointer-events-none cursor-not-allowed opacity-50",
   );
@@ -76,7 +76,7 @@ export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardP
       className="refined-card card-accent-glow min-w-0 overflow-hidden"
     >
       <div className="gradient-bar-animated" />
-      <div className="p-5 md:p-6">
+      <div className="p-4 sm:p-5 md:p-6">
         <div className="flex flex-wrap gap-2">
           <span className="max-w-full whitespace-normal rounded-full border border-blue-200/70 bg-blue-50/80 px-3 py-1 text-center text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-blue-700">
             {session.categoryLabel}
@@ -95,7 +95,7 @@ export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardP
           <PlanningStatusBadge session={session} />
         </div>
 
-        <h3 className="mt-4 text-lg font-semibold tracking-[-0.018em] text-navy-950">
+        <h3 className="mt-4 text-xl font-semibold leading-snug tracking-[-0.018em] text-navy-950 sm:text-lg">
           {session.formationTitle}
         </h3>
 

@@ -25,9 +25,9 @@ const washes = {
 };
 
 const sizes = {
-  default: "py-16 md:py-24 lg:py-28",
-  compact: "py-12 md:py-16",
-  spacious: "py-20 md:py-28 lg:py-32",
+  default: "py-12 sm:py-14 md:py-24 lg:py-28",
+  compact: "py-10 sm:py-12 md:py-16",
+  spacious: "py-14 sm:py-16 md:py-28 lg:py-32",
 };
 
 export function Section({

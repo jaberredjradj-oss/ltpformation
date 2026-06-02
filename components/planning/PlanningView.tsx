@@ -70,7 +70,7 @@ export function PlanningView({ initialSessions }: PlanningViewProps) {
         year={year}
       />
 
-      <section className="section-wash-surface pb-16 md:pb-20">
+      <section className="section-wash-surface pb-12 md:pb-20">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <p className="editorial-lead text-pretty">
@@ -88,7 +88,7 @@ export function PlanningView({ initialSessions }: PlanningViewProps) {
             </p>
           </div>
 
-          <div className="mt-10 lg:hidden">
+          <div className="mt-8 lg:hidden">
             <PlanningFiltersPanel
               filters={filters}
               resultCount={results.length}
@@ -98,7 +98,7 @@ export function PlanningView({ initialSessions }: PlanningViewProps) {
             />
           </div>
 
-          <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-12">
+          <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-12">
             <aside className="hidden lg:block">
               <div className="sticky top-28">
                 <PlanningFiltersPanel
@@ -111,7 +111,7 @@ export function PlanningView({ initialSessions }: PlanningViewProps) {
               </div>
             </aside>
 
-            <div className="min-w-0 space-y-12 md:space-y-14">
+            <div className="min-w-0 space-y-10 md:space-y-14">
               {monthGroups.length > 0 ? (
                 monthGroups.map((group) => (
                   <PlanningMonthSection key={group.key} group={group} />

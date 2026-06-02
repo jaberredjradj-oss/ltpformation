@@ -30,7 +30,7 @@ export function FormationsGrid({
 
   if (!groupByCategory || activeCategory !== "all") {
     return (
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
         {formations.map((formation, index) => (
           <FormationCard key={formation.slug} formation={formation} index={index} />
         ))}
@@ -39,7 +39,7 @@ export function FormationsGrid({
   }
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-10 md:space-y-12">
       {FORMATION_CATEGORIES.map((category) => {
         const categoryFormations = formations.filter(
           (formation) => formation.category === category.id,
@@ -54,11 +54,11 @@ export function FormationsGrid({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-48px" }}
               transition={{ duration: 0.85, ease: easeCinematic }}
-              className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between"
+              className="mb-4 flex flex-col gap-2 md:mb-6 md:flex-row md:items-end md:justify-between"
             >
               <div>
                 <p className="section-eyebrow">{category.label}</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-navy-950">
+                <h2 className="mt-2 text-xl font-semibold leading-snug tracking-[-0.02em] text-navy-950 sm:text-2xl">
                   {category.description}
                 </h2>
               </div>
@@ -68,7 +68,7 @@ export function FormationsGrid({
               </p>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
               {categoryFormations.map((formation, index) => (
                 <FormationCard
                   key={formation.slug}

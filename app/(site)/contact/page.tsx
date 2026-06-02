@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden section-wash-blend pb-10 pt-14 md:pb-14 md:pt-20 lg:pt-24">
+      <section className="relative overflow-hidden section-wash-blend pb-8 pt-10 md:pb-14 md:pt-20 lg:pt-24">
         <div className="pointer-events-none absolute inset-0 animated-mesh opacity-40" />
         <Container className="relative">
           <div className="mx-auto max-w-3xl text-center heading-accent-glow">
             <p className="section-eyebrow">Nous contacter</p>
-            <h1 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.5rem] lg:text-[3rem]">
+            <h1 className="mt-4 text-[1.9rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.5rem] lg:text-[3rem]">
               Contact
             </h1>
             <p className="editorial-lead mx-auto mt-5 max-w-2xl text-pretty">
@@ -27,10 +27,10 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <section className="section-wash-surface pb-16 md:pb-20">
+      <section className="section-wash-surface pb-12 md:pb-20">
         <Container>
-          <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
-            <div className="refined-card space-y-5 p-6 md:p-8">
+          <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2 md:gap-8">
+            <div className="refined-card space-y-5 p-5 md:p-8">
               <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
                 Coordonnées
               </p>
@@ -74,7 +74,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="refined-card space-y-5 p-6 md:p-8">
+            <div className="refined-card space-y-5 p-5 md:p-8">
               <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
                 Inscription en ligne
               </p>
@@ -85,19 +85,19 @@ export default function ContactPage() {
               <div className="flex flex-col gap-3 pt-2">
                 <Link
                   href="/preinscription"
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)]"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)]"
                 >
                   Pré-inscription
                 </Link>
                 <Link
                   href="/devis"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600"
                 >
                   Demander un devis
                 </Link>
                 <Link
                   href="/planning"
-                  className="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-700"
                 >
                   Consulter le planning →
                 </Link>

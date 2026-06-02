@@ -6,7 +6,6 @@ import { useRef } from "react";
 import { SITE, HERO_DOMAINS } from "@/lib/constants";
 import { TRAINING_IMAGES } from "@/lib/training-images";
 import { easeCinematic } from "@/lib/motion";
-import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
@@ -29,8 +28,8 @@ export function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[94vh] overflow-hidden">
-      <motion.div style={{ y: bgY }} className="absolute inset-0 scale-[1.06]">
+    <section ref={sectionRef} className="relative min-h-[calc(100svh-96px)] overflow-hidden md:min-h-[94vh]">
+      <motion.div style={{ y: bgY }} className="absolute inset-0 scale-[1.03] md:scale-[1.06]">
         <TrainingPhoto
           src={TRAINING_IMAGES.heroBg}
           alt="Centre de formation professionnelle LT Protect Formation"
@@ -38,70 +37,61 @@ export function Hero() {
           priority
           kenBurns
           sizes="100vw"
-          className="h-full min-h-[94vh]"
+          className="h-full min-h-[calc(100svh-96px)] md:min-h-[94vh]"
+          imageClassName="object-[58%_center] sm:object-center"
         />
       </motion.div>
 
       <div className="cinematic-vignette pointer-events-none absolute inset-0" />
       <HeroAtmosphere />
 
-      <Container className="relative py-20 md:py-28 lg:py-32 xl:py-36">
+      <Container className="relative py-8 sm:py-12 md:py-24 lg:py-32 xl:py-36">
         <motion.div
           style={{ y: contentY }}
-          className="grid items-center gap-16 lg:grid-cols-[1fr_1fr] lg:gap-20 xl:gap-24"
+          className="grid items-center gap-8 md:gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20 xl:gap-24"
         >
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.15, ease: easeCinematic }}
-            className="glass-panel-luxury rounded-2xl p-8 md:p-10 lg:p-11"
+            className="glass-panel-luxury rounded-2xl p-5 sm:p-7 md:p-10 lg:p-11"
           >
-            <motion.div {...reveal(0.06)} className="-ml-1 mb-8 md:mb-10">
-              <BrandLogo size="hero" priority />
-            </motion.div>
-
-            <motion.div {...reveal(0.1)}>
-              <span className="section-eyebrow inline-flex items-center gap-2 rounded-full border border-gold-400/35 bg-gradient-to-r from-white/95 to-gold-100/40 px-4 py-2 text-gold-600 shadow-sm">
-                Qualiopi · Qualianor · CPF
-              </span>
-            </motion.div>
-
             <motion.h1
-              {...reveal(0.18)}
-              className="display-width mt-10 text-[2.25rem] font-bold leading-[1.06] tracking-[-0.028em] text-navy-950 sm:text-[2.75rem] lg:text-[3.5rem]"
+              {...reveal(0.1)}
+              className="display-width text-[2rem] font-bold leading-[1.06] tracking-[-0.028em] text-navy-950 min-[380px]:text-[2.2rem] sm:text-[2.75rem] lg:text-[3.5rem]"
             >
               Sécurité, Sûreté et Secourisme
             </motion.h1>
 
             <motion.p
               {...reveal(0.26)}
-              className="mt-7 text-xl font-semibold tracking-[-0.02em] gradient-text-gold-blue sm:text-2xl lg:text-[1.65rem] lg:leading-[1.35]"
+              className="mt-5 text-lg font-semibold tracking-[-0.02em] gradient-text-gold-blue sm:mt-7 sm:text-2xl lg:text-[1.65rem] lg:leading-[1.35]"
             >
               Devenez acteur de la prévention
             </motion.p>
 
             <motion.div
               {...reveal(0.32)}
-              className="mt-10 space-y-0.5 border-l-2 border-gold-400/80 pl-6"
+              className="mt-7 space-y-0.5 border-l-2 border-gold-400/80 pl-4 sm:mt-10 sm:pl-6"
             >
-              <p className="font-serif text-lg italic leading-relaxed text-navy-800 md:text-xl">
+              <p className="font-serif text-base italic leading-relaxed text-navy-800 md:text-xl">
                 Apprendre aujourd&apos;hui,
               </p>
-              <p className="font-serif text-lg italic leading-relaxed text-navy-800 md:text-xl">
+              <p className="font-serif text-base italic leading-relaxed text-navy-800 md:text-xl">
                 protéger demain.
               </p>
             </motion.div>
 
             <motion.p
               {...reveal(0.38)}
-              className="prose-width editorial-lead mt-10 font-medium text-body-strong"
+              className="prose-width editorial-lead mt-7 font-medium text-body-strong sm:mt-10"
             >
               {SITE.name} — centre de formation dédié à l&apos;excellence en prévention.
               Parcours certifiants, formateurs experts et accompagnement conforme aux
               exigences réglementaires.
             </motion.p>
 
-            <motion.div {...reveal(0.44)} className="mt-12 flex flex-wrap gap-2">
+            <motion.div {...reveal(0.44)} className="mt-8 flex flex-wrap gap-2 sm:mt-12">
               {HERO_DOMAINS.map((domain, i) => (
                 <motion.div
                   key={domain.label}
@@ -121,12 +111,12 @@ export function Hero() {
 
             <motion.div
               {...reveal(0.5)}
-              className="mt-14 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-9 flex flex-col gap-3 sm:mt-14 sm:flex-row sm:items-center"
             >
-              <Button href="/formations" variant="primary" className="!px-8 !py-3.5">
+              <Button href="/formations" variant="primary" className="w-full !px-8 !py-3.5 sm:w-auto">
                 Voir nos formations
               </Button>
-              <Button href="/devis" variant="outline" className="!px-8 !py-3.5">
+              <Button href="/devis" variant="outline" className="w-full !px-8 !py-3.5 sm:w-auto">
                 Demander un devis
               </Button>
             </motion.div>

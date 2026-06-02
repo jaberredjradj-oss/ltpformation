@@ -31,6 +31,7 @@ export function Button({
   className,
   external,
 }: ButtonProps) {
+  const fullWidth = className?.includes("w-full");
   const classes = cn(
     "inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-[-0.01em]",
     variants[variant],
@@ -58,7 +59,7 @@ export function Button({
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       transition={{ ease: easeCinematic, duration: 0.5 }}
-      className="inline-block"
+      className={cn("inline-block", fullWidth && "w-full sm:w-auto")}
     >
       <Link href={href} className={classes}>
         {children}

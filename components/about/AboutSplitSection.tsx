@@ -31,7 +31,7 @@ export function AboutSplitSection({
   return (
     <div
       className={cn(
-        "grid items-center gap-10 lg:grid-cols-2 lg:gap-14 xl:gap-16",
+        "grid items-center gap-7 sm:gap-9 lg:grid-cols-2 lg:gap-14 xl:gap-16",
         reverse && "lg:[&>*:first-child]:order-2",
         className,
       )}
@@ -44,7 +44,7 @@ export function AboutSplitSection({
         className="refined-card card-accent-glow overflow-hidden"
       >
         <div className="gradient-bar-animated" />
-        <div className="relative aspect-[16/11] min-h-[280px]">
+        <div className="relative aspect-[16/11] min-h-[220px] sm:min-h-[260px] md:min-h-[280px]">
           <TrainingPhoto
             src={image}
             alt={imageAlt}
@@ -70,7 +70,7 @@ export function AboutSplitSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-48px" }}
           transition={{ duration: 0.85, delay: 0.06, ease: easeCinematic }}
-          className="mt-4 text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.022em] text-navy-950 sm:text-[2rem] lg:text-[2.25rem]"
+          className="mt-4 text-[1.55rem] font-semibold leading-[1.12] tracking-[-0.022em] text-navy-950 sm:text-[2rem] lg:text-[2.25rem]"
         >
           {title}
         </motion.h2>
@@ -79,12 +79,12 @@ export function AboutSplitSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-48px" }}
           transition={{ duration: 0.85, delay: 0.1, ease: easeCinematic }}
-          className="mt-5 max-w-xl text-[1.0625rem] leading-[1.72] tracking-[-0.014em] text-navy-950"
+          className="mt-4 max-w-xl text-base leading-[1.7] tracking-[-0.014em] text-navy-950 sm:mt-5 sm:text-[1.0625rem]"
         >
           {description}
         </motion.p>
 
-        <ul className="mt-7 space-y-3">
+        <ul className="mt-6 space-y-3 sm:mt-7">
           {highlights.map((item, index) => (
             <motion.li
               key={item}

@@ -35,7 +35,7 @@ export function SearchInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-2xl border border-slate-200/90 bg-white/90 py-3.5 pl-11 pr-4 text-sm text-navy-950 shadow-[var(--shadow-soft)] outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-slate-400 focus:border-blue-300/80 focus:shadow-[0_0_0_4px_rgba(43,127,212,0.08)]"
+        className="w-full rounded-2xl border border-slate-200/90 bg-white/90 py-3.5 pl-11 pr-4 text-base text-navy-950 shadow-[var(--shadow-soft)] outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-slate-400 focus:border-blue-300/80 focus:shadow-[0_0_0_4px_rgba(43,127,212,0.08)] sm:text-sm"
       />
     </div>
   );

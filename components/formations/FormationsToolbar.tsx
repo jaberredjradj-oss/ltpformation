@@ -37,7 +37,7 @@ export function FormationsToolbar({
   const showLevelFilter = filters.category === "securite-incendie";
 
   return (
-    <div className="refined-card space-y-5 p-5 md:p-6">
+    <div className="refined-card space-y-5 p-4 sm:p-5 md:p-6">
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <SearchInput
           value={filters.query}
@@ -54,7 +54,7 @@ export function FormationsToolbar({
             id="formation-sort"
             value={sort}
             onChange={(event) => onSortChange(event.target.value as FormationSort)}
-            className="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-sm font-medium text-navy-950 shadow-[var(--shadow-soft)] outline-none transition-all duration-300 focus:border-blue-300/80"
+            className="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-base font-medium text-navy-950 shadow-[var(--shadow-soft)] outline-none transition-all duration-300 focus:border-blue-300/80 sm:text-sm"
           >
             {SORT_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
@@ -89,7 +89,7 @@ export function FormationsToolbar({
           />
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 sm:justify-start">
           <p className="text-sm font-medium text-lead-strong">
             {resultCount} résultat{resultCount > 1 ? "s" : ""}
           </p>

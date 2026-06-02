@@ -36,7 +36,7 @@ export function FormField({
 }
 
 const inputClassName =
-  "w-full rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-3.5 text-sm text-navy-950 shadow-[var(--shadow-soft)] outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-blue-300/80 focus:shadow-[0_0_0_4px_rgba(43,127,212,0.08)] disabled:cursor-not-allowed disabled:opacity-60";
+  "w-full rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-3.5 text-base text-navy-950 shadow-[var(--shadow-soft)] outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-blue-300/80 focus:shadow-[0_0_0_4px_rgba(43,127,212,0.08)] disabled:cursor-not-allowed disabled:opacity-60 sm:text-sm";
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;

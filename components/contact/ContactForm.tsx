@@ -99,7 +99,7 @@ export function ContactForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, ease: easeCinematic }}
       onSubmit={handleSubmit}
-      className="relative refined-card mt-10 space-y-5 p-6 md:mt-12 md:space-y-6 md:p-8"
+      className="relative refined-card mt-8 space-y-5 p-5 md:mt-12 md:space-y-6 md:p-8"
       noValidate
     >
       <div>
@@ -197,7 +197,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {submitting ? "Envoi en cours…" : "Envoyer le message"}
       </button>
