@@ -22,6 +22,10 @@ import { useAdminToast } from "@/components/admin/AdminToast";
 import { FormationCoverField } from "@/components/admin/formations/FormationCoverField";
 import { AdminStringListField } from "@/components/admin/formations/AdminStringListField";
 import { FormationProgrammeEditor } from "@/components/admin/formations/FormationProgrammeEditor";
+import {
+  FormationPdfField,
+  type FormationPdfValue,
+} from "@/components/admin/formations/FormationPdfField";
 import { cn } from "@/lib/utils";
 
 interface FormationEditorProps {
@@ -436,21 +440,16 @@ export function FormationEditor({
       </Section>
 
       <Section title="Document PDF">
-        <Field label="Nom du fichier PDF" hint="ex. ssiap-1-initial.pdf">
-          <input
-            className={cn(adminStyles.input, "px-3 py-2")}
-            value={formation.pdfFilename}
-            onChange={(e) => patch("pdfFilename", e.target.value)}
-          />
-        </Field>
-        <label className="flex items-center gap-2 text-sm text-slate-700">
-          <input
-            type="checkbox"
-            checked={formation.pdfAvailable}
-            onChange={(e) => patch("pdfAvailable", e.target.checked)}
-          />
-          PDF disponible
-        </label>
+        <FormationPdfField
+          mode={mode}
+          slug={formation.slug}
+          pdfUrl={formation.pdfUrl}
+          pdfFilename={formation.pdfFilename}
+          pdfAvailable={formation.pdfAvailable}
+          onChange={(value: FormationPdfValue) =>
+            setFormation((current) => ({ ...current, ...value }))
+          }
+        />
       </Section>
 
       <div className="sticky bottom-0 flex flex-wrap items-center justify-end gap-3 rounded-lg border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">

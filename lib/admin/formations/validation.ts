@@ -80,6 +80,14 @@ function normalizeCoverImageUrl(value: unknown): string | null {
   return trimmed;
 }
 
+/** Keep an uploaded (absolute http) PDF URL; reject anything else. */
+function normalizeUploadedPdfUrl(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > 500) return null;
+  return /^https?:\/\//.test(trimmed) ? trimmed : null;
+}
+
 export type NormalizeResult =
   | { ok: true; formation: Formation }
   | { ok: false; error: string };
@@ -111,9 +119,12 @@ export function normalizeFormationDraft(input: Formation): NormalizeResult {
   const summary = trimStr(input.summary, 600);
   if (!summary) return { ok: false, error: "Le résumé est requis." };
 
-  const pdfFilename = trimStr(input.pdfFilename, 160);
-  const pdfAvailable = Boolean(input.pdfAvailable);
-  const pdfUrl = pdfFilename ? getFormationPdfUrl(pdfFilename) : "";
+  const pdfFilename = trimStr(input.pdfFilename, 200);
+  // An admin-uploaded PDF stores an absolute Supabase URL; preserve it.
+  // Otherwise fall back to the static catalog path computed from the filename.
+  const uploadedPdfUrl = normalizeUploadedPdfUrl(input.pdfUrl);
+  const pdfUrl = uploadedPdfUrl ?? (pdfFilename ? getFormationPdfUrl(pdfFilename) : "");
+  const pdfAvailable = Boolean(input.pdfAvailable) && Boolean(pdfUrl);
 
   const priceNote = trimStr(input.price?.note, 200);
   const priceShortLabel = trimStr(input.price?.shortLabel, 80);
