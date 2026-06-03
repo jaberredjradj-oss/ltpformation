@@ -1,4 +1,4 @@
-import { SITE, WHY_CHOOSE_US, CERTIFICATIONS } from "@/lib/constants";
+import { SITE, CERTIFICATIONS } from "@/lib/constants";
 import { TRAINING_IMAGES } from "@/lib/training-images";
 
 export const ABOUT_HERO = {
@@ -9,7 +9,11 @@ export const ABOUT_HERO = {
 } as const;
 
 export const ABOUT_INTRO = {
-  quote: WHY_CHOOSE_US.quote,
+  quote: {
+    text: "Chaque parcours est pensé pour transmettre savoir-faire, conformité et confiance sur le terrain.",
+    author: "LT Protect Formation",
+    role: "Centre de formation certifié",
+  },
   paragraphs: [
     `${SITE.name} accompagne les entreprises, les candidats en reconversion et les professionnels en montée en compétences. Notre approche combine rigueur réglementaire, pédagogie immersive et exigence opérationnelle.`,
     "Chaque parcours est conçu pour installer la confiance, la maîtrise des gestes professionnels et la capacité d'agir en situation réelle.",
