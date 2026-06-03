@@ -9,12 +9,10 @@ import { SessionAvailabilityMeter } from "@/components/planning/SessionAvailabil
 
 interface RegistrationSessionInsightProps {
   session: PlanningSession | null;
-  cpfEligible: boolean;
 }
 
 export function RegistrationSessionInsight({
   session,
-  cpfEligible,
 }: RegistrationSessionInsightProps) {
   const availability = session ? resolveSessionAvailability(session) : null;
 
@@ -34,11 +32,6 @@ export function RegistrationSessionInsight({
               label={availability.label}
               status={availability.status}
             />
-            {cpfEligible && (
-              <span className="rounded-full border border-emerald-300/60 bg-emerald-50/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-800">
-                Éligible CPF
-              </span>
-            )}
           </div>
 
           {availability.seatsRemaining !== null && availability.seatsTotal !== null ? (

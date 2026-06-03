@@ -19,7 +19,6 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
-import { GoogleReviewsSection } from "@/components/reviews/GoogleReviewsSection";
 
 export function AboutView() {
   return (
@@ -93,8 +92,6 @@ export function AboutView() {
           </div>
         </div>
       </Section>
-
-      <GoogleReviewsSection />
 
       <Section variant="white" size="default">
         <AboutSplitSection

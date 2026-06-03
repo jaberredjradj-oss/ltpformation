@@ -7,7 +7,7 @@ import { loadFormations } from "@/lib/repositories/formations";
 export const metadata: Metadata = {
   title: "Formations professionnelles",
   description:
-    "Catalogue certifié LT Protect Formation — SSIAP, SST, APS, habilitations électriques et formations incendie.",
+    "Catalogue certifié LT Protect Formation — SSIAP, SST, APS, prévention des risques et formations incendie.",
 };
 
 // Revalidate every 5 minutes; admin mutations will also revalidate on-demand.

@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { isSessionCpfEligible } from "@/lib/planning/cpf";
 import { resolveSessionAvailability } from "@/lib/planning/availability";
 import { formatExamLabel, formatSessionDateRange } from "@/lib/planning/format";
 import type { PlanningSession } from "@/lib/planning/types";
 import { easeCinematic } from "@/lib/motion";
 import { FormationCertificationBadge } from "@/components/formations/FormationCertificationBadge";
+import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
+import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { PlanningStatusBadge } from "@/components/planning/PlanningStatusBadge";
 import { SessionAvailabilityMeter } from "@/components/planning/SessionAvailabilityMeter";
 import { cn } from "@/lib/utils";
@@ -63,7 +64,6 @@ export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardP
   const devisHref = session.formationSlug
     ? `/devis?formation=${session.formationSlug}&session=${session.id}`
     : `/devis?session=${session.id}`;
-  const cpfEligible = isSessionCpfEligible(session);
   const availability = resolveSessionAvailability(session);
   const registrationClosed = !availability.canRegister;
 
@@ -84,14 +84,10 @@ export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardP
           <span className="max-w-full whitespace-normal rounded-full border border-gold-400/30 bg-gold-100/60 px-3 py-1 text-center text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-gold-700">
             {session.sessionType}
           </span>
-          {cpfEligible && (
-            <span className="max-w-full whitespace-normal rounded-full border border-emerald-300/60 bg-emerald-50/95 px-3 py-1 text-center text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-emerald-800">
-              Éligible CPF
-            </span>
-          )}
           {session.certificationCode && (
             <FormationCertificationBadge code={session.certificationCode} />
           )}
+          {hasInstallmentFacility(session.formationSlug) && <InstallmentBadge />}
           <PlanningStatusBadge session={session} />
         </div>
 

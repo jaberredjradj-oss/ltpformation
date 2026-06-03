@@ -24,7 +24,7 @@ export const FORMATION_CATEGORIES: FormationCategory[] = [
   },
   {
     id: "habilitation-electrique",
-    label: "Habilitation électrique",
+    label: "Prévention des risques",
     description: "H0B0-H0V et BSBE — habilitations réglementaires NF C 18-510.",
     imageKey: "habilitation",
     order: 4,

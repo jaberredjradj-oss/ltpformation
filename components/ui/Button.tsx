@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { easeCinematic } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "outline";
+type ButtonVariant = "primary" | "secondary" | "outline" | "gold";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -18,6 +18,8 @@ interface ButtonProps {
 const variants: Record<ButtonVariant, string> = {
   primary:
     "btn-luxury btn-luxury-primary text-white focus-visible:ring-2 focus-visible:ring-blue-400/60 focus-visible:ring-offset-2",
+  gold:
+    "btn-luxury btn-luxury-gold text-navy-950 focus-visible:ring-2 focus-visible:ring-gold-400/60 focus-visible:ring-offset-2",
   secondary:
     "btn-luxury bg-navy-950 text-white hover:bg-navy-900 shadow-[0_4px_20px_rgba(7,21,37,0.25)] focus-visible:ring-2 focus-visible:ring-navy-700 focus-visible:ring-offset-2",
   outline:

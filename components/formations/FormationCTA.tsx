@@ -9,7 +9,6 @@ interface FormationCTAProps {
 }
 
 export function FormationCTA({ formation, layout = "inline", className }: FormationCTAProps) {
-  const devisHref = `/devis?formation=${formation.slug}`;
   const preinscriptionHref = `/preinscription?formation=${formation.slug}`;
 
   return (
@@ -20,16 +19,10 @@ export function FormationCTA({ formation, layout = "inline", className }: Format
       )}
     >
       <Link
-        href={devisHref}
-        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_rgba(29,94,176,0.22)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(29,94,176,0.28)] whitespace-normal text-center leading-snug sm:w-auto"
-      >
-        Demander un devis
-      </Link>
-      <Link
         href={preinscriptionHref}
-        className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 py-3 text-sm font-semibold text-navy-950 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600 whitespace-normal text-center leading-snug sm:w-auto"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 px-5 py-3 text-sm font-semibold text-navy-950 shadow-[0_4px_18px_rgba(201,162,39,0.28)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(201,162,39,0.34)] whitespace-normal text-center leading-snug sm:w-auto"
       >
-        Prendre rendez-vous
+        Pré-inscription
       </Link>
       {formation.pdfAvailable ? (
         <a

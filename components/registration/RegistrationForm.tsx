@@ -410,7 +410,7 @@ export function RegistrationForm({
         </FormSelect>
       </FormField>
 
-      <RegistrationSessionInsight session={context.session} cpfEligible={context.cpfEligible} />
+      <RegistrationSessionInsight session={context.session} />
 
       {isDevis ? (
         <>
@@ -475,9 +475,9 @@ export function RegistrationForm({
         <>
           {context.cpfEligible && (
             <FormField
-              label="Financement CPF"
+              label="Financement"
               htmlFor="cpfFinancing"
-              hint="Cette formation est éligible au Compte Personnel de Formation."
+              hint="Indiquez si vous souhaitez mobiliser un financement personnel."
             >
               <FormSelect
                 id="cpfFinancing"
@@ -491,7 +491,7 @@ export function RegistrationForm({
                 }
               >
                 <option value="">Je ne sais pas encore</option>
-                <option value="yes">Oui, je souhaite utiliser mon CPF</option>
+                <option value="yes">Oui, je souhaite mobiliser un financement personnel</option>
                 <option value="no">Non, autre mode de financement</option>
               </FormSelect>
             </FormField>

@@ -171,11 +171,6 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
                 title="Certification et débouchés"
               >
                 <FormationDetailSection
-                  title="Certifications et labels"
-                  items={formation.certifications}
-                  pending={isStub}
-                />
-                <FormationDetailSection
                   title="Débouchés et évolution"
                   items={formation.careerOutcomes}
                   pending={isStub}

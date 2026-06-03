@@ -83,7 +83,7 @@ export function FormationsToolbar({
             ),
           )}
           <FilterChip
-            label="Éligible CPF"
+            label="Financement mobilisable"
             active={filters.cpfOnly}
             onClick={() => onFiltersChange({ ...filters, cpfOnly: !filters.cpfOnly })}
           />

@@ -83,9 +83,12 @@ export function Navbar() {
             })}
           </ul>
 
-          <div className="hidden items-center xl:flex">
+          <div className="hidden items-center gap-2.5 xl:flex">
+            <Button href="/preinscription" variant="gold" className="!py-2.5 !px-5 text-sm">
+              Pré-inscription
+            </Button>
             <Button href="/devis" variant="primary" className="!py-2.5 !px-5 text-sm">
-              Demander un devis
+              Demande de devis
             </Button>
           </div>
 
@@ -141,9 +144,12 @@ export function Navbar() {
                     </Link>
                   </li>
                 ))}
-                <li className="pt-4">
+                <li className="flex flex-col gap-2.5 pt-4">
+                  <Button href="/preinscription" variant="gold" className="w-full justify-center">
+                    Pré-inscription
+                  </Button>
                   <Button href="/devis" variant="primary" className="w-full justify-center">
-                    Demander un devis
+                    Demande de devis
                   </Button>
                 </li>
               </ul>

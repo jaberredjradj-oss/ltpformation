@@ -11,7 +11,7 @@ interface RegistrationContextCardProps {
 }
 
 export function RegistrationContextCard({ context }: RegistrationContextCardProps) {
-  const { formation, session, cpfEligible } = context;
+  const { formation, session } = context;
   const availability = session ? resolveSessionAvailability(session) : context.availability;
 
   return (
@@ -45,11 +45,6 @@ export function RegistrationContextCard({ context }: RegistrationContextCardProp
             <span className="rounded-full border border-gold-400/30 bg-gold-100/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold-700">
               {session.sessionType}
             </span>
-            {cpfEligible && (
-              <span className="rounded-full border border-emerald-300/60 bg-emerald-50/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-800">
-                Éligible CPF
-              </span>
-            )}
             {session.certificationCode && (
               <FormationCertificationBadge code={session.certificationCode} />
             )}

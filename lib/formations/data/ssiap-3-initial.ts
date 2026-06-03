@@ -101,7 +101,7 @@ export const formation: Formation = {
     "Épreuve écrite (QCM et notice technique) et épreuve orale devant jury.",
   ],
   pedagogicalTeam: [
-    "Formateurs experts et qualifiés selon notre processus qualité (Qualiopi). Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
+    "Formateurs experts et qualifiés selon notre processus qualité interne. Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
   ],
   pedagogicalMeans: [
     "Salle de formation équipée (vidéoprojecteur, paperboard)",

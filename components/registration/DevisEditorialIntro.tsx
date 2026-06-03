@@ -50,7 +50,7 @@ export function DevisEditorialIntro() {
       >
         Posez vos questions, demandez un devis ou vérifiez les disponibilités de nos
         prochaines sessions. LT Protect Formation vous accompagne dans le choix de votre
-        formation&nbsp;: SSIAP, secourisme, sûreté ou habilitation électrique. Notre équipe
+        formation&nbsp;: SSIAP, secourisme, sûreté ou prévention des risques. Notre équipe
         vous guide également sur les prérequis, les financements possibles et les modalités
         d&apos;inscription.
       </motion.p>

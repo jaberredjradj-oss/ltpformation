@@ -15,7 +15,7 @@ export function CategoryPreview() {
       <SectionHeading
         eyebrow="Nos domaines"
         title="Découvrez nos formations"
-        description="Sécurité incendie, secourisme, sûreté et habilitation électrique — parcours certifiants encadrés par des experts du terrain."
+        description="Sécurité incendie, secourisme, sûreté et prévention des risques — parcours certifiants encadrés par des experts du terrain."
         spacious
       />
 

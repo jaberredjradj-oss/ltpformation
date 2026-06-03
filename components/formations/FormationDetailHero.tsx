@@ -8,6 +8,8 @@ import { easeCinematic } from "@/lib/motion";
 import { FormationBadges } from "@/components/formations/FormationBadges";
 import { FormationCTA } from "@/components/formations/FormationCTA";
 import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
+import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
+import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { Container } from "@/components/ui/Container";
 
 interface FormationDetailHeroProps {
@@ -61,6 +63,11 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
                   value={formation.price.label}
                   valueClassName="text-base sm:text-lg"
                 />
+                {hasInstallmentFacility(formation.slug) && (
+                  <div className="mt-3">
+                    <InstallmentBadge />
+                  </div>
+                )}
               </div>
             </div>
 

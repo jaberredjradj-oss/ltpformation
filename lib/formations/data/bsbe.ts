@@ -2,10 +2,10 @@ import type { Formation } from "@/lib/formations/types";
 
 export const formation: Formation = {
   slug: "bsbe",
-  title: "BSBE — Habilitation électrique",
+  title: "BSBE — Prévention des risques",
   shortTitle: "BSBE",
   category: "habilitation-electrique",
-  categoryLabel: "Habilitation électrique",
+  categoryLabel: "Prévention des risques",
   type: "certification",
   typeLabel: "Certification",
   level: null,
@@ -72,7 +72,7 @@ export const formation: Formation = {
     "QCM et exercices pratiques. Remise d'un avis d'habilitation pour l'employeur.",
   ],
   pedagogicalTeam: [
-    "Formateurs experts et qualifiés selon notre processus qualité (Qualiopi). Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
+    "Formateurs experts et qualifiés selon notre processus qualité interne. Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
   ],
   pedagogicalMeans: [
     "Salle de formation équipée (vidéoprojecteur, paperboard)",

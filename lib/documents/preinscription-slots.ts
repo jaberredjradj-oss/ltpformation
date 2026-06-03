@@ -33,8 +33,8 @@ export const PREINSCRIPTION_DOCUMENT_SLOTS: PreinscriptionDocumentSlot[] = [
   },
   {
     kind: "cpf_proof",
-    label: "Justificatif CPF",
-    hint: "Attestation ou relevé Mon Compte Formation, si financement CPF.",
+    label: "Justificatif de financement",
+    hint: "Attestation ou relevé de financement, si applicable.",
     tier: "optional",
   },
   {
@@ -55,7 +55,7 @@ const DOCUMENT_KIND_LABELS: Record<DocumentKind, string> = {
   medical_certificate: "Certificat médical d'aptitude",
   first_aid: "Certificat SST / PSC1 / secourisme",
   cv: "CV",
-  cpf_proof: "Justificatif CPF",
+  cpf_proof: "Justificatif de financement",
   residence_permit: "Titre de séjour",
   other: "Autre document",
   admin: "Document admin",

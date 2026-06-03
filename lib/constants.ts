@@ -30,16 +30,15 @@ export const NAV_LINKS = [
   { label: "Accueil", href: "/" },
   { label: "Formations", href: "/formations" },
   { label: "Planning", href: "/planning" },
-  { label: "Pré-inscription", href: "/preinscription" },
-  { label: "Contact", href: "/contact" },
   { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const HERO_DOMAINS = [
-  { label: "Sécurité incendie", href: "/formations" },
-  { label: "Secourisme", href: "/formations" },
-  { label: "Sûreté", href: "/formations" },
-  { label: "Habilitation électrique", href: "/formations" },
+  { label: "Sécurité incendie", href: "/formations?category=securite-incendie" },
+  { label: "Secourisme", href: "/formations?category=secourisme" },
+  { label: "Sûreté", href: "/formations?category=surete" },
+  { label: "Prévention des risques", href: "/formations?category=habilitation-electrique" },
 ] as const;
 
 export const HERO_VISUALS = [
@@ -62,7 +61,7 @@ export const HERO_VISUALS = [
     image: TRAINING_IMAGES.surete,
   },
   {
-    label: "Habilitation électrique",
+    label: "Prévention des risques",
     theme: "habilitation" as const,
     subtitle: "NF C 18-510",
     image: TRAINING_IMAGES.habilitation,
@@ -77,35 +76,23 @@ export const HERO_VISUALS = [
 ] as const;
 
 export const WHY_CHOOSE_US = {
-  quote: {
-    text: "Notre mission : former des professionnels capables d'agir avec rigueur, sang-froid et conformité réglementaire.",
-    author: "LT Protect Formation",
-    role: "Centre certifié Qualiopi & Qualianor",
-  },
   pillars: [
     {
       title: "Expertise terrain",
       description:
-        "Formateurs issus du monde opérationnel — incendie, secours, sûreté et habilitations électriques.",
-      metric: "178",
-      metricLabel: "participants formés en 2025",
+        "Formateurs issus du monde opérationnel — incendie, secours, sûreté et prévention des risques.",
     },
     {
       title: "Conformité réglementaire",
       description:
         "Programmes alignés sur les référentiels en vigueur : SSIAP, SST, APS, NF C 18-510 et EPI.",
-      metric: "98,26\u00A0%",
-      metricLabel: "taux de réussite aux examens",
     },
     {
       title: "Accompagnement humain",
       description:
-        "Suivi individualisé, pédagogie pratique et 0 abandon en 2025 — parce que chaque stagiaire compte.",
-      metric: "4,95/5",
-      metricLabel: "note moyenne des participants",
+        "Suivi individualisé, pédagogie pratique et accompagnement adapté à chaque parcours.",
     },
   ],
-  badges: ["Qualiopi", "Qualianor", "Éligible CPF", "Formateurs certifiés"],
 } as const;
 
 export const CERTIFICATIONS = [
@@ -167,10 +154,10 @@ export const STATS_2025 = [
 ] as const;
 
 export const FOOTER_FORMATIONS = [
-  { label: "Sécurité incendie", href: "/formations" },
-  { label: "Secourisme", href: "/formations" },
-  { label: "Sûreté", href: "/formations" },
-  { label: "Habilitation électrique", href: "/formations" },
+  { label: "Sécurité incendie", href: "/formations?category=securite-incendie" },
+  { label: "Secourisme", href: "/formations?category=secourisme" },
+  { label: "Sûreté", href: "/formations?category=surete" },
+  { label: "Prévention des risques", href: "/formations?category=habilitation-electrique" },
 ] as const;
 
 export const TRAINING_CATEGORIES = [
@@ -212,7 +199,7 @@ export const TRAINING_CATEGORIES = [
   },
   {
     id: "habilitation",
-    title: "Habilitation électrique",
+    title: "Prévention des risques",
     subtitle: "Électricité",
     badge: "Reconnu",
     visual: "habilitation" as const,

@@ -6,8 +6,8 @@ const TRUST_ITEMS = [
     description: "Prise en charge rapide de votre demande.",
   },
   {
-    title: "Certifié Qualiopi",
-    description: "Organisme de formation certifié qualité.",
+    title: "Processus qualité",
+    description: "Parcours structuré et suivi administratif rigoureux.",
   },
   {
     title: "Données confidentielles",

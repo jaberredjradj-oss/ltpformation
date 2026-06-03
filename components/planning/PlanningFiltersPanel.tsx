@@ -72,7 +72,7 @@ export function PlanningFiltersPanel({
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <FilterChip
-              label="Éligible CPF"
+              label="Financement mobilisable"
               active={filters.cpfOnly}
               onClick={() =>
                 onFiltersChange({ ...filters, cpfOnly: !filters.cpfOnly })

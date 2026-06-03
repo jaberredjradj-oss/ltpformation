@@ -51,7 +51,7 @@ export function PlanningHero({ sessionCount, cpfCount, year }: PlanningHeroProps
               <AnimatedNumber value={cpfCount} />
             </p>
             <p className="mt-1 text-pretty text-[10px] font-semibold uppercase leading-snug tracking-[0.12em] text-emerald-700">
-              Éligibles CPF
+              Financements mobilisables
             </p>
           </div>
         </motion.div>

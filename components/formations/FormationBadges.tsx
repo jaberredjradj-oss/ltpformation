@@ -25,31 +25,9 @@ export function FormationBadges({ formation, className, compact }: FormationBadg
           Niveau {formation.level}
         </span>
       )}
-      {formation.cpfEligible && (
-        <span
-          className={cn(
-            badgeClass,
-            "border border-emerald-300/60 bg-emerald-50/95 text-emerald-800 shadow-[0_0_20px_rgba(16,185,129,0.08)]",
-          )}
-        >
-          Éligible CPF
-        </span>
-      )}
       {formation.certificationCode && (
         <FormationCertificationBadge code={formation.certificationCode} />
       )}
-      {!compact &&
-        formation.certifications.map((certification) => (
-          <span
-            key={certification}
-            className={cn(
-              badgeClass,
-              "border border-slate-200/90 bg-white/90 text-navy-700",
-            )}
-          >
-            {certification}
-          </span>
-        ))}
     </div>
   );
 }

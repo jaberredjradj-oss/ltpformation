@@ -430,6 +430,15 @@ body {
   box-shadow: 0 8px 32px rgba(29, 94, 176, 0.4), 0 0 24px rgba(43, 127, 212, 0.15);
 }
 
+.btn-luxury-gold {
+  background: linear-gradient(135deg, var(--gold-400) 0%, var(--gold-500) 55%, var(--gold-600) 100%);
+  box-shadow: 0 4px 20px rgba(201, 162, 39, 0.3);
+}
+
+.btn-luxury-gold:hover {
+  box-shadow: 0 8px 32px rgba(201, 162, 39, 0.4), 0 0 24px rgba(212, 175, 55, 0.18);
+}
+
 .btn-luxury-outline:hover {
   border-color: rgba(43, 127, 212, 0.4);
   box-shadow: 0 4px 24px rgba(43, 127, 212, 0.1);

@@ -28,7 +28,7 @@ export function FormationsHero({ formations }: FormationsHeroProps) {
           </h1>
           <p className="editorial-lead mx-auto mt-5 max-w-2xl text-pretty">
             Parcourez l&apos;ensemble de nos parcours certifiants — sécurité incendie, secourisme,
-            sûreté et habilitations électriques — dans un environnement institutionnel conçu pour
+            sûreté et prévention des risques — dans un environnement institutionnel conçu pour
             faciliter votre recherche et votre prise de décision.
           </p>
         </motion.div>

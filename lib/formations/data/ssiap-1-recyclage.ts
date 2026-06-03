@@ -74,7 +74,7 @@ export const formation: Formation = {
     "Évaluation continue des acquis tout au long de la formation.",
   ],
   pedagogicalTeam: [
-    "Formateurs experts et qualifiés selon notre processus qualité (Qualiopi). Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
+    "Formateurs experts et qualifiés selon notre processus qualité interne. Expérience significative dans le domaine enseigné. Pédagogie adaptée et interactive.",
   ],
   pedagogicalMeans: [
     "Salle de formation équipée (vidéoprojecteur, paperboard)",

@@ -7,6 +7,8 @@ import { getFormationCoverImage } from "@/lib/formation-cover-images";
 import { easeCinematic } from "@/lib/motion";
 import { FormationBadges } from "@/components/formations/FormationBadges";
 import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
+import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
+import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { cn } from "@/lib/utils";
 
 interface FormationCardProps {
@@ -47,7 +49,6 @@ function CardAction({
 
 export function FormationCard({ formation, index = 0, className }: FormationCardProps) {
   const detailHref = `/formations/${formation.slug}`;
-  const devisHref = `/devis?formation=${formation.slug}`;
   const preinscriptionHref = `/preinscription?formation=${formation.slug}`;
 
   return (
@@ -85,6 +86,12 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
             />
           </div>
 
+          {hasInstallmentFacility(formation.slug) && (
+            <div className="mt-3">
+              <InstallmentBadge />
+            </div>
+          )}
+
           <p className="mt-3 flex-1 text-sm leading-relaxed text-body-strong">
             {formation.summary}
           </p>
@@ -97,11 +104,8 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
 
           <div className="mt-5 flex flex-col gap-2.5 border-t border-slate-100 pt-5 sm:flex-row sm:flex-wrap">
             <CardAction href={detailHref}>En savoir plus</CardAction>
-            <CardAction href={devisHref} variant="secondary">
-              Demander un devis
-            </CardAction>
-            <CardAction href={preinscriptionHref} variant="ghost">
-              Prendre rendez-vous
+            <CardAction href={preinscriptionHref} variant="secondary">
+              Pré-inscription
             </CardAction>
           </div>
         </div>
