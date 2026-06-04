@@ -1,8 +1,8 @@
 export const INSTALLMENT_LABEL = "3 fois sans frais";
 
 export const INSTALLMENT_BADGE_SRC = "/images/payment/3x-sans-frais.png";
-export const INSTALLMENT_BADGE_WIDTH = 472;
-export const INSTALLMENT_BADGE_HEIGHT = 49;
+export const INSTALLMENT_BADGE_WIDTH = 361;
+export const INSTALLMENT_BADGE_HEIGHT = 27;
 
 // Formations that can be paid in three interest-free installments.
 const INSTALLMENT_SLUGS = new Set<string>([
