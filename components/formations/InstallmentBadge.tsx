@@ -18,9 +18,9 @@ export function InstallmentBadge({ className }: InstallmentBadgeProps) {
         alt="Paiement en 3 fois sans frais"
         width={INSTALLMENT_BADGE_WIDTH}
         height={INSTALLMENT_BADGE_HEIGHT}
-        sizes="(max-width: 640px) 220px, 280px"
+        sizes="(max-width: 640px) 240px, 320px"
         quality={100}
-        className="h-6 w-auto max-w-full object-contain object-left sm:h-7 md:h-8"
+        className="h-7 w-auto max-w-full object-contain object-left sm:h-8"
       />
     </span>
   );
