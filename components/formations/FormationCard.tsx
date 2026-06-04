@@ -88,18 +88,19 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
               value={formatFormationDurationHours(formation.durationHours)}
               valueClassName="text-sm font-semibold tabular-nums"
             />
-            <FormationMetaValue
-              label="Tarif"
-              value={formatFormationPriceEuro(formation)}
-              valueClassName="text-sm font-semibold tabular-nums text-blue-600"
-            />
-          </div>
-
-          {hasInstallmentFacility(formation.slug) && (
-            <div className="mt-3">
-              <InstallmentBadge />
+            <div className="min-w-0">
+              <FormationMetaValue
+                label="Tarif"
+                value={formatFormationPriceEuro(formation)}
+                valueClassName="text-sm font-semibold tabular-nums text-blue-600"
+              />
+              {hasInstallmentFacility(formation.slug) && (
+                <div className="mt-3 flex justify-end">
+                  <InstallmentBadge />
+                </div>
+              )}
             </div>
-          )}
+          </div>
 
           <p className="mt-3 flex-1 text-sm leading-relaxed text-body-strong">
             {formation.summary}
