@@ -6,11 +6,15 @@ import { FormationCertificationBadge } from "@/components/formations/FormationCe
 import { FormationCpfInfo } from "@/components/formations/FormationCpfInfo";
 import { FormationDetailHero } from "@/components/formations/FormationDetailHero";
 import { FormationDetailSection } from "@/components/formations/FormationDetailSection";
-import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { FormationProgramme } from "@/components/formations/FormationProgramme";
 import { FormationCTA } from "@/components/formations/FormationCTA";
 import { FormationPdfCard } from "@/components/formations/FormationPdfCard";
-import { FormationSectionGroup } from "@/components/formations/FormationSectionGroup";
+import {
+  FORMATION_PEDAGOGICAL_MODE,
+  formatFormationDurationHours,
+  formatFormationPriceEuro,
+} from "@/lib/formations/display";
+import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { Container } from "@/components/ui/Container";
 
 interface FormationDetailViewProps {
@@ -18,16 +22,27 @@ interface FormationDetailViewProps {
 }
 
 const SECTION_LINKS = [
-  { id: "apercu", label: "Aperçu" },
-  { id: "objectifs", label: "Objectifs" },
-  { id: "programme", label: "Programme" },
-  { id: "informations", label: "Informations pratiques" },
-  { id: "certification", label: "Certification" },
-  { id: "accessibilite", label: "Accessibilité" },
-];
+  { id: "description", label: "Description" },
+  { id: "contenu", label: "Contenu de la formation" },
+  { id: "objectifs", label: "Objectifs de la formation" },
+  { id: "public", label: "Public visé" },
+  { id: "prerequis", label: "Prérequis" },
+  { id: "modalites-pedagogiques", label: "Modalités pédagogiques" },
+  { id: "formateur", label: "Profil du formateur" },
+  { id: "moyens", label: "Moyens et supports pédagogiques" },
+  { id: "evaluation", label: "Modalités d'évaluation et de suivi" },
+  { id: "admission", label: "Informations sur l'admission" },
+  { id: "accessibilite", label: "Informations sur l'accessibilité" },
+] as const;
+
+function mergeEvaluationAndFollowUp(formation: Formation): string[] {
+  return [...formation.evaluation, ...formation.followUp];
+}
 
 export function FormationDetailView({ formation }: FormationDetailViewProps) {
   const isStub = formation.contentStatus === "stub";
+  const durationHours = formatFormationDurationHours(formation.durationHours);
+  const priceLabel = formatFormationPriceEuro(formation);
 
   return (
     <>
@@ -35,18 +50,34 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
 
       <section className="section-wash-surface pb-12 md:pb-20">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-10 xl:gap-12">
             <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
               <div className="space-y-4">
-                <div className="refined-card min-w-0 space-y-5 p-4 sm:p-5 md:p-6">
+                <div className="refined-card min-w-0 space-y-4 p-4 sm:p-5 md:p-6">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
                     Informations clés
                   </p>
-                  <div className="space-y-4 text-sm">
-                    <FormationMetaValue label="Catégorie" value={formation.categoryLabel} valueClassName="text-sm font-semibold text-body-strong" />
-                    <FormationMetaValue label="Type" value={formation.typeLabel} valueClassName="text-sm font-semibold text-body-strong" />
-                    <FormationMetaValue label="Durée" value={formation.durationLabel} valueClassName="text-sm font-semibold text-body-strong" />
-                    <FormationMetaValue label="Tarif" value={formation.price.label} valueClassName="text-sm font-semibold text-body-strong" />
+                  <div className="space-y-3.5 text-sm">
+                    <FormationMetaValue
+                      label="Catégorie"
+                      value={formation.categoryLabel}
+                      valueClassName="text-sm font-semibold text-body-strong"
+                    />
+                    <FormationMetaValue
+                      label="Modalité pédagogique"
+                      value={FORMATION_PEDAGOGICAL_MODE}
+                      valueClassName="text-sm font-semibold text-body-strong"
+                    />
+                    <FormationMetaValue
+                      label="Durée"
+                      value={durationHours}
+                      valueClassName="text-sm font-semibold tabular-nums text-body-strong"
+                    />
+                    <FormationMetaValue
+                      label="Tarif"
+                      value={priceLabel}
+                      valueClassName="text-sm font-semibold tabular-nums text-blue-600"
+                    />
                     {formation.certificationCode && (
                       <div className="min-w-0">
                         <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
@@ -58,7 +89,7 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
                       </div>
                     )}
                   </div>
-                  <FormationCpfInfo formation={formation} />
+                  {formation.cpfEligible && <FormationCpfInfo formation={formation} />}
                   <FormationCTA formation={formation} layout="stack" />
                 </div>
 
@@ -84,110 +115,102 @@ export function FormationDetailView({ formation }: FormationDetailViewProps) {
               </div>
             </aside>
 
-            <div className="space-y-10 md:space-y-14">
-              <FormationSectionGroup
-                id="apercu"
-                eyebrow="Vue d'ensemble"
-                title="Présentation et public concerné"
-                description="Les informations essentielles pour comprendre le cadre, le public visé et les prérequis de la formation."
-              >
-                <FormationDetailSection
-                  title="Présentation"
-                  content={formation.presentation}
-                  pending={isStub}
-                />
-                <FormationDetailSection
-                  title="Public concerné"
-                  items={formation.publicConcerned}
-                  pending={isStub}
-                />
-                <FormationDetailSection
-                  title="Pré-requis"
-                  items={formation.prerequisites}
-                  pending={isStub}
-                />
-              </FormationSectionGroup>
+            <div className="min-w-0 space-y-5 md:space-y-6">
+              <FormationDetailSection
+                id="description"
+                title="Description"
+                content={formation.presentation}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
 
-              <FormationSectionGroup
+              <FormationProgramme
+                id="contenu"
+                programme={formation.programme}
+                pending={isStub}
+                title="Contenu de la formation"
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
                 id="objectifs"
-                eyebrow="Pédagogie"
                 title="Objectifs de la formation"
-              >
-                <FormationDetailSection
-                  title="Objectifs"
-                  items={formation.objectives}
-                  pending={isStub}
-                />
-              </FormationSectionGroup>
+                items={formation.objectives}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
 
-              <FormationSectionGroup
-                id="programme"
-                eyebrow="Programme"
-                title="Contenu et modules"
-                description="Répartition officielle des modules et volumes horaires tels que définis dans le programme certifié."
-              >
-                <FormationProgramme programme={formation.programme} pending={isStub} />
-              </FormationSectionGroup>
+              <FormationDetailSection
+                id="public"
+                title="Public visé"
+                items={formation.publicConcerned}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
 
-              <FormationSectionGroup
-                id="informations"
-                eyebrow="Organisation"
-                title="Informations pratiques"
-                description="Modalités d'inscription, évaluation, moyens pédagogiques et encadrement."
-              >
-                <FormationDetailSection
-                  title="Modalités d'inscription"
-                  items={formation.registration}
-                  pending={isStub}
-                />
-                {formation.cpfEligible && (
-                  <FormationCpfInfo formation={formation} />
-                )}
-                <FormationDetailSection
-                  title="Évaluation"
-                  items={formation.evaluation}
-                  pending={isStub}
-                />
-                <FormationDetailSection
-                  title="Équipe pédagogique"
-                  items={formation.pedagogicalTeam}
-                  pending={isStub}
-                />
-                <FormationDetailSection
-                  title="Moyens pédagogiques"
-                  items={formation.pedagogicalMeans}
-                  pending={isStub}
-                />
-                <FormationDetailSection
-                  title="Suivi et évaluation"
-                  items={formation.followUp}
-                  pending={isStub}
-                />
-              </FormationSectionGroup>
+              <FormationDetailSection
+                id="prerequis"
+                title="Prérequis"
+                items={formation.prerequisites}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
 
-              <FormationSectionGroup
-                id="certification"
-                eyebrow="Certification"
-                title="Certification et débouchés"
-              >
+              <FormationDetailSection
+                id="modalites-pedagogiques"
+                title="Modalités pédagogiques"
+                content={FORMATION_PEDAGOGICAL_MODE}
+                pending={false}
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
+                id="formateur"
+                title="Profil du formateur"
+                items={formation.pedagogicalTeam}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
+                id="moyens"
+                title="Moyens et supports pédagogiques"
+                items={formation.pedagogicalMeans}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
+                id="evaluation"
+                title="Modalités d'évaluation et de suivi"
+                items={mergeEvaluationAndFollowUp(formation)}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
+                id="admission"
+                title="Informations sur l'admission"
+                items={formation.registration}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
+
+              <FormationDetailSection
+                id="accessibilite"
+                title="Informations sur l'accessibilité"
+                content={formation.accessibility}
+                pending={isStub}
+                className="scroll-mt-28"
+              />
+
+              {formation.careerOutcomes.length > 0 && (
                 <FormationDetailSection
                   title="Débouchés et évolution"
                   items={formation.careerOutcomes}
                   pending={isStub}
                 />
-              </FormationSectionGroup>
-
-              <FormationSectionGroup
-                id="accessibilite"
-                eyebrow="Inclusion"
-                title="Accessibilité handicap"
-              >
-                <FormationDetailSection
-                  title="Accessibilité et aménagements"
-                  content={formation.accessibility}
-                  pending={isStub}
-                />
-              </FormationSectionGroup>
+              )}
             </div>
           </div>
         </Container>

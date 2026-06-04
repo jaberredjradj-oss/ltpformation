@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  FORMATION_TYPE_LABELS,
-  type FormationFilters,
-  type FormationSort,
-} from "@/lib/formations/types";
-import { FilterChip } from "@/components/ui/FilterChip";
+import type { FormationFilters, FormationSort } from "@/lib/formations/types";
 import { SearchInput } from "@/components/ui/SearchInput";
 
 interface FormationsToolbarProps {
@@ -34,10 +29,8 @@ export function FormationsToolbar({
   onSortChange,
   onReset,
 }: FormationsToolbarProps) {
-  const showLevelFilter = filters.category === "securite-incendie";
-
   return (
-    <div className="refined-card space-y-5 p-4 sm:p-5 md:p-6">
+    <div className="refined-card space-y-4 p-4 sm:p-5 md:p-6">
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <SearchInput
           value={filters.query}
@@ -65,64 +58,18 @@ export function FormationsToolbar({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(FORMATION_TYPE_LABELS) as Array<keyof typeof FORMATION_TYPE_LABELS>).map(
-            (type) => (
-              <FilterChip
-                key={type}
-                label={FORMATION_TYPE_LABELS[type]}
-                active={filters.type === type}
-                onClick={() =>
-                  onFiltersChange({
-                    ...filters,
-                    type: filters.type === type ? "all" : type,
-                  })
-                }
-              />
-            ),
-          )}
-          <FilterChip
-            label="Financement mobilisable"
-            active={filters.cpfOnly}
-            onClick={() => onFiltersChange({ ...filters, cpfOnly: !filters.cpfOnly })}
-          />
-        </div>
-
-        <div className="flex items-center justify-between gap-3 sm:justify-start">
-          <p className="text-sm font-medium text-lead-strong">
-            {resultCount} résultat{resultCount > 1 ? "s" : ""}
-          </p>
-          <button
-            type="button"
-            onClick={onReset}
-            className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
-          >
-            Réinitialiser
-          </button>
-        </div>
+      <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+        <p className="text-sm font-medium text-lead-strong">
+          {resultCount} résultat{resultCount > 1 ? "s" : ""}
+        </p>
+        <button
+          type="button"
+          onClick={onReset}
+          className="text-sm font-semibold text-blue-600 transition-colors hover:text-blue-700"
+        >
+          Réinitialiser
+        </button>
       </div>
-
-      {showLevelFilter && (
-        <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
-            Niveau SSIAP
-          </span>
-          {(["1", "2", "3"] as const).map((level) => (
-            <FilterChip
-              key={level}
-              label={`Niveau ${level}`}
-              active={filters.level === level}
-              onClick={() =>
-                onFiltersChange({
-                  ...filters,
-                  level: filters.level === level ? "all" : level,
-                })
-              }
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

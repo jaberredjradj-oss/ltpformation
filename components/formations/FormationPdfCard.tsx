@@ -27,8 +27,8 @@ export function FormationPdfCard({ formation }: FormationPdfCardProps) {
           Programme certifié
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-body-strong">
-          Téléchargez le programme officiel LT Protect Formation pour consulter l&apos;intégralité
-          des informations réglementaires et pédagogiques.
+          Téléchargez le programme de cette formation pour consulter l&apos;intégralité des
+          informations réglementaires et pédagogiques.
         </p>
         <a
           href={formation.pdfUrl}

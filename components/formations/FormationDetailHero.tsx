@@ -5,10 +5,12 @@ import { motion } from "framer-motion";
 import type { Formation } from "@/lib/formations/types";
 import { getFormationCoverImage } from "@/lib/formation-cover-images";
 import { easeCinematic } from "@/lib/motion";
-import { FormationBadges } from "@/components/formations/FormationBadges";
 import { FormationCTA } from "@/components/formations/FormationCTA";
-import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
+import {
+  formatFormationDurationHours,
+  formatFormationPriceEuro,
+} from "@/lib/formations/display";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { Container } from "@/components/ui/Container";
 
@@ -17,6 +19,9 @@ interface FormationDetailHeroProps {
 }
 
 export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
+  const durationHours = formatFormationDurationHours(formation.durationHours);
+  const priceLabel = formatFormationPriceEuro(formation);
+
   return (
     <section className="relative overflow-hidden section-wash-blend pb-8 pt-10 md:pb-14 md:pt-16">
       <Container>
@@ -38,37 +43,23 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, delay: 0.06, ease: easeCinematic }}
-            className="heading-accent-glow"
+            className="heading-accent-glow flex flex-col"
           >
-            <p className="section-eyebrow">{formation.categoryLabel}</p>
-            <h1 className="mt-4 text-[1.8rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.35rem] lg:text-[2.75rem]">
-              {formation.title}
+            <h1 className="text-[1.8rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.35rem] lg:text-[2.75rem]">
+              {formation.shortTitle ?? formation.title}
             </h1>
-            <div className="mt-5">
-              <FormationBadges formation={formation} />
-            </div>
-            <p className="editorial-lead mt-6 max-w-2xl text-pretty">{formation.summary}</p>
 
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:max-w-xl sm:grid-cols-2">
-              <div className="refined-card min-w-0 px-4 py-4">
-                <FormationMetaValue
-                  label="Durée"
-                  value={formation.durationLabel}
-                  valueClassName="text-base sm:text-lg"
-                />
-              </div>
-              <div className="refined-card min-w-0 px-4 py-4">
-                <FormationMetaValue
-                  label="Tarif"
-                  value={formation.price.label}
-                  valueClassName="text-base sm:text-lg"
-                />
-                {hasInstallmentFacility(formation.slug) && (
-                  <div className="mt-3">
-                    <InstallmentBadge />
-                  </div>
-                )}
-              </div>
+            <p className="mt-4 text-lg font-semibold tabular-nums text-blue-600">{durationHours}</p>
+
+            <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-blue-600/90">
+              {formation.categoryLabel}
+            </p>
+
+            <p className="editorial-lead mt-5 max-w-2xl text-pretty">{formation.summary}</p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <p className="text-xl font-semibold tabular-nums text-navy-950">{priceLabel}</p>
+              {hasInstallmentFacility(formation.slug) && <InstallmentBadge />}
             </div>
 
             {formation.contentStatus === "stub" && (
@@ -82,9 +73,9 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, delay: 0.12, ease: easeCinematic }}
-            className="refined-card overflow-hidden"
+            className="refined-card flex flex-col overflow-hidden"
           >
-            <div className="relative min-h-[220px] sm:min-h-[280px] lg:min-h-full">
+            <div className="relative min-h-[220px] flex-1 sm:min-h-[280px]">
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${getFormationCoverImage(formation)})` }}

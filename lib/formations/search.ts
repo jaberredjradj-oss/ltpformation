@@ -1,4 +1,5 @@
 import { FORMATION_CATEGORIES } from "@/lib/formations/categories";
+import { getFormationCatalogSortIndex } from "@/lib/formations/catalog-order";
 import type {
   Formation,
   FormationCategoryId,
@@ -75,17 +76,9 @@ export function sortFormations(formations: Formation[], sort: FormationSort): Fo
       return sorted.sort((a, b) => a.title.localeCompare(b.title, "fr"));
     case "default":
     default:
-      return sorted.sort((a, b) => {
-        const categoryDiff =
-          CATEGORY_ORDER[a.category] - CATEGORY_ORDER[b.category];
-        if (categoryDiff !== 0) return categoryDiff;
-
-        if (a.level && b.level && a.level !== b.level) {
-          return a.level.localeCompare(b.level, "fr", { numeric: true });
-        }
-
-        return a.title.localeCompare(b.title, "fr");
-      });
+      return sorted.sort(
+        (a, b) => getFormationCatalogSortIndex(a) - getFormationCatalogSortIndex(b),
+      );
   }
 }
 

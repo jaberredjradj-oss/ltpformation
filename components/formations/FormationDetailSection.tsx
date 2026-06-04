@@ -6,6 +6,7 @@ import { easeCinematic } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface FormationDetailSectionProps {
+  id?: string;
   title: string;
   children?: React.ReactNode;
   items?: string[];
@@ -15,6 +16,7 @@ interface FormationDetailSectionProps {
 }
 
 export function FormationDetailSection({
+  id,
   title,
   children,
   items,
@@ -27,6 +29,7 @@ export function FormationDetailSection({
 
   return (
     <motion.article
+      id={id}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}

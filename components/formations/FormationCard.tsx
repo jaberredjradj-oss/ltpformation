@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import type { Formation } from "@/lib/formations/types";
 import { getFormationCoverImage } from "@/lib/formation-cover-images";
 import { easeCinematic } from "@/lib/motion";
-import { FormationBadges } from "@/components/formations/FormationBadges";
 import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
+import {
+  formatFormationDurationHours,
+  formatFormationPriceEuro,
+} from "@/lib/formations/display";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { cn } from "@/lib/utils";
 
@@ -68,7 +71,9 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,21,37,0.72)_0%,rgba(7,21,37,0.18)_45%,transparent_100%)]" />
           <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-            <FormationBadges formation={formation} compact />
+            <span className="inline-flex max-w-full rounded-full border border-blue-200/70 bg-blue-50/90 px-3 py-1 text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-blue-700">
+              {formation.categoryLabel}
+            </span>
           </div>
         </div>
 
@@ -78,11 +83,15 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
           </h3>
 
           <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
-            <FormationMetaValue label="Durée" value={formation.durationLabel} />
+            <FormationMetaValue
+              label="Durée"
+              value={formatFormationDurationHours(formation.durationHours)}
+              valueClassName="text-sm font-semibold tabular-nums"
+            />
             <FormationMetaValue
               label="Tarif"
-              value={formation.price.label}
-              valueClassName="text-sm text-blue-600"
+              value={formatFormationPriceEuro(formation)}
+              valueClassName="text-sm font-semibold tabular-nums text-blue-600"
             />
           </div>
 
