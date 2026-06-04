@@ -12,15 +12,20 @@ interface InstallmentBadgeProps {
 
 export function InstallmentBadge({ className }: InstallmentBadgeProps) {
   return (
-    <span className={cn("inline-flex max-w-full shrink-0", className)}>
+    <span
+      className={cn(
+        "inline-flex max-w-full items-center gap-1.5 whitespace-normal",
+        className,
+      )}
+    >
       <Image
         src={INSTALLMENT_BADGE_SRC}
         alt="Paiement en 3 fois sans frais"
         width={INSTALLMENT_BADGE_WIDTH}
         height={INSTALLMENT_BADGE_HEIGHT}
-        sizes="(max-width: 640px) 240px, 320px"
+        sizes="(max-width: 640px) 220px, 280px"
         quality={100}
-        className="h-7 w-auto max-w-full object-contain object-left sm:h-8"
+        className="h-6 w-auto max-w-full object-contain object-left"
       />
     </span>
   );
