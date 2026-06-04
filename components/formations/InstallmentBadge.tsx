@@ -1,37 +1,60 @@
-import Image from "next/image";
-import {
-  INSTALLMENT_BADGE_HEIGHT,
-  INSTALLMENT_BADGE_SRC,
-  INSTALLMENT_BADGE_WIDTH,
-} from "@/lib/formations/payment";
 import { cn } from "@/lib/utils";
 
 interface InstallmentBadgeProps {
   className?: string;
 }
 
-/** Display height aligned with the former text pill (`py-1` + `text-[10px]`). */
-const BADGE_DISPLAY_HEIGHT_PX = 26;
+const BADGE_LABEL = "Payable en 3 fois sans frais";
+
+/** Vector badge at 26px display height (matches prior layout footprint). */
+const VIEWBOX_WIDTH = 352;
+const VIEWBOX_HEIGHT = 52;
 
 export function InstallmentBadge({ className }: InstallmentBadgeProps) {
-  const displayWidth = Math.round(
-    (BADGE_DISPLAY_HEIGHT_PX / INSTALLMENT_BADGE_HEIGHT) * INSTALLMENT_BADGE_WIDTH,
-  );
-
   return (
     <span
       className={cn("inline-flex shrink-0 items-center leading-none", className)}
-      style={{ height: BADGE_DISPLAY_HEIGHT_PX }}
+      aria-label={BADGE_LABEL}
     >
-      <Image
-        src={INSTALLMENT_BADGE_SRC}
-        alt="Paiement en 3 fois sans frais"
-        width={displayWidth}
-        height={BADGE_DISPLAY_HEIGHT_PX}
-        sizes={`${displayWidth}px`}
-        quality={100}
-        className="block h-[26px] w-auto max-w-none object-contain"
-      />
+      <svg
+        viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+        className="block h-[26px] w-auto max-w-none"
+        role="img"
+        aria-hidden
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>{BADGE_LABEL}</title>
+        <rect
+          width={VIEWBOX_WIDTH}
+          height={VIEWBOX_HEIGHT}
+          rx={VIEWBOX_HEIGHT / 2}
+          fill="#FFE047"
+        />
+        <g
+          transform="translate(12 19)"
+          stroke="#0f172a"
+          strokeWidth="2"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect width="22" height="14" rx="2.5" />
+          <path d="M0 5h22" />
+          <circle cx="5" cy="10" r="1.25" fill="#0f172a" stroke="none" />
+          <circle cx="9" cy="10" r="1.25" fill="#0f172a" stroke="none" />
+        </g>
+        <text
+          x="42"
+          y={VIEWBOX_HEIGHT / 2}
+          fill="#0f172a"
+          fontSize="17"
+          fontWeight="600"
+          fontFamily="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+          dominantBaseline="central"
+        >
+          {BADGE_LABEL}
+        </text>
+      </svg>
     </span>
   );
 }
