@@ -29,12 +29,26 @@ export function AnimatedNumber({
   const prefersReducedMotion = useReducedMotion();
   const parsed = parseAnimatedNumber(value);
   const finalText = parsed?.displayValue ?? String(value);
-  const [display, setDisplay] = useState(finalText);
+  const zeroText =
+    parsed && animate
+      ? formatAnimatedNumber(0, {
+          decimals: parsed.decimals,
+          prefix: parsed.prefix,
+          suffix: parsed.suffix,
+          locale,
+        })
+      : finalText;
+  const [display, setDisplay] = useState(zeroText);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
-    setDisplay(finalText);
-  }, [finalText]);
+    if (!parsed || !animate || prefersReducedMotion !== false) {
+      setDisplay(finalText);
+      return;
+    }
+
+    setDisplay(zeroText);
+  }, [animate, finalText, parsed, prefersReducedMotion, zeroText]);
 
   useEffect(() => {
     if (!parsed || !animate) {

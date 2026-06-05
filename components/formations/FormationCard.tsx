@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Formation } from "@/lib/formations/types";
@@ -65,9 +66,12 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
       <div className="refined-card card-accent-glow flex h-full flex-col overflow-hidden">
         <div className="gradient-bar-animated" />
         <div className="relative aspect-[16/9] min-h-[190px] overflow-hidden sm:min-h-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.04]"
-            style={{ backgroundImage: `url(${getFormationCoverImage(formation)})` }}
+          <Image
+            src={getFormationCoverImage(formation)}
+            alt={formation.shortTitle ?? formation.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,21,37,0.72)_0%,rgba(7,21,37,0.18)_45%,transparent_100%)]" />
           <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">

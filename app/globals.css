@@ -522,3 +522,14 @@ body {
 .link-refined {
   transition: color 0.5s var(--ease-cinematic), gap 0.5s var(--ease-cinematic);
 }
+
+/* Mobile performance: keep hero visuals static, disable decorative motion. */
+@media (max-width: 768px) {
+  .animated-mesh,
+  .hero-light-rays,
+  .hero-particle,
+  .float-glow,
+  .ken-burns {
+    animation: none !important;
+  }
+}

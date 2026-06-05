@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Formation } from "@/lib/formations/types";
@@ -80,9 +81,12 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             className="refined-card flex flex-col overflow-hidden"
           >
             <div className="relative min-h-[220px] flex-1 sm:min-h-[280px]">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${getFormationCoverImage(formation)})` }}
+              <Image
+                src={getFormationCoverImage(formation)}
+                alt={formation.shortTitle ?? formation.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 480px"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,21,37,0.55)_0%,transparent_55%)]" />
             </div>

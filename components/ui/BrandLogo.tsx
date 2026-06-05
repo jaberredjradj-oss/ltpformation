@@ -7,6 +7,13 @@ const LOGO_HEIGHT = 556;
 
 type BrandLogoSize = "nav" | "footer" | "hero" | "about";
 
+const imageSizes: Record<BrandLogoSize, string> = {
+  nav: "(max-width: 640px) 150px, (max-width: 768px) 184px, (max-width: 1024px) 219px, 242px",
+  footer: "(max-width: 640px) 173px, (max-width: 768px) 196px, 219px",
+  hero: "(max-width: 640px) 288px, (max-width: 768px) 331px, (max-width: 1024px) 374px, 403px",
+  about: "158px",
+};
+
 const sizes: Record<
   BrandLogoSize,
   { height: string; heightPx: number; maxW: string; glow: string }
@@ -62,7 +69,7 @@ export function BrandLogo({ size = "nav", className, priority }: BrandLogoProps)
         width={displayWidth}
         height={dim.heightPx}
         priority={priority}
-        unoptimized
+        sizes={imageSizes[size]}
         className={cn(
           dim.height,
           "relative w-auto object-contain object-left",
