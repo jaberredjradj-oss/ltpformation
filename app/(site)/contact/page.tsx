@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/constants";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Container } from "@/components/ui/Container";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -71,6 +72,12 @@ export default function ContactPage() {
                   </span>
                   <span className="mt-1 block">{SITE.hours}</span>
                 </p>
+                <div>
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
+                    Réseaux sociaux
+                  </span>
+                  <SocialLinks className="mt-3" />
+                </div>
               </div>
             </div>
 

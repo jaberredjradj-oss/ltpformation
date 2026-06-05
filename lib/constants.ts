@@ -232,6 +232,19 @@ export const LEGAL_LINKS = [
 export const PRIVACY_POLICY_PATH = "/politique-de-confidentialite";
 
 export const SOCIAL_LINKS = [
-  { label: "Facebook", href: "#", icon: "facebook" as const },
-  { label: "LinkedIn", href: "#", icon: "linkedin" as const },
+  {
+    label: "WhatsApp",
+    href: "https://api.whatsapp.com/send/?phone=33640416210&text=Bonjour+LT+Protect+Formation%2C+je+souhaite+plus+d%27informations+SVP.&type=phone_number&app_absent=0",
+    icon: "whatsapp" as const,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/people/Lt-Protect-Formation/100093125675889/?locale=fr_FR",
+    icon: "facebook" as const,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/ltpformation/",
+    icon: "linkedin" as const,
+  },
 ] as const;

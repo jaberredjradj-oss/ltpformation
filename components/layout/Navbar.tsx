@@ -12,6 +12,7 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -151,6 +152,12 @@ export function Navbar() {
                   <Button href="/devis" variant="primary" className="w-full justify-center">
                     Demande de devis
                   </Button>
+                </li>
+                <li className="border-t border-slate-100 pt-5">
+                  <p className="px-4 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
+                    Réseaux sociaux
+                  </p>
+                  <SocialLinks className="mt-3 justify-center px-4" />
                 </li>
               </ul>
             </Container>

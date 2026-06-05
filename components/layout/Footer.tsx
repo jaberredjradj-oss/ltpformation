@@ -13,6 +13,7 @@ import {
 import { easeCinematic } from "@/lib/motion";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Container } from "@/components/ui/Container";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 import { GoogleMapEmbed } from "@/components/ui/GoogleMapEmbed";
 
@@ -117,6 +118,13 @@ export function Footer() {
                 <p className="mt-1.5 text-sm text-body-strong">{SITE.hours}</p>
                 <p className="mt-1.5 text-xs text-lead-strong">{SITE.onSiteNote}</p>
               </div>
+              <div className="section-divider-glow" />
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
+                  Réseaux sociaux
+                </p>
+                <SocialLinks className="mt-3" />
+              </div>
             </div>
           </motion.div>
 
@@ -166,9 +174,7 @@ export function Footer() {
               </Link>
             ))}
           </div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-600">
-            Qualiopi · Qualianor · Éligible CPF
-          </p>
+          <SocialLinks />
         </motion.div>
 
         <p className="mt-6 text-center text-xs text-lead-strong md:text-left">
