@@ -15,6 +15,9 @@ import { formation as tfp_aps } from "./tfp-aps";
 import { formation as mac_aps } from "./mac-aps";
 import { formation as h0b0_h0v } from "./h0b0-h0v";
 import { formation as bsbe } from "./bsbe";
+import { formation as dirigeant_securite_privee } from "./dirigeant-securite-privee";
+import { formation as gestes_et_postures } from "./gestes-et-postures";
+import { formation as risque_chimique } from "./risque-chimique";
 
 import type { Formation } from "@/lib/formations/types";
 
@@ -36,4 +39,7 @@ export const FORMATION_DATA: Formation[] = [
   mac_aps,
   h0b0_h0v,
   bsbe,
+  gestes_et_postures,
+  risque_chimique,
+  dirigeant_securite_privee,
 ];

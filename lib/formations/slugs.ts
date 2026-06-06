@@ -16,6 +16,9 @@ export const FORMATION_SLUGS = [
   "mac-aps",
   "h0b0-h0v",
   "bsbe",
+  "gestes-et-postures",
+  "risque-chimique",
+  "dirigeant-securite-privee",
 ] as const;
 
 export type FormationSlug = (typeof FORMATION_SLUGS)[number];

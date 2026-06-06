@@ -21,6 +21,9 @@ export const FORMATION_COVER_IMAGES: Record<string, string> = {
   "mac-aps": `${FORMATIONS_DIR}/mac-aps-v2.jpg`,
   "h0b0-h0v": `${FORMATIONS_DIR}/h0b0-h0v-v2.jpg`,
   bsbe: `${FORMATIONS_DIR}/bsbe-v2.jpg`,
+  "gestes-et-postures": `${FORMATIONS_DIR}/gestes-et-postures-v2.jpg`,
+  "risque-chimique": `${FORMATIONS_DIR}/risque-chimique-v2.jpg`,
+  "dirigeant-securite-privee": `${FORMATIONS_DIR}/dirigeant-securite-privee-v2.jpg`,
 };
 
 export function getFormationCoverImage(

@@ -22,6 +22,9 @@ export const FORMATION_CATALOG_SLUG_ORDER = [
   "mac-aps",
   "h0b0-h0v",
   "bsbe",
+  "gestes-et-postures",
+  "risque-chimique",
+  "dirigeant-securite-privee",
 ] as const;
 
 const CATALOG_ORDER_INDEX = Object.fromEntries(
