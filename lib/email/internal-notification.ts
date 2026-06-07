@@ -5,7 +5,7 @@ import {
   isEmailEnabled,
 } from "@/lib/email/env";
 import { sendTransactionalEmail } from "@/lib/email/transport";
-import { getSiteUrl } from "@/lib/site-url";
+import { getEmailPublicBaseUrl } from "@/lib/site-url";
 
 export type InternalNotificationKind = "contact" | "devis" | "preinscription";
 
@@ -53,7 +53,7 @@ function buildSubject(input: SendInternalFormNotificationInput): string {
 
 function buildContent(input: SendInternalFormNotificationInput): { html: string; text: string } {
   const submittedAt = formatSubmittedAt(input.submittedAt ?? new Date());
-  const adminUrl = `${getSiteUrl()}${input.adminPath}`;
+  const adminUrl = `${getEmailPublicBaseUrl()}${input.adminPath}`;
 
   const textLines = [
     `Nouvelle demande : ${KIND_LABELS[input.kind]}`,

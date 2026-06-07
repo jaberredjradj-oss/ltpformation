@@ -1,5 +1,5 @@
 import { SITE } from "@/lib/constants";
-import { getSiteUrl } from "@/lib/site-url";
+import { getEmailPublicBaseUrl } from "@/lib/site-url";
 
 /** Official identifiers — aligned with approved legal content (CGV). */
 export const EMAIL_BRAND = {
@@ -11,13 +11,16 @@ export const EMAIL_BRAND = {
   email: SITE.email,
   phone: SITE.phone,
   mobile: SITE.mobile,
-  websiteUrl: getSiteUrl(),
   logoPath: "/ltprotectformationlogo-transparent.png",
   disclaimer:
     "Ce message est envoyé dans le cadre de votre demande auprès de LT Protect Formation.",
 } as const;
 
+export function getEmailBrandWebsiteUrl(): string {
+  return getEmailPublicBaseUrl();
+}
+
 export function getEmailLogoUrl(baseUrl?: string): string {
-  const base = (baseUrl ?? EMAIL_BRAND.websiteUrl).replace(/\/$/, "");
+  const base = (baseUrl ?? getEmailPublicBaseUrl()).replace(/\/$/, "");
   return `${base}${EMAIL_BRAND.logoPath}`;
 }

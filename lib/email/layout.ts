@@ -1,4 +1,4 @@
-import { EMAIL_BRAND, getEmailLogoUrl } from "@/lib/email/brand";
+import { EMAIL_BRAND, getEmailBrandWebsiteUrl, getEmailLogoUrl } from "@/lib/email/brand";
 
 export interface BrandedEmailOptions {
   /** Override base URL for logo (e.g. window.location.origin in admin preview). */
@@ -88,7 +88,8 @@ function buildHtmlFooter(): string {
 export function buildBrandedEmail(body: string, options?: BrandedEmailOptions): BrandedEmailOutput {
   const trimmedBody = body.trim();
   const logoUrl = getEmailLogoUrl(options?.logoBaseUrl);
-  const websiteLabel = EMAIL_BRAND.websiteUrl.replace(/^https?:\/\//, "");
+  const websiteUrl = getEmailBrandWebsiteUrl();
+  const websiteLabel = websiteUrl.replace(/^https?:\/\//, "");
 
   const html = `<!DOCTYPE html>
 <html lang="fr">
@@ -109,7 +110,7 @@ ${buildHtmlHead(EMAIL_BRAND.name)}
                 ${escapeHtml(EMAIL_BRAND.addressLine1)} · ${escapeHtml(EMAIL_BRAND.addressLine2)}<br/>
                 Tél. ${escapeHtml(EMAIL_BRAND.phone)} · ${escapeHtml(EMAIL_BRAND.mobile)}<br/>
                 <a href="mailto:${escapeHtml(EMAIL_BRAND.email)}" style="color:#1d5eb0;text-decoration:none;">${escapeHtml(EMAIL_BRAND.email)}</a>
-                · <a href="${escapeHtml(EMAIL_BRAND.websiteUrl)}" style="color:#1d5eb0;text-decoration:none;">${escapeHtml(websiteLabel)}</a>
+                · <a href="${escapeHtml(websiteUrl)}" style="color:#1d5eb0;text-decoration:none;">${escapeHtml(websiteLabel)}</a>
               </p>
               <p style="margin:10px 0 0;font-size:11px;color:#8a93a3;">
                 SIRET ${escapeHtml(EMAIL_BRAND.siret)} · Déclaration d'activité ${escapeHtml(EMAIL_BRAND.activityDeclaration)}
