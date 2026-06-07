@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import { Resend } from "resend";
 import {
   getEmailFrom,
@@ -6,6 +7,25 @@ import {
   getEmailReplyTo,
   getSmtpTransportConfig,
 } from "@/lib/email/env";
+
+function trimEnv(value: string | undefined): string {
+  return value?.trim() ?? "";
+}
+
+function buildSmtpTransportOptions(
+  config: NonNullable<ReturnType<typeof getSmtpTransportConfig>>,
+): SMTPTransport.Options {
+  const tlsServername = trimEnv(process.env.SMTP_TLS_SERVERNAME) || config.host;
+
+  return {
+    host: config.host,
+    port: config.port,
+    secure: config.secure,
+    auth: config.auth,
+    // O2Switch port 465: use cluster hostname (SMTP_HOST) or SMTP_TLS_SERVERNAME for SNI.
+    tls: { servername: tlsServername },
+  };
+}
 
 export interface TransactionalEmailPayload {
   to: string;
@@ -52,7 +72,7 @@ async function sendViaSmtp(
     return { ok: false, error: "SMTP is not configured." };
   }
 
-  const transporter = nodemailer.createTransport(config);
+  const transporter = nodemailer.createTransport(buildSmtpTransportOptions(config));
 
   try {
     await transporter.sendMail({
