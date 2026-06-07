@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   buildFormationsSearchParams,
@@ -27,6 +27,7 @@ export function FormationsCatalog({ formations }: FormationsCatalogProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const catalogRef = useRef<HTMLElement>(null);
 
   const filters = useMemo(
     () => parseFormationFilters(searchParams),
@@ -82,8 +83,22 @@ export function FormationsCatalog({ formations }: FormationsCatalogProps) {
     router.replace(pathname, { scroll: false });
   }
 
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (!category || category === "all") return;
+
+    const frame = window.requestAnimationFrame(() => {
+      catalogRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [searchParams]);
+
   return (
-    <section className="section-wash-surface pb-12 pt-6 md:pb-24 md:pt-10">
+    <section
+      ref={catalogRef}
+      className="section-wash-surface scroll-mt-28 pb-12 pt-6 md:pb-24 md:pt-10"
+    >
       <Container className="space-y-6 md:space-y-8">
         <CategoryNav
           activeCategory={filters.category}

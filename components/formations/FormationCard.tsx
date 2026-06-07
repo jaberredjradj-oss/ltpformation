@@ -79,38 +79,40 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
         </div>
 
         <div className="flex flex-1 flex-col p-5 md:p-6">
-          <h3 className="text-xl font-semibold leading-snug tracking-[-0.018em] text-navy-950 transition-colors duration-300 group-hover:text-blue-600 sm:text-lg">
+          <h3 className="line-clamp-2 min-h-[3.25rem] text-xl font-semibold leading-snug tracking-[-0.018em] text-navy-950 transition-colors duration-300 group-hover:text-blue-600 sm:min-h-[2.875rem] sm:text-lg">
             {formation.shortTitle}
           </h3>
 
-          <div className="mt-4 border-t border-slate-100 pt-4">
-            <FormationMetaValue
-              label="Tarif"
-              value={formatFormationPriceEuro(formation)}
-              valueClassName="text-sm font-semibold tabular-nums text-blue-600"
-            />
-            {hasInstallmentFacility(formation.slug) && (
-              <div className="mt-3">
-                <InstallmentBadge />
-              </div>
-            )}
-          </div>
-
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-body-strong">
+          <p className="mt-3 line-clamp-4 min-h-[5.5rem] flex-1 text-sm leading-relaxed text-body-strong">
             {formation.summary}
           </p>
 
-          {formation.contentStatus === "stub" && (
-            <p className="mt-3 rounded-lg border border-dashed border-slate-200/90 bg-surface/60 px-3 py-2 text-xs text-lead-strong">
-              Programme officiel en cours d&apos;intégration
-            </p>
-          )}
+          <div className="mt-3 min-h-[2.625rem]">
+            {formation.contentStatus === "stub" && (
+              <p className="rounded-lg border border-dashed border-slate-200/90 bg-surface/60 px-3 py-2 text-xs text-lead-strong">
+                Programme officiel en cours d&apos;intégration
+              </p>
+            )}
+          </div>
 
-          <div className="mt-5 flex flex-col gap-2.5 border-t border-slate-100 pt-5 sm:flex-row sm:flex-wrap">
-            <CardAction href={detailHref}>En savoir plus</CardAction>
-            <CardAction href={preinscriptionHref} variant="secondary">
-              Pré-inscription
-            </CardAction>
+          <div className="mt-auto pt-5">
+            <div className="border-t border-slate-100 pt-4">
+              <FormationMetaValue
+                label="Tarif"
+                value={formatFormationPriceEuro(formation)}
+                valueClassName="text-sm font-semibold tabular-nums text-blue-600"
+              />
+              <div className="mt-3 flex min-h-[26px] items-center">
+                {hasInstallmentFacility(formation.slug) && <InstallmentBadge />}
+              </div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-2.5 border-t border-slate-100 pt-5 sm:grid-cols-2">
+              <CardAction href={detailHref}>En savoir plus</CardAction>
+              <CardAction href={preinscriptionHref} variant="secondary">
+                Pré-inscription
+              </CardAction>
+            </div>
           </div>
         </div>
       </div>

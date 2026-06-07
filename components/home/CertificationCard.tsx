@@ -7,6 +7,7 @@ interface CertificationCardProps {
   description: string;
   image: string;
   points: readonly string[];
+  certificatePdf?: string;
   delay?: number;
 }
 
@@ -16,6 +17,7 @@ export function CertificationCard({
   description,
   image,
   points,
+  certificatePdf,
   delay = 0,
 }: CertificationCardProps) {
   return (
@@ -55,6 +57,20 @@ export function CertificationCard({
             </li>
           ))}
         </ul>
+
+        {certificatePdf && (
+          <a
+            href={certificatePdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-slate-200/90 bg-white px-4 py-2.5 text-sm font-semibold text-navy-900 transition-all duration-300 hover:border-blue-300/70 hover:text-blue-600"
+          >
+            Voir le certificat officiel
+            <span aria-hidden className="text-xs opacity-70">
+              PDF ↗
+            </span>
+          </a>
+        )}
       </div>
     </Card>
   );

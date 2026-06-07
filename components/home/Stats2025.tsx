@@ -36,7 +36,7 @@ export function Stats2025() {
                 index > 0 ? "lg:border-l lg:border-slate-200/80" : ""
               }`}
             >
-              <StatMetric value={stat.value} className="gradient-text-blue" />
+              <StatMetric value={stat.value} className="gradient-text-blue" animate={false} />
               <p className="mx-auto mt-3 max-w-[12rem] text-sm font-medium leading-snug text-lead-strong">
                 {stat.label}
               </p>

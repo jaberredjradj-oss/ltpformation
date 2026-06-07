@@ -103,6 +103,7 @@ export const CERTIFICATIONS = [
     description:
       "Certification qualité des actions de formation — garantie de processus et de résultats conformes aux exigences nationales.",
     image: "/certifications/qualiopi.jpg",
+    certificatePdf: "/certifications/qualiopi-certificat.pdf",
     points: ["Audit qualité régulier", "Processus certifié"],
   },
   {
@@ -112,6 +113,7 @@ export const CERTIFICATIONS = [
     description:
       "Reconnaissance des compétences professionnelles — engagement qualité et traçabilité des parcours de formation.",
     image: "/certifications/qualianor.jpg",
+    certificatePdf: "/certifications/qualianor-certificat.pdf",
     points: ["Traçabilité des compétences", "Reconnaissance officielle"],
   },
   {

@@ -1,9 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { HERO_VISUALS } from "@/lib/constants";
+import { HERO_DOMAINS, HERO_VISUALS } from "@/lib/constants";
 import { staggerViewContainer, staggerViewItem } from "@/lib/motion";
 import { CategoryVisual } from "@/components/ui/CategoryVisual";
+
+const HERO_DOMAIN_HREFS = Object.fromEntries(
+  HERO_DOMAINS.map((domain) => [domain.label, domain.href]),
+) as Record<string, string>;
 
 export function HeroVisualGrid() {
   const featured = HERO_VISUALS.find((v) => "featured" in v && v.featured);
@@ -31,20 +36,38 @@ export function HeroVisualGrid() {
             />
           </motion.div>
         )}
-        {others.map((item) => (
-          <motion.div
-            key={item.label}
-            variants={staggerViewItem}
-            className="group relative aspect-4/3 overflow-hidden rounded-2xl"
-          >
+        {others.map((item) => {
+          const href = HERO_DOMAIN_HREFS[item.label];
+
+          const visual = (
             <CategoryVisual
               theme={item.theme}
               label={item.label}
               image={item.image}
-              className="transition-transform duration-[0.9s] ease-out group-hover:scale-[1.03]"
+              className="h-full transition-transform duration-[0.9s] ease-out group-hover:scale-[1.03]"
             />
-          </motion.div>
-        ))}
+          );
+
+          return (
+            <motion.div
+              key={item.label}
+              variants={staggerViewItem}
+              className="group relative aspect-4/3 overflow-hidden rounded-2xl"
+            >
+              {href ? (
+                <Link
+                  href={href}
+                  className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+                  aria-label={`Voir les formations ${item.label}`}
+                >
+                  {visual}
+                </Link>
+              ) : (
+                visual
+              )}
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );

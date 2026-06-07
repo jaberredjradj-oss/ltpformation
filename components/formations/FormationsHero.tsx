@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FORMATION_CATEGORIES } from "@/lib/formations/categories";
 import type { Formation } from "@/lib/formations/types";
@@ -42,17 +43,18 @@ export function FormationsHero({ formations }: FormationsHeroProps) {
           {FORMATION_CATEGORIES.map((category) => {
             const count = formations.filter((f) => f.category === category.id).length;
             return (
-              <div
+              <Link
                 key={category.id}
-                className="refined-card px-4 py-4 text-center md:px-5 md:py-5"
+                href={`/formations?category=${category.id}`}
+                className="refined-card px-4 py-4 text-center transition-colors duration-300 hover:border-blue-200/80 hover:bg-blue-50/20 md:px-5 md:py-5"
               >
                 <p className="text-[clamp(1.35rem,3vw,1.75rem)] font-bold tabular-nums tracking-tight text-navy-950">
-                  <AnimatedNumber value={count} />
+                  <AnimatedNumber value={count} animate={false} />
                 </p>
                 <p className="mt-1 text-pretty text-[10px] font-semibold uppercase leading-snug tracking-[0.12em] text-blue-600">
                   {category.label}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </motion.div>

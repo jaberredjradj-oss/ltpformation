@@ -22,6 +22,7 @@ export function Certifications() {
             description={cert.description}
             image={cert.image}
             points={cert.points}
+            certificatePdf={"certificatePdf" in cert ? cert.certificatePdf : undefined}
             delay={index * 0.06}
           />
         ))}

@@ -119,6 +119,28 @@ export const DEFAULT_FORMATION_FILTERS: FormationFilters = {
 
 export const DEFAULT_FORMATION_SORT: FormationSort = "default";
 
+const FORMATION_CATEGORY_ALIASES: Record<string, FormationCategoryId> = {
+  "prevention-des-risques": "habilitation-electrique",
+  prevention: "habilitation-electrique",
+};
+
+function resolveFormationCategory(
+  raw: string | null,
+): FormationCategoryId | "all" {
+  if (!raw) return "all";
+
+  if (
+    raw === "securite-incendie" ||
+    raw === "secourisme" ||
+    raw === "surete" ||
+    raw === "habilitation-electrique"
+  ) {
+    return raw;
+  }
+
+  return FORMATION_CATEGORY_ALIASES[raw] ?? "all";
+}
+
 export function parseFormationFilters(searchParams: URLSearchParams): FormationFilters {
   const category = searchParams.get("category");
   const type = searchParams.get("type");
@@ -126,13 +148,7 @@ export function parseFormationFilters(searchParams: URLSearchParams): FormationF
 
   return {
     query: searchParams.get("q") ?? "",
-    category:
-      category === "securite-incendie" ||
-      category === "secourisme" ||
-      category === "surete" ||
-      category === "habilitation-electrique"
-        ? category
-        : "all",
+    category: resolveFormationCategory(category),
     type:
       type === "initial" ||
       type === "recyclage" ||
