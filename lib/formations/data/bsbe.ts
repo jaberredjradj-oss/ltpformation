@@ -19,7 +19,8 @@ export const formation: Formation = {
   },
   cpfEligible: false,
   certifications: ["Qualiopi"],
-  summary: "Apporter les compétences en sécurité nécessaires au personnel d'entreprise devant réaliser des travaux non-électriques dans un environnement électrique potentiellement dangereux.",
+  summary:
+    "La formation BSBE (Habilitation Électrique BS – BE Manœuvre) s'adresse aux personnels amenés à réaliser des opérations électriques simples et des manœuvres d'exploitation en basse tension. Elle permet d'acquérir les connaissances nécessaires pour intervenir en toute sécurité lors du remplacement de matériels électriques (prises, interrupteurs, luminaires), du raccordement d'équipements ou de la réalisation de manœuvres sur des installations électriques, conformément aux exigences de la norme NF C 18-510.",
   imageKey: "habilitation",
   pdfFilename: "bsbe.pdf",
   pdfUrl: "/pdfs/formations/bsbe.pdf",
@@ -31,7 +32,8 @@ export const formation: Formation = {
   prerequisites: [
     "Aucun",
   ],
-  presentation: "Apporter les compétences en sécurité nécessaires au personnel d'entreprise devant réaliser des travaux non-électriques dans un environnement électrique potentiellement dangereux.",
+  presentation:
+    "La formation BSBE (Habilitation Électrique BS – BE Manœuvre) s'adresse aux personnels amenés à réaliser des opérations électriques simples et des manœuvres d'exploitation en basse tension. Elle permet d'acquérir les connaissances nécessaires pour intervenir en toute sécurité lors du remplacement de matériels électriques (prises, interrupteurs, luminaires), du raccordement d'équipements ou de la réalisation de manœuvres sur des installations électriques, conformément aux exigences de la norme NF C 18-510.",
   objectives: [
     "Connaître la réglementation en rapport avec l'électricité et les risques présentés par les installations",
     "Connaître les dispositions de la norme NFC 18-510",

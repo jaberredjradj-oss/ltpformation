@@ -27,8 +27,9 @@ export function PlanningHero({ sessionCount, cpfCount, year }: PlanningHeroProps
             Planning des sessions {year}
           </h1>
           <p className="editorial-lead mx-auto mt-5 max-w-2xl text-pretty">
-            Consultez les prochaines dates de formation — SSIAP, sûreté et parcours
-            certifiants — et réservez votre place en quelques clics.
+            Consultez les prochaines dates de formation et trouvez la session qui
+            correspond à vos besoins. Réservez votre place en quelques clics et
+            développez vos compétences grâce à nos formations professionnelles.
           </p>
         </motion.div>
 

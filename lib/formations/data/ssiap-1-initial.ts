@@ -20,7 +20,8 @@ export const formation: Formation = {
   cpfEligible: true,
   certificationCode: "RS5641",
   certifications: ["Qualiopi"],
-  summary: "LT PROTECT FORMATION vous propose la formation SSIAP 1, diplôme obligatoire pour exercer en qualité d'agent de sécurité incendie. Cette formation vous permettra d'acquérir les connaissances nécessaires pour assurer la sécurité des personnes et la sécurité i…",
+  summary:
+    "La formation SSIAP 1 (Service de Sécurité Incendie et d'Assistance à Personnes) est le diplôme obligatoire pour exercer les fonctions d'agent de sécurité incendie dans les établissements recevant du public (ERP) et les immeubles de grande hauteur (IGH). Elle permet d'acquérir les compétences nécessaires pour prévenir les risques d'incendie, assurer la sécurité des occupants, intervenir en cas de départ de feu et participer à l'assistance aux personnes.",
   imageKey: "incendie",
   pdfFilename: "ssiap-1-initial.pdf",
   pdfUrl: "/pdfs/formations/ssiap-1-initial.pdf",
@@ -35,7 +36,8 @@ export const formation: Formation = {
     "Être titulaire d'un diplôme de secourisme en cours de validité (PSC 1 ou SST ou PSE 1 ou PSE 2 de moins de 2 ans)",
     "Lire, écrire, parler et comprendre la langue française",
   ],
-  presentation: "LT PROTECT FORMATION vous propose la formation SSIAP 1, diplôme obligatoire pour exercer en qualité d'agent de sécurité incendie. Cette formation vous permettra d'acquérir les connaissances nécessaires pour assurer la sécurité des personnes et la sécurité incendie des biens dans les Établissements Recevant du Public (ERP) et les Immeubles de Grande Hauteur (IGH).",
+  presentation:
+    "La formation SSIAP 1 (Service de Sécurité Incendie et d'Assistance à Personnes) est le diplôme obligatoire pour exercer les fonctions d'agent de sécurité incendie dans les établissements recevant du public (ERP) et les immeubles de grande hauteur (IGH). Elle permet d'acquérir les compétences nécessaires pour prévenir les risques d'incendie, assurer la sécurité des occupants, intervenir en cas de départ de feu et participer à l'assistance aux personnes.",
   objectives: [
     "Sensibiliser le stagiaire aux risques d'incendie et aux principes de prévention",
     "Connaître les systèmes de détection et d'alarme incendie",

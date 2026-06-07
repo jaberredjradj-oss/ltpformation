@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/Button";
 import { TrainingPhoto } from "@/components/ui/TrainingPhoto";
 
 const highlights = [
-  "Formateurs experts issus du terrain",
   "Pédagogie pratique et immersive",
-  "Accompagnement entreprise & OPCO",
-  "Sessions intra et inter-entreprises",
+  "Formations finançables : CPF pour les particuliers, OPCO pour les entreprises",
+  "Accompagnement personnalisé dans toutes vos démarches",
+  "Sessions individuelles, intra et inter-entreprises",
 ] as const;
 
 export function AboutPreview() {

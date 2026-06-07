@@ -9,7 +9,7 @@ export function Certifications() {
       <SectionHeading
         eyebrow="Conformité & qualité"
         title="Certifications et éligibilités"
-        description="Un organisme certifié et reconnu, avec des formations finançables et conformes aux exigences réglementaires."
+        description="Un organisme certifié Qualiopi et reconnu, dont les formations sont finançables (CPF, OPCO) et répondent à toutes les exigences réglementaires en vigueur."
         className="heading-accent-glow"
       />
 

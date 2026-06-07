@@ -15,8 +15,8 @@ export function WhyChooseUs() {
     <Section variant="surface" size="default" wash="blend">
       <SectionHeading
         eyebrow="Notre engagement"
-        title="Pourquoi choisir LT Protect Formation"
-        description="Un centre de formation ancré dans le terrain, dédié à la transmission des compétences, à la sécurité professionnelle et à la réussite de chaque participant."
+        title="Pourquoi choisir LT Protect Formation ?"
+        description="Parce que la sécurité ne s'improvise pas. Notre centre de formation, nourri par l'expérience du terrain, transmet un savoir-faire concret et accompagne chaque participant, du particulier en reconversion à l'entreprise, jusqu'à la reconnaissance de ses compétences."
         spacious
       />
 

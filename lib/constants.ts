@@ -85,7 +85,7 @@ export const WHY_CHOOSE_US = {
     {
       title: "Conformité réglementaire",
       description:
-        "Programmes alignés sur les référentiels en vigueur : SSIAP, SST, APS, NF C 18-510 et EPI.",
+        "Nos formations respectent les référentiels et textes en vigueur : SSIAP (arrêté du 2 mai 2005), SST (référentiel réseau Assurance Maladie / INRS), TFP APS (Livre VI du Code de la sécurité intérieure), habilitations électriques (norme NF C 18-510) et prévention des risques (Code du travail).",
     },
     {
       title: "Accompagnement humain",

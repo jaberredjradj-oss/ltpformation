@@ -8,10 +8,7 @@ import { getFormationCoverImage } from "@/lib/formation-cover-images";
 import { easeCinematic } from "@/lib/motion";
 import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
-import {
-  formatFormationDurationHours,
-  formatFormationPriceEuro,
-} from "@/lib/formations/display";
+import { formatFormationPriceEuro } from "@/lib/formations/display";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
 import { cn } from "@/lib/utils";
 
@@ -86,24 +83,17 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
             {formation.shortTitle}
           </h3>
 
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
+          <div className="mt-4 border-t border-slate-100 pt-4">
             <FormationMetaValue
-              label="Durée"
-              value={formatFormationDurationHours(formation.durationHours)}
-              valueClassName="text-sm font-semibold tabular-nums"
+              label="Tarif"
+              value={formatFormationPriceEuro(formation)}
+              valueClassName="text-sm font-semibold tabular-nums text-blue-600"
             />
-            <div className="min-w-0">
-              <FormationMetaValue
-                label="Tarif"
-                value={formatFormationPriceEuro(formation)}
-                valueClassName="text-sm font-semibold tabular-nums text-blue-600"
-              />
-              {hasInstallmentFacility(formation.slug) && (
-                <div className="mt-3 flex justify-end">
-                  <InstallmentBadge />
-                </div>
-              )}
-            </div>
+            {hasInstallmentFacility(formation.slug) && (
+              <div className="mt-3">
+                <InstallmentBadge />
+              </div>
+            )}
           </div>
 
           <p className="mt-3 flex-1 text-sm leading-relaxed text-body-strong">

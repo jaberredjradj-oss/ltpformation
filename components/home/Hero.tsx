@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { SITE, HERO_DOMAINS } from "@/lib/constants";
+import { HERO_DOMAINS } from "@/lib/constants";
 import { TRAINING_IMAGES } from "@/lib/training-images";
 import { easeCinematic } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
@@ -86,8 +86,9 @@ export function Hero() {
               {...reveal(0.38)}
               className="prose-width editorial-lead mt-7 font-medium text-body-strong sm:mt-10"
             >
-              {SITE.name} — centre de formation dédié à l&apos;excellence en prévention.
-              Parcours certifiants, formateurs experts et accompagnement conforme aux
+              LT Protect Formation — votre centre de formation en sécurité privée,
+              sécurité incendie et prévention des risques. Des parcours certifiants, des
+              formateurs experts et un accompagnement personnalisé, en conformité avec les
               exigences réglementaires.
             </motion.p>
 

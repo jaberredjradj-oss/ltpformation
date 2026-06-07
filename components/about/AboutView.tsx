@@ -138,22 +138,24 @@ export function AboutView() {
           imageAlt={ABOUT_TRAINING.imageAlt}
           highlights={ABOUT_TRAINING.highlights}
           footer={
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.8, delay: 0.24, ease: easeCinematic }}
-              className="mt-8 grid gap-2.5 sm:grid-cols-2"
-            >
-              {ABOUT_TRAINING.framing.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-xl border border-slate-100/90 bg-white/70 px-4 py-3 text-sm leading-relaxed text-body-strong"
-                >
-                  {item}
-                </div>
-              ))}
-            </motion.div>
+            ABOUT_TRAINING.framing.length > 0 ? (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.8, delay: 0.24, ease: easeCinematic }}
+                className="mt-8 grid gap-2.5 sm:grid-cols-2"
+              >
+                {ABOUT_TRAINING.framing.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-xl border border-slate-100/90 bg-white/70 px-4 py-3 text-sm leading-relaxed text-body-strong"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </motion.div>
+            ) : undefined
           }
         />
       </Section>

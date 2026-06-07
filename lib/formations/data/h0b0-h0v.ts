@@ -19,7 +19,8 @@ export const formation: Formation = {
   },
   cpfEligible: false,
   certifications: ["Qualiopi"],
-  summary: "Apporter les compétences en sécurité nécessaires au personnel d'entreprise devant réaliser des travaux non-électriques dans un environnement électrique potentiellement dangereux.",
+  summary:
+    "Notre formation H0B0 aborde les risques électriques, les mesures préventives et les procédures de sécurité essentielles. Les participants seront formés à identifier les zones à risque et à comprendre les limites de leur intervention sans qualifications électriques, en mettant l'accent sur les comportements à adopter pour assurer leur sécurité et celle de leurs collègues.",
   imageKey: "habilitation",
   pdfFilename: "h0b0-h0v.pdf",
   pdfUrl: "/pdfs/formations/h0b0-h0v.pdf",
@@ -31,7 +32,8 @@ export const formation: Formation = {
   prerequisites: [
     "Aucun",
   ],
-  presentation: "Apporter les compétences en sécurité nécessaires au personnel d'entreprise devant réaliser des travaux non-électriques dans un environnement électrique potentiellement dangereux.",
+  presentation:
+    "Notre formation H0B0 aborde les risques électriques, les mesures préventives et les procédures de sécurité essentielles. Les participants seront formés à identifier les zones à risque et à comprendre les limites de leur intervention sans qualifications électriques, en mettant l'accent sur les comportements à adopter pour assurer leur sécurité et celle de leurs collègues.",
   objectives: [
     "Connaître la réglementation en rapport avec l'électricité et les risques présentés par les installations",
     "Connaître les dispositions de la norme NFC 18-510",

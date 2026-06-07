@@ -3,20 +3,22 @@ import { TRAINING_IMAGES } from "@/lib/training-images";
 
 export const ABOUT_HERO = {
   eyebrow: "En savoir plus sur nous",
-  lines: ["Un centre de formation", "opérationnel et exigeant."],
+  lines: [
+    "Former simplement, efficacement,",
+    "avec une vraie vision du terrain.",
+  ],
   lead:
-    "LT Protect Formation forme les professionnels de la prévention — incendie, secours, sûreté et habilitations — dans un cadre structuré, humain et orienté terrain.",
+    "LT Protect Formation prépare les professionnels de la sécurité — incendie, secours, sûreté et prévention des risques professionnels — à Voisins-le-Bretonneux (78). Des formations conformes aux référentiels en vigueur, encadrées par des formateurs issus du métier.",
 } as const;
 
 export const ABOUT_INTRO = {
   quote: {
-    text: "Chaque parcours est pensé pour transmettre savoir-faire, conformité et confiance sur le terrain.",
+    text: "En sécurité, la réactivité s'apprend en amont : nous formons des professionnels prêts à agir avec méthode et sang-froid.",
     author: "LT Protect Formation",
     role: "Centre de formation certifié",
   },
   paragraphs: [
-    `${SITE.name} accompagne les entreprises, les candidats en reconversion et les professionnels en montée en compétences. Notre approche combine rigueur réglementaire, pédagogie immersive et exigence opérationnelle.`,
-    "Chaque parcours est conçu pour installer la confiance, la maîtrise des gestes professionnels et la capacité d'agir en situation réelle.",
+    "Depuis 2023, LT Protect Formation accompagne entreprises, salariés et particuliers en reconversion ou en montée en compétences. Nos parcours allient pratique en conditions réelles, respect des référentiels et accompagnement individualisé, de l'inscription jusqu'à la validation de la qualification.",
   ],
 } as const;
 
@@ -34,7 +36,6 @@ export const ABOUT_LOCATION = {
     "Parking accessible et spacieux",
     "Accueil confortable pour les stagiaires et visiteurs",
     "Centre situé au premier étage — accès facilité",
-    "Conditions modernes favorisant la concentration",
   ],
   image: TRAINING_IMAGES.classroom,
   imageAlt: "Salle de formation lumineuse — LT Protect Formation, Voisins-le-Bretonneux",
@@ -53,12 +54,7 @@ export const ABOUT_TRAINING = {
     "Équipements de sécurité adaptés aux protocoles",
     "Préparation concrète aux responsabilités de terrain",
   ],
-  framing: [
-    "Exercices encadrés par des formateurs expérimentés",
-    "Protocoles de sécurité strictement appliqués",
-    "Simulations autorisées et professionnellement cadrées",
-    "Réalisme opérationnel au service de la confiance",
-  ],
+  framing: [],
   image: TRAINING_IMAGES.intervention,
   imageAlt: "Exercice opérationnel encadré — formation LT Protect",
 } as const;
@@ -86,15 +82,14 @@ export const ABOUT_TRAINERS = {
   highlights: [
     "Formateurs issus du monde opérationnel",
     "Expertise incendie, secours, sûreté et habilitations",
-    "Pédagogie exigeante et bienveillante",
+    "Des formateurs exigeants mais à l'écoute",
     "Suivi individualisé des parcours",
     "Accompagnement des reconversions et des montées en compétences",
-    "Préparation concrète aux responsabilités professionnelles",
   ],
   audiences: [
-    "Futurs stagiaires en quête de sérieux et de structure",
-    "Entreprises recherchant un partenaire formation fiable",
-    "Professionnels souhaitant consolider leurs compétences",
+    "Les futurs stagiaires qui souhaitent une formation sérieuse et encadrée",
+    "Les entreprises à la recherche d'un partenaire fiable pour former leurs équipes",
+    "Les professionnels qui veulent renforcer ou actualiser leurs compétences",
   ],
   image: TRAINING_IMAGES.aboutTeam,
   imageAlt: "Formateurs LT Protect Formation en atelier pédagogique",
