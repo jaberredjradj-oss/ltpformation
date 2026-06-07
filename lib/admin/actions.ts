@@ -12,6 +12,7 @@ import type { PlanningSession } from "@/lib/planning/types";
 import { getFormation } from "@/lib/formations/catalog";
 import { FORMATION_CATEGORY_BY_ID } from "@/lib/formations/categories";
 import type { FormationCategoryId } from "@/lib/formations/types";
+import { applySeatTakenOnPreinscriptionValidation } from "@/lib/admin/planning-seat-on-validation";
 import { getPlanningRepository } from "@/lib/repositories/planning";
 import { getMessagesRepository, getSubmissionsRepository } from "@/lib/repositories";
 
@@ -245,8 +246,19 @@ export async function updateDevisStatus(id: string, status: DevisRequestStatus) 
 export async function updatePreinscriptionStatus(id: string, status: PreinscriptionStatus) {
   await assertAdminAccess();
   const repo = await getSubmissionsRepository();
+  const preinscriptions = await repo.listPreinscriptions();
+  const preinscription = preinscriptions.find((entry) => entry.id === id);
+
+  const seatUpdated = await applySeatTakenOnPreinscriptionValidation(
+    preinscription?.status ?? "pending",
+    status,
+    preinscription?.sessionId,
+  );
   await repo.updatePreinscriptionStatus(id, status);
   revalidateAdminPaths();
+  if (status === "validated" || seatUpdated) {
+    revalidatePublicPaths();
+  }
   return { ok: true as const };
 }
 

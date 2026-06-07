@@ -15,6 +15,7 @@ import {
   logDecisionEmailAttempt,
   updateDecisionEmailLogStatus,
 } from "@/lib/notifications/decision-email";
+import { applySeatTakenOnPreinscriptionValidation } from "@/lib/admin/planning-seat-on-validation";
 import { getSubmissionsRepository } from "@/lib/repositories";
 
 export interface PrepareDecisionEmailInput {
@@ -154,7 +155,21 @@ export async function confirmDecisionEmail(input: {
   const repo = await getSubmissionsRepository();
 
   if (input.entityType === "preinscription") {
-    await repo.updatePreinscriptionStatus(input.entityId, input.newStatus as PreinscriptionStatus);
+    const newStatus = input.newStatus as PreinscriptionStatus;
+    const preinscriptions = await repo.listPreinscriptions();
+    const preinscription = preinscriptions.find((entry) => entry.id === input.entityId);
+
+    const seatUpdated = await applySeatTakenOnPreinscriptionValidation(
+      preinscription?.status ?? "pending",
+      newStatus,
+      preinscription?.sessionId,
+    );
+    await repo.updatePreinscriptionStatus(input.entityId, newStatus);
+    if (seatUpdated) {
+      revalidatePath("/planning");
+      revalidatePath("/preinscription");
+      revalidatePath("/admin/planning");
+    }
   } else {
     await repo.updateDevisStatus(input.entityId, input.newStatus as DevisRequestStatus);
   }
