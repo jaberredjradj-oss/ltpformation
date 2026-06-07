@@ -7,6 +7,7 @@ import {
   hasContactValidationErrors,
   validateContactForm,
 } from "@/lib/contact/validation";
+import { notifyTeamOfFormSubmission } from "@/lib/email/internal-notification";
 import { getMessagesRepository } from "@/lib/repositories";
 import { notificationDispatcher } from "@/lib/notifications/dispatcher";
 
@@ -55,6 +56,19 @@ export async function submitContactForm(
     await notificationDispatcher.dispatch({
       type: "contact.created",
       payload: { id },
+    });
+
+    notifyTeamOfFormSubmission({
+      kind: "contact",
+      referenceId: id,
+      adminPath: "/admin/messages",
+      replyToEmail: payload.values.email.trim(),
+      details: [
+        { label: "Nom", value: `${payload.values.firstName.trim()} ${payload.values.lastName.trim()}`.trim() },
+        { label: "Email", value: payload.values.email.trim() },
+        { label: "Téléphone", value: payload.values.phone.trim() || "—" },
+        { label: "Message", value: payload.values.message.trim() },
+      ],
     });
 
     revalidatePath("/admin");

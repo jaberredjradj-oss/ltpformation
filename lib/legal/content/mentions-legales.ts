@@ -106,8 +106,8 @@ export const mentionsLegalesDocument: LegalDocumentDefinition = {
               inline(
                 "Pour exercer ces droits, vous pouvez nous contacter par email à l'adresse : ",
               ),
-              inline("ltprotect.formation@gmail.com", {
-                href: "mailto:ltprotect.formation@gmail.com",
+              inline("contact@ltpformation.fr", {
+                href: "mailto:contact@ltpformation.fr",
               }),
               inline(" ou par courrier à l'adresse postale mentionnée ci-dessus."),
             ),

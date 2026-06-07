@@ -12,6 +12,8 @@ export interface TransactionalEmailPayload {
   subject: string;
   html: string;
   text: string;
+  /** Overrides default Reply-To (admin outgoing emails use contact@ltpformation.fr). */
+  replyTo?: string;
 }
 
 export type SendTransactionalEmailResult =
@@ -73,7 +75,7 @@ export async function sendTransactionalEmail(
 ): Promise<SendTransactionalEmailResult> {
   const provider = getEmailProvider();
   const from = getEmailFrom();
-  const replyTo = getEmailReplyTo();
+  const replyTo = payload.replyTo ?? getEmailReplyTo();
 
   if (provider === "stub" || !from) {
     return { ok: false, error: "Email provider is not configured." };

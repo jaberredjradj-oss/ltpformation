@@ -14,6 +14,8 @@ import type {
   RegistrationIntent,
 } from "@/lib/registration/types";
 import { loadPlanningSessions } from "@/lib/repositories/planning";
+import { notifyTeamOfFormSubmission } from "@/lib/email/internal-notification";
+import type { RegistrationSessionSnapshot } from "@/lib/registration/types";
 import { getSubmissionsRepository } from "@/lib/repositories";
 import { notificationDispatcher } from "@/lib/notifications/dispatcher";
 import { ensureSupabaseEnvironmentValidated } from "@/lib/db/supabase-env";
@@ -33,6 +35,17 @@ export type RegistrationSubmitResult =
 function createSubmissionId(): string {
   return `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
+
+function formatSessionDetail(snapshot: RegistrationSessionSnapshot | null): string {
+  if (!snapshot) return "—";
+
+  const parts = [snapshot.title, snapshot.dateRange, snapshot.location];
+  if (snapshot.examLabel) parts.push(`Examen : ${snapshot.examLabel}`);
+  return parts.join(" · ");
+}
+
+const CPF_LABELS = { yes: "Oui", no: "Non", unknown: "Ne sait pas" } as const;
+const ON_SITE_LABELS = { yes: "Oui", no: "Non", unknown: "À définir" } as const;
 
 export async function submitRegistration(
   payload: RegistrationSubmitPayload,
@@ -141,6 +154,28 @@ export async function submitRegistration(
     await notificationDispatcher.dispatch({
       type: "preinscription.created",
       payload: { id, sessionId: payload.values.sessionId },
+    });
+
+    notifyTeamOfFormSubmission({
+      kind: "preinscription",
+      referenceId: id,
+      adminPath: `/admin/preinscriptions/${id}/sheet`,
+      replyToEmail: payload.values.email.trim(),
+      details: [
+        {
+          label: "Nom",
+          value: `${payload.values.firstName.trim()} ${payload.values.lastName.trim()}`.trim(),
+        },
+        { label: "Email", value: payload.values.email.trim() },
+        { label: "Téléphone", value: payload.values.phone.trim() },
+        { label: "Formation", value: formation.shortTitle },
+        { label: "Session", value: formatSessionDetail(sessionSnapshot) },
+        {
+          label: "Financement CPF",
+          value: payload.values.cpfFinancing ? CPF_LABELS[payload.values.cpfFinancing] : "—",
+        },
+        { label: "Message", value: payload.values.message.trim() || "—" },
+      ],
     });
 
     return { ok: true, submissionId: id };

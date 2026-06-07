@@ -1,4 +1,4 @@
-import { EMAIL_BRAND } from "@/lib/email/brand";
+import { SITE } from "@/lib/constants";
 
 export type EmailProvider = "resend" | "smtp" | "stub";
 
@@ -59,18 +59,23 @@ export function getEmailFrom(): string {
 }
 
 /**
- * Reply-To address for inbound replies (defaults to official contact inbox).
+ * Internal notification inbox (form alerts, reply routing). Not shown on the public site.
+ */
+export function getEmailNotificationTo(): string {
+  const configured = trimEnv(process.env.EMAIL_NOTIFICATION_TO);
+  if (configured) return configured;
+
+  return SITE.notificationEmail;
+}
+
+/**
+ * Reply-To for visitor-facing admin emails (defaults to the public contact address).
  */
 export function getEmailReplyTo(): string {
   const replyTo = trimEnv(process.env.EMAIL_REPLY_TO);
   if (replyTo) return replyTo;
 
-  const from = trimEnv(process.env.EMAIL_FROM);
-  const match = from.match(/<([^>]+)>/);
-  if (match?.[1]) return match[1];
-  if (from.includes("@")) return from;
-
-  return EMAIL_BRAND.email;
+  return SITE.email;
 }
 
 export interface SmtpTransportConfig {

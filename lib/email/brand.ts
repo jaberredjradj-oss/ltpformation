@@ -8,7 +8,7 @@ export const EMAIL_BRAND = {
   addressLine2: "78960 Voisins-le-Bretonneux",
   siret: "87957170100025",
   activityDeclaration: "11788581978",
-  email: "contact@ltpformation.fr",
+  email: SITE.email,
   phone: SITE.phone,
   mobile: SITE.mobile,
   websiteUrl: getSiteUrl(),

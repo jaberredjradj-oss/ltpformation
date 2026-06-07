@@ -19,7 +19,9 @@ export const SITE = {
   },
   phone: "09 73 88 06 48",
   mobile: "06 40 41 62 10",
-  email: "ltprotect.formation@gmail.com",
+  email: "contact@ltpformation.fr",
+  /** Internal inbox for form alerts and reply routing (not shown publicly). */
+  notificationEmail: "ltprotect.formation@gmail.com",
   hours: "Lundi – Vendredi · 8h – 18h",
   onSiteNote: "Les inscriptions sur place se font uniquement le matin.",
   accessibility:
