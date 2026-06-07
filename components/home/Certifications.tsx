@@ -1,3 +1,4 @@
+import { getCertificationPdf } from "@/lib/certifications";
 import { CERTIFICATIONS } from "@/lib/constants";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -22,7 +23,7 @@ export function Certifications() {
             description={cert.description}
             image={cert.image}
             points={cert.points}
-            certificatePdf={"certificatePdf" in cert ? cert.certificatePdf : undefined}
+            certificatePdf={getCertificationPdf(cert)}
             delay={index * 0.06}
           />
         ))}

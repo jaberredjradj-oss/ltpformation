@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +11,7 @@ import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
+import { CertificationMark } from "@/components/ui/CertificationMark";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export function Navbar() {
@@ -37,18 +37,7 @@ export function Navbar() {
       <div className="hidden border-b border-slate-100/80 bg-gradient-to-r from-surface/80 via-white/90 to-surface/80 lg:block">
         <Container className="flex items-center justify-center gap-12 py-2">
           {CERTIFICATIONS.map((cert) => (
-            <div key={cert.id} className="flex items-center gap-2.5">
-              <Image
-                src={cert.image}
-                alt={cert.name}
-                width={72}
-                height={32}
-                className="h-7 w-auto object-contain opacity-90"
-              />
-              <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-navy-700 xl:inline">
-                {cert.shortName}
-              </span>
-            </div>
+            <CertificationMark key={cert.id} cert={cert} showLabel />
           ))}
         </Container>
       </div>
@@ -123,13 +112,10 @@ export function Navbar() {
             <Container className="py-4 sm:py-5">
               <div className="mb-4 flex flex-wrap justify-center gap-3 border-b border-slate-100 pb-4 sm:mb-5 sm:gap-4 sm:pb-5">
                 {CERTIFICATIONS.map((cert) => (
-                  <Image
+                  <CertificationMark
                     key={cert.id}
-                    src={cert.image}
-                    alt={cert.name}
-                    width={72}
-                    height={32}
-                    className="h-6 w-auto object-contain sm:h-7"
+                    cert={cert}
+                    imageClassName="h-6 w-auto object-contain sm:h-7"
                   />
                 ))}
               </div>

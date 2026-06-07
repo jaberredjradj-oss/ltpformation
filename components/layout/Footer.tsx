@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -12,6 +11,7 @@ import {
 } from "@/lib/constants";
 import { easeCinematic } from "@/lib/motion";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { CertificationMark } from "@/components/ui/CertificationMark";
 import { Container } from "@/components/ui/Container";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 
@@ -42,13 +42,12 @@ export function Footer() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6 lg:justify-end">
             {CERTIFICATIONS.map((cert) => (
-              <Image
+              <CertificationMark
                 key={cert.id}
-                src={cert.image}
-                alt={cert.name}
-                width={96}
-                height={42}
-                className="h-8 w-auto object-contain opacity-90"
+                cert={cert}
+                imageWidth={96}
+                imageHeight={42}
+                imageClassName="h-8 w-auto object-contain opacity-90"
               />
             ))}
           </div>

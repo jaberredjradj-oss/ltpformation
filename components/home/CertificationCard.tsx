@@ -27,13 +27,32 @@ export function CertificationCard({
         <div className="cert-seal-frame relative px-5 py-7">
           <div className="pointer-events-none absolute inset-2.5 rounded-lg border border-dashed border-blue-200/50" />
           <div className="flex min-h-[72px] items-center justify-center">
-            <Image
-              src={image}
-              alt={name}
-              width={240}
-              height={96}
-              className="max-h-[72px] w-auto object-contain"
-            />
+            {certificatePdf ? (
+              <a
+                href={certificatePdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md transition-opacity duration-300 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50"
+                aria-label={`Voir le certificat ${name} (PDF)`}
+                title={`Certificat ${name} (PDF)`}
+              >
+                <Image
+                  src={image}
+                  alt={name}
+                  width={240}
+                  height={96}
+                  className="max-h-[72px] w-auto object-contain"
+                />
+              </a>
+            ) : (
+              <Image
+                src={image}
+                alt={name}
+                width={240}
+                height={96}
+                className="max-h-[72px] w-auto object-contain"
+              />
+            )}
           </div>
         </div>
 
