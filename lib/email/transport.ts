@@ -82,6 +82,8 @@ async function sendViaSmtp(
       html: payload.html,
       text: payload.text,
       replyTo,
+      // Convert data: logo URIs to inline MIME parts (required for Gmail).
+      attachDataUrls: true,
     });
     return { ok: true, provider: "smtp" };
   } catch (error) {
