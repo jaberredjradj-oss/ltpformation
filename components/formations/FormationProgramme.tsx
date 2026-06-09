@@ -28,14 +28,7 @@ export function FormationProgramme({
                 key={module.title}
                 className="flex h-full flex-col rounded-xl border border-slate-200/80 bg-gradient-to-br from-white to-blue-50/20 p-4"
               >
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <h4 className="text-sm font-semibold leading-snug text-navy-950">{module.title}</h4>
-                  {module.hours !== undefined && (
-                    <span className="shrink-0 rounded-full bg-white px-3 py-1 text-xs font-semibold tabular-nums text-blue-700 shadow-[var(--shadow-soft)]">
-                      {module.hours}h
-                    </span>
-                  )}
-                </div>
+                <h4 className="text-sm font-semibold leading-snug text-navy-950">{module.title}</h4>
                 {module.content.length > 0 && (
                   <ul className="mt-3 flex-1 space-y-2">
                     {module.content.map((item) => (
