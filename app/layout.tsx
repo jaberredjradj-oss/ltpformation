@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { BuildMarker } from "@/components/BuildMarker";
@@ -50,6 +51,7 @@ export default function RootLayout({
         {children}
         <BuildMarker />
       </body>
+      <GoogleAnalytics gaId="G-VMCETEB9F5" />
     </html>
   );
 }

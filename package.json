@@ -14,6 +14,7 @@
     "formations:sync": "node scripts/build-formations-data.cjs"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.6",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.1",
     "framer-motion": "^12.40.0",
