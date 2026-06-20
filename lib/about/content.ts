@@ -3,12 +3,10 @@ import { TRAINING_IMAGES } from "@/lib/training-images";
 
 export const ABOUT_HERO = {
   eyebrow: "En savoir plus sur nous",
-  lines: [
-    "Former simplement, efficacement,",
-    "avec une vraie vision du terrain.",
-  ],
+  title:
+    "Votre organisme de formation sécurité à Voisins-le-Bretonneux, dans les Yvelines (78)",
   lead:
-    "LT Protect Formation prépare les professionnels de la sécurité — incendie, secours, sûreté et prévention des risques professionnels — à Voisins-le-Bretonneux (78). Des formations conformes aux référentiels en vigueur, encadrées par des formateurs issus du métier.",
+    "LT Protect Formation prépare les professionnels de la sécurité — incendie (SSIAP 1, 2, 3), secours (SST), sûreté (CQP APS) et prévention des risques (H0B0) — à Voisins-le-Bretonneux (78), au cœur de Saint-Quentin-en-Yvelines. Des formations conformes aux référentiels en vigueur, encadrées par des formateurs issus du métier, accessibles depuis Montigny-le-Bretonneux, Guyancourt, Versailles, Trappes et toute l'Île-de-France.",
 } as const;
 
 export const ABOUT_INTRO = {
@@ -26,7 +24,7 @@ export const ABOUT_LOCATION = {
   eyebrow: "Notre environnement",
   title: "Un centre pensé pour apprendre sereinement",
   description:
-    "Installé à Voisins-le-Bretonneux, notre centre de formation accueille stagiaires et entreprises dans un cadre professionnel, lumineux et accessible.",
+    "Installé à Voisins-le-Bretonneux, notre centre de formation accueille stagiaires et entreprises dans un cadre professionnel, lumineux et accessible. Facilement accessible depuis Montigny-le-Bretonneux, Guyancourt, Versailles, Trappes et Élancourt, notre centre est au cœur du bassin d'emploi des Yvelines (78).",
   addressLabel: `${SITE.address.street}, ${SITE.address.city}`,
   accessNote: SITE.address.access,
   highlights: [
@@ -38,7 +36,8 @@ export const ABOUT_LOCATION = {
     "Centre situé au premier étage — accès facilité",
   ],
   image: TRAINING_IMAGES.classroom,
-  imageAlt: "Salle de formation lumineuse — LT Protect Formation, Voisins-le-Bretonneux",
+  imageAlt:
+    "Salle de formation SSIAP et secourisme LT Protect Formation, Saint-Quentin-en-Yvelines (78)",
 } as const;
 
 export const ABOUT_TRAINING = {
@@ -56,7 +55,8 @@ export const ABOUT_TRAINING = {
   ],
   framing: [],
   image: TRAINING_IMAGES.intervention,
-  imageAlt: "Exercice opérationnel encadré — formation LT Protect",
+  imageAlt:
+    "Exercice pratique sécurité incendie SSIAP LT Protect Formation, Yvelines (78)",
 } as const;
 
 export const ABOUT_APPROVALS = {
@@ -92,7 +92,8 @@ export const ABOUT_TRAINERS = {
     "Les professionnels qui veulent renforcer ou actualiser leurs compétences",
   ],
   image: TRAINING_IMAGES.aboutTeam,
-  imageAlt: "Formateurs LT Protect Formation en atelier pédagogique",
+  imageAlt:
+    "Formateurs sécurité incendie LT Protect Formation, Voisins-le-Bretonneux, Saint-Quentin-en-Yvelines",
 } as const;
 
 export const ABOUT_CTA = {

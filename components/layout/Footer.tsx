@@ -62,6 +62,11 @@ export function Footer() {
                 <p className="mt-1 text-sm text-body-strong">
                   {SITE.address.building} · {SITE.address.city}
                 </p>
+                <p className="mt-2 text-xs leading-relaxed text-lead-strong">
+                  Formations disponibles à Voisins-le-Bretonneux, Saint-Quentin-en-Yvelines,
+                  Montigny-le-Bretonneux, Versailles et dans tout le département des Yvelines
+                  (78).
+                </p>
                 <p className="mt-1.5 text-xs text-lead-strong">{SITE.address.access}</p>
                 <a
                   href={SITE.address.mapsUrl}

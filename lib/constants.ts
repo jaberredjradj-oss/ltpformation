@@ -6,6 +6,8 @@ export const SITE = {
   description:
     "Centre de formation professionnelle en sécurité incendie, sûreté, secourisme et habilitations réglementaires.",
   logo: "/ltprotectformationlogo-transparent.png",
+  logoAlt:
+    "LT Protect Formation, centre de formation sécurité Voisins-le-Bretonneux (78)",
   address: {
     street: "26 Av. René Duguay Trouin",
     building: "Bâtiment A – Premier Étage",
@@ -73,6 +75,7 @@ export const HERO_VISUALS = [
     theme: "formation" as const,
     subtitle: "Environnement premium",
     image: TRAINING_IMAGES.formation,
+    imageAlt: "Formation sécurité et secourisme LT Protect Formation, Yvelines (78)",
     featured: true,
   },
 ] as const;

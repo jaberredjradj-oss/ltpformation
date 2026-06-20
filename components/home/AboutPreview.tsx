@@ -24,7 +24,7 @@ export function AboutPreview() {
         <div>
           <SectionHeading
             eyebrow="Qui sommes-nous"
-            title="Un centre de formation engagé pour votre sécurité"
+            title="Un centre de formation en sécurité engagé dans les Yvelines (78)"
             align="left"
             className="mb-0! text-left!"
           />
@@ -33,16 +33,18 @@ export function AboutPreview() {
             className="prose-width mt-6 text-[1.0625rem] leading-[1.65] text-body-strong"
           >
             {SITE.name} est un organisme de formation professionnelle spécialisé dans la
-            prévention des risques, la sécurité incendie et les habilitations réglementaires.
-            Nos formateurs, issus du terrain, transmettent une pédagogie exigeante et orientée
-            pratique.
+            prévention des risques, la sécurité incendie (SSIAP 1, 2, 3), la sûreté (CQP APS),
+            le secourisme (SST) et les habilitations réglementaires (H0B0). Nos formateurs,
+            issus du terrain, transmettent une pédagogie exigeante et orientée pratique.
           </motion.p>
           <motion.p
             {...revealStagger(0.2)}
             className="prose-width mt-4 text-[1.0625rem] leading-[1.65] text-lead-strong"
           >
-            Situés à Voisins-le-Bretonneux, nous accompagnons les entreprises et les particuliers
-            avec des sessions adaptées à vos contraintes opérationnelles.
+            Situés à Voisins-le-Bretonneux, au cœur de Saint-Quentin-en-Yvelines (78), nous
+            accompagnons entreprises et particuliers de Montigny-le-Bretonneux, Guyancourt,
+            Versailles, Trappes et de toute l&apos;Île-de-France avec des sessions adaptées à
+            vos contraintes opérationnelles.
           </motion.p>
           <motion.div {...revealStagger(0.28)} className="mt-8">
             <Button href="/qui-sommes-nous" variant="outline">
@@ -62,7 +64,7 @@ export function AboutPreview() {
           <div className="relative aspect-16/10 min-h-[220px]">
             <TrainingPhoto
               src={TRAINING_IMAGES.aboutTeam}
-              alt="Atelier de formation professionnelle — LT Protect Formation"
+              alt="Atelier de formation SSIAP LT Protect Formation, Voisins-le-Bretonneux"
               overlay="soft"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
