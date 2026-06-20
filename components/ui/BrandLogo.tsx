@@ -65,7 +65,7 @@ export function BrandLogo({ size = "nav", className, priority }: BrandLogoProps)
       />
       <Image
         src={SITE.logo}
-        alt={SITE.name}
+        alt={SITE.logoAlt}
         width={displayWidth}
         height={dim.heightPx}
         priority={priority}

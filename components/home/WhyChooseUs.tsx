@@ -30,7 +30,7 @@ export function WhyChooseUs() {
         >
           <TrainingPhoto
             src={TRAINING_IMAGES.classroom}
-            alt="Formation professionnelle en salle — LT Protect Formation"
+            alt="Salle de cours formation sécurité privée CQP APS, Saint-Quentin-en-Yvelines (78)"
             overlay="soft"
             className="min-h-[340px] lg:min-h-full"
             sizes="(max-width: 1024px) 100vw, 40vw"

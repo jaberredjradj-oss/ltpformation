@@ -35,9 +35,7 @@ export function AboutView() {
             >
               <p className="section-eyebrow">{ABOUT_HERO.eyebrow}</p>
               <h1 className="mt-4 text-[2rem] font-semibold leading-[1.05] tracking-[-0.034em] text-navy-950 sm:text-[2.85rem] lg:text-[3.5rem] xl:text-[3.85rem]">
-                {ABOUT_HERO.lines[0]}
-                <br />
-                <span className="gradient-text-gold-blue">{ABOUT_HERO.lines[1]}</span>
+                {ABOUT_HERO.title}
               </h1>
               <p className="mt-6 max-w-[40rem] text-base leading-[1.7] tracking-[-0.014em] text-navy-950 md:mt-8 md:text-lg md:leading-[1.78]">
                 {ABOUT_HERO.lead}
@@ -53,7 +51,7 @@ export function AboutView() {
               <div className="relative aspect-[16/10] min-h-[210px] sm:min-h-[240px]">
                 <TrainingPhoto
                   src={TRAINING_IMAGES.formation}
-                  alt="Centre de formation LT Protect Formation"
+                  alt="Organisme de formation sécurité incendie SSIAP Voisins-le-Bretonneux, Yvelines (78)"
                   overlay="soft"
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"

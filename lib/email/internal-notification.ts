@@ -7,7 +7,7 @@ import {
 import { sendTransactionalEmail } from "@/lib/email/transport";
 import { getEmailPublicBaseUrl } from "@/lib/site-url";
 
-export type InternalNotificationKind = "contact" | "devis" | "preinscription";
+export type InternalNotificationKind = "contact" | "callback" | "devis" | "preinscription";
 
 export interface InternalNotificationDetail {
   label: string;
@@ -25,6 +25,7 @@ export interface SendInternalFormNotificationInput {
 
 const KIND_LABELS: Record<InternalNotificationKind, string> = {
   contact: "Message de contact",
+  callback: "Demande de rappel",
   devis: "Demande de devis",
   preinscription: "Pré-inscription",
 };

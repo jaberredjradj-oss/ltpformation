@@ -31,6 +31,7 @@ export function HeroVisualGrid() {
               theme={featured.theme}
               label={featured.label}
               image={featured.image}
+              imageAlt={"imageAlt" in featured ? featured.imageAlt : undefined}
               featured
               className="transition-transform duration-[0.9s] ease-out group-hover:scale-[1.03]"
             />

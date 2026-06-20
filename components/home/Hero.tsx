@@ -32,7 +32,7 @@ export function Hero() {
       <motion.div style={{ y: bgY }} className="absolute inset-0 scale-[1.03] md:scale-[1.06]">
         <TrainingPhoto
           src={TRAINING_IMAGES.heroBg}
-          alt="Centre de formation professionnelle LT Protect Formation"
+          alt="Centre de formation sécurité incendie SSIAP à Voisins-le-Bretonneux, Saint-Quentin-en-Yvelines (78)"
           overlay="hero"
           priority
           kenBurns
@@ -60,7 +60,8 @@ export function Hero() {
               {...reveal(0.1)}
               className="display-width text-[2rem] font-bold leading-[1.06] tracking-[-0.028em] text-navy-950 min-[380px]:text-[2.2rem] sm:text-[2.75rem] lg:text-[3.5rem]"
             >
-              Sécurité, Sûreté et Secourisme
+              Centre de formation en sécurité privée, SSIAP et Secourisme à
+              Saint-Quentin-en-Yvelines (78)
             </motion.h1>
 
             <motion.p
@@ -87,9 +88,11 @@ export function Hero() {
               className="prose-width editorial-lead mt-7 font-medium text-body-strong sm:mt-10"
             >
               LT Protect Formation — votre centre de formation en sécurité privée,
-              sécurité incendie et prévention des risques. Des parcours certifiants, des
-              formateurs experts et un accompagnement personnalisé, en conformité avec les
-              exigences réglementaires.
+              sécurité incendie (SSIAP 1, 2, 3), sûreté (CQP APS), secourisme (SST) et
+              habilitations réglementaires (H0B0), situé à Voisins-le-Bretonneux, au cœur
+              de Saint-Quentin-en-Yvelines. Des parcours certifiants, des formateurs experts
+              et un accompagnement personnalisé, accessibles depuis Montigny-le-Bretonneux,
+              Guyancourt, Versailles, Trappes et toute l&apos;Île-de-France.
             </motion.p>
 
             <motion.div {...reveal(0.44)} className="mt-8 flex flex-wrap gap-2 sm:mt-12">

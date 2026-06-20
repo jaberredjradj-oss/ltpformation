@@ -13,6 +13,7 @@ interface CategoryVisualProps {
   className?: string;
   featured?: boolean;
   image?: string;
+  imageAlt?: string;
   hideLabels?: boolean;
 }
 
@@ -23,6 +24,7 @@ export function CategoryVisual({
   className,
   featured = false,
   image,
+  imageAlt,
   hideLabels = false,
 }: CategoryVisualProps) {
   const config = CATEGORY_VISUAL_THEMES[theme];
@@ -31,7 +33,7 @@ export function CategoryVisual({
   return (
     <TrainingPhoto
       src={photoSrc}
-      alt={label}
+      alt={imageAlt ?? label}
       overlay={featured ? "editorial" : "cinematic"}
       className={className}
       sizes={featured ? "(max-width: 768px) 100vw, 640px" : "(max-width: 768px) 50vw, 320px"}
