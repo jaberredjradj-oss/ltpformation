@@ -11,7 +11,7 @@ import {
 } from "@/lib/admin/message-reply-actions";
 import type { AdminTableColumnDef } from "@/lib/admin/data-table/types";
 import { uniqueFilterOptions } from "@/lib/admin/data-table/process";
-import { AdminActionButton } from "@/components/admin/AdminActionButton";
+import { TrashDeleteButton } from "@/components/admin/TrashDeleteButton";
 import { AdminDecisionEmailDialog } from "@/components/admin/AdminDecisionEmailDialog";
 import { AdminEmptyState } from "@/components/admin/AdminEmptyState";
 import { adminStyles } from "@/components/admin/admin-styles";
@@ -188,6 +188,12 @@ export function ContactMessagesTable({ messages }: ContactMessagesTableProps) {
         >
           Répondre
         </button>
+        <TrashDeleteButton
+          entityType="message"
+          id={item.id}
+          label={`${item.firstName} ${item.lastName}`}
+          disabled={actionsDisabled}
+        />
       </div>
     );
   }
@@ -268,6 +274,12 @@ export function ContactMessagesTable({ messages }: ContactMessagesTableProps) {
           >
             Répondre
           </button>
+          <TrashDeleteButton
+            entityType="message"
+            id={message.id}
+            label={`${message.firstName} ${message.lastName}`}
+            disabled={actionsDisabled}
+          />
         </div>
         <div className="mt-3">
           <AdminStatusSelect

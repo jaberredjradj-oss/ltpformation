@@ -17,6 +17,10 @@ export const adminStyles = {
     "inline-flex min-h-10 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-blue-50 px-3 text-xs font-medium text-blue-800 transition-colors hover:border-blue-300 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-8",
   btnGhost:
     "text-xs font-medium text-slate-600 transition-colors hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50",
+  btnDanger:
+    "inline-flex min-h-11 items-center justify-center rounded-md bg-red-600 px-4 text-sm font-medium text-white shadow-sm transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-9",
+  btnDangerOutline:
+    "inline-flex min-h-10 shrink-0 items-center justify-center rounded-md border border-red-200 bg-white px-3 text-xs font-medium text-red-700 transition-colors hover:border-red-300 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-8",
   label: "text-xs font-medium text-slate-500",
   eyebrow: "text-xs font-medium tracking-wide text-blue-700/80",
   mobileCard: "rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5",

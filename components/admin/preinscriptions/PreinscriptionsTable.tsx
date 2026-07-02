@@ -14,6 +14,7 @@ import {
 import type { AdminTableColumnDef } from "@/lib/admin/data-table/types";
 import { uniqueFilterOptions } from "@/lib/admin/data-table/process";
 import { AdminActionButton } from "@/components/admin/AdminActionButton";
+import { TrashDeleteButton } from "@/components/admin/TrashDeleteButton";
 import { adminStyles } from "@/components/admin/admin-styles";
 import { AdminDecisionEmailDialog } from "@/components/admin/AdminDecisionEmailDialog";
 import { AdminEntityDocumentsDialog } from "@/components/admin/documents/AdminEntityDocumentsDialog";
@@ -285,6 +286,12 @@ export function PreinscriptionsTable({ items }: PreinscriptionsTableProps) {
                 )
               }
             />
+            <TrashDeleteButton
+              entityType="preinscription"
+              id={item.id}
+              label={`${item.firstName} ${item.lastName}`}
+              disabled={actionsDisabled}
+            />
           </div>
         </AdminTableCell>
       </AdminTableRow>
@@ -346,6 +353,12 @@ export function PreinscriptionsTable({ items }: PreinscriptionsTableProps) {
                 "noopener,noreferrer",
               )
             }
+          />
+          <TrashDeleteButton
+            entityType="preinscription"
+            id={item.id}
+            label={`${item.firstName} ${item.lastName}`}
+            disabled={actionsDisabled}
           />
         </div>
         <div className="mt-3">

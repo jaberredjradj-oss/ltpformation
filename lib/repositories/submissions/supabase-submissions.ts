@@ -7,6 +7,12 @@ import type { DevisRequestRow, PreinscriptionRow } from "@/lib/db/types";
 import type { DevisRequestStatus, PreinscriptionStatus } from "@/lib/admin/types";
 import type { SubmissionsRepository } from "@/lib/repositories/types";
 
+/** Migration 007 pas encore appliquée → colonne corbeille absente. */
+function isMissingDeletedAtError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return lower.includes("deleted_at") && (lower.includes("does not exist") || lower.includes("schema cache"));
+}
+
 export const supabaseSubmissionsRepository: SubmissionsRepository = {
   async createDevis(input) {
     const client = getSupabaseServerClient();
@@ -73,10 +79,18 @@ export const supabaseSubmissionsRepository: SubmissionsRepository = {
     const client = getSupabaseServerClient();
     if (!client) throw new Error("Supabase client unavailable.");
 
-    const { data, error } = await client
+    let { data, error } = await client
       .from("devis_requests")
       .select("*")
+      .is("deleted_at", null)
       .order("submitted_at", { ascending: false });
+
+    if (error && isMissingDeletedAtError(error.message)) {
+      ({ data, error } = await client
+        .from("devis_requests")
+        .select("*")
+        .order("submitted_at", { ascending: false }));
+    }
 
     if (error) throw error;
     return (data as DevisRequestRow[]).map(mapRowToDevisRequest);
@@ -86,10 +100,18 @@ export const supabaseSubmissionsRepository: SubmissionsRepository = {
     const client = getSupabaseServerClient();
     if (!client) throw new Error("Supabase client unavailable.");
 
-    const { data, error } = await client
+    let { data, error } = await client
       .from("preinscriptions")
       .select("*")
+      .is("deleted_at", null)
       .order("submitted_at", { ascending: false });
+
+    if (error && isMissingDeletedAtError(error.message)) {
+      ({ data, error } = await client
+        .from("preinscriptions")
+        .select("*")
+        .order("submitted_at", { ascending: false }));
+    }
 
     if (error) throw error;
     return (data as PreinscriptionRow[]).map(mapRowToPreinscription);

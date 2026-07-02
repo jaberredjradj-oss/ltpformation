@@ -46,6 +46,22 @@ export interface AdminContactMessage {
   submittedAt: string;
 }
 
+/** Types d'entités supprimables individuellement vers la corbeille. */
+export type TrashEntityType = "preinscription" | "devis" | "message";
+
+/** Un enregistrement en corbeille (pré-inscription, devis ou message). */
+export interface AdminTrashedItem {
+  entityType: TrashEntityType;
+  id: string;
+  /** Nom principal affiché : apprenant, entreprise ou expéditeur. */
+  primaryLabel: string;
+  /** Détail secondaire : formation, contact, extrait de message… */
+  secondaryLabel: string | null;
+  email: string | null;
+  deletedAt: string;
+  deleteExpiresAt: string;
+}
+
 export interface AdminPlanningRow {
   id: string;
   formationTitle: string;

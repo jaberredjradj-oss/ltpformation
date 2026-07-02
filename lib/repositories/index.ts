@@ -5,7 +5,10 @@ import { supabaseMessagesRepository } from "@/lib/repositories/messages/supabase
 import { staticMessagesRepository } from "@/lib/repositories/messages/static-messages";
 import { supabaseSubmissionsRepository } from "@/lib/repositories/submissions/supabase-submissions";
 import { staticSubmissionsRepository } from "@/lib/repositories/submissions/static-submissions";
+import { supabaseTrashRepository } from "@/lib/repositories/trash/supabase-trash";
+import { staticTrashRepository } from "@/lib/repositories/trash/static-trash";
 import type { DocumentsRepository } from "@/lib/repositories/documents/types";
+import type { TrashRepository } from "@/lib/repositories/trash/types";
 import type { MessagesRepository, SubmissionsRepository } from "@/lib/repositories/types";
 
 export async function getDocumentsRepository(): Promise<DocumentsRepository> {
@@ -27,6 +30,13 @@ export async function getMessagesRepository(): Promise<MessagesRepository> {
     return supabaseMessagesRepository;
   }
   return staticMessagesRepository;
+}
+
+export async function getTrashRepository(): Promise<TrashRepository> {
+  if (isRealDataEnabled()) {
+    return supabaseTrashRepository;
+  }
+  return staticTrashRepository;
 }
 
 export { getPlanningRepository, loadPlanningSessions, findPlanningSessionById } from "@/lib/repositories/planning";

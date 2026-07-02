@@ -7,6 +7,7 @@ interface AdminConfirmDialogProps {
   title: string;
   description: string;
   confirmLabel?: string;
+  tone?: "default" | "danger";
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -16,6 +17,7 @@ export function AdminConfirmDialog({
   title,
   description,
   confirmLabel = "Confirmer",
+  tone = "default",
   onConfirm,
   onCancel,
 }: AdminConfirmDialogProps) {
@@ -30,7 +32,11 @@ export function AdminConfirmDialog({
           <button type="button" onClick={onCancel} className={adminStyles.btnSecondary}>
             Annuler
           </button>
-          <button type="button" onClick={onConfirm} className={adminStyles.btnPrimary}>
+          <button
+            type="button"
+            onClick={onConfirm}
+            className={tone === "danger" ? adminStyles.btnDanger : adminStyles.btnPrimary}
+          >
             {confirmLabel}
           </button>
         </div>

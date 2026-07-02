@@ -26,6 +26,12 @@ function isMissingEntityDocumentsError(message: string): boolean {
   );
 }
 
+/** Migration 007 pas encore appliquée → colonne corbeille absente. */
+function isMissingDeletedAtError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return lower.includes("deleted_at") && (lower.includes("does not exist") || lower.includes("schema cache"));
+}
+
 async function listFromTable(
   entityType: EntityDocument["entityType"],
   entityId: string,
@@ -38,8 +44,19 @@ async function listFromTable(
     .select("*")
     .eq("entity_type", entityType)
     .eq("entity_id", entityId)
+    .is("deleted_at", null)
     .order("uploaded_at", { ascending: false });
-  const { data, error } = await withUploadTimeout(listQuery, DB_TIMEOUT_MS, "list entity documents");
+  let { data, error } = await withUploadTimeout(listQuery, DB_TIMEOUT_MS, "list entity documents");
+
+  if (error && isMissingDeletedAtError(error.message)) {
+    const fallbackQuery = client
+      .from("entity_documents")
+      .select("*")
+      .eq("entity_type", entityType)
+      .eq("entity_id", entityId)
+      .order("uploaded_at", { ascending: false });
+    ({ data, error } = await withUploadTimeout(fallbackQuery, DB_TIMEOUT_MS, "list entity documents"));
+  }
 
   if (error) {
     if (isMissingEntityDocumentsError(error.message)) {
@@ -55,8 +72,18 @@ async function getFromTable(id: string): Promise<EntityDocument | null> {
   const client = getSupabaseServerClient();
   if (!client) return null;
 
-  const getQuery = client.from("entity_documents").select("*").eq("id", id).maybeSingle();
-  const { data, error } = await withUploadTimeout(getQuery, DB_TIMEOUT_MS, "get entity document");
+  const getQuery = client
+    .from("entity_documents")
+    .select("*")
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+  let { data, error } = await withUploadTimeout(getQuery, DB_TIMEOUT_MS, "get entity document");
+
+  if (error && isMissingDeletedAtError(error.message)) {
+    const fallbackQuery = client.from("entity_documents").select("*").eq("id", id).maybeSingle();
+    ({ data, error } = await withUploadTimeout(fallbackQuery, DB_TIMEOUT_MS, "get entity document"));
+  }
 
   if (error) {
     if (isMissingEntityDocumentsError(error.message)) {

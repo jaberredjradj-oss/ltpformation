@@ -17,6 +17,7 @@ import { splitContactName } from "@/lib/admin/list-controls/utils";
 import { AdminDecisionEmailDialog } from "@/components/admin/AdminDecisionEmailDialog";
 import { AdminEntityDocumentsDialog } from "@/components/admin/documents/AdminEntityDocumentsDialog";
 import { AdminActionButton } from "@/components/admin/AdminActionButton";
+import { TrashDeleteButton } from "@/components/admin/TrashDeleteButton";
 import { AdminEmptyState } from "@/components/admin/AdminEmptyState";
 import { adminStyles } from "@/components/admin/admin-styles";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
@@ -258,15 +259,23 @@ export function DevisRequestsTable({ requests }: DevisRequestsTableProps) {
           {formatDate(request.submittedAt)}
         </AdminTableCell>
         <AdminTableCell>
-          <AdminActionButton
-            label="Documents"
-            onClick={() =>
-              setDocumentsDialog({
-                entityId: request.id,
-                entityLabel: request.company,
-              })
-            }
-          />
+          <div className="flex flex-wrap gap-2">
+            <AdminActionButton
+              label="Documents"
+              onClick={() =>
+                setDocumentsDialog({
+                  entityId: request.id,
+                  entityLabel: request.company,
+                })
+              }
+            />
+            <TrashDeleteButton
+              entityType="devis"
+              id={request.id}
+              label={request.company}
+              disabled={actionsDisabled}
+            />
+          </div>
         </AdminTableCell>
       </AdminTableRow>
     );
@@ -313,6 +322,12 @@ export function DevisRequestsTable({ requests }: DevisRequestsTableProps) {
                 entityLabel: request.company,
               })
             }
+          />
+          <TrashDeleteButton
+            entityType="devis"
+            id={request.id}
+            label={request.company}
+            disabled={actionsDisabled}
           />
         </div>
         <div className="mt-3">

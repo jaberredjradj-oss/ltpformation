@@ -11,8 +11,85 @@ import type {
 } from "@/lib/repositories/types";
 import { formatSessionDateRange } from "@/lib/planning/format";
 
-let devisStore: AdminDevisRequest[] = [...MOCK_DEVIS_REQUESTS];
-let preinscriptionStore: AdminPreinscription[] = [...MOCK_PREINSCRIPTIONS];
+/** Lignes du store démo — champs corbeille internes, absents des vues admin. */
+type TrashFields = { deletedAt?: string; deleteExpiresAt?: string };
+export type TrashablePreinscription = AdminPreinscription & TrashFields;
+export type TrashableDevis = AdminDevisRequest & TrashFields;
+
+let devisStore: TrashableDevis[] = [...MOCK_DEVIS_REQUESTS];
+let preinscriptionStore: TrashablePreinscription[] = [...MOCK_PREINSCRIPTIONS];
+
+function softDeleteById<T extends TrashFields & { id: string }>(
+  store: T[],
+  id: string,
+  deletedAt: string,
+  deleteExpiresAt: string,
+): T[] {
+  return store.map((item) =>
+    item.id === id && !item.deletedAt ? { ...item, deletedAt, deleteExpiresAt } : item,
+  );
+}
+
+function restoreById<T extends TrashFields & { id: string }>(store: T[], id: string): T[] {
+  return store.map((item) =>
+    item.id === id ? { ...item, deletedAt: undefined, deleteExpiresAt: undefined } : item,
+  );
+}
+
+export function softDeleteStaticPreinscription(
+  id: string,
+  deletedAt: string,
+  deleteExpiresAt: string,
+): void {
+  preinscriptionStore = softDeleteById(preinscriptionStore, id, deletedAt, deleteExpiresAt);
+}
+
+export function restoreStaticPreinscription(id: string): void {
+  preinscriptionStore = restoreById(preinscriptionStore, id);
+}
+
+/** Purge définitive (démo) — supprime la ligne si elle est en corbeille. */
+export function purgeStaticPreinscription(id: string): boolean {
+  const target = preinscriptionStore.find((item) => item.id === id && item.deletedAt);
+  if (!target) return false;
+  preinscriptionStore = preinscriptionStore.filter((item) => item.id !== id);
+  return true;
+}
+
+export function listStaticTrashedPreinscriptions(): TrashablePreinscription[] {
+  return preinscriptionStore.filter((item) => item.deletedAt);
+}
+
+export function softDeleteStaticDevis(
+  id: string,
+  deletedAt: string,
+  deleteExpiresAt: string,
+): void {
+  devisStore = softDeleteById(devisStore, id, deletedAt, deleteExpiresAt);
+}
+
+export function restoreStaticDevis(id: string): void {
+  devisStore = restoreById(devisStore, id);
+}
+
+/** Purge définitive (démo) — supprime la ligne si elle est en corbeille. */
+export function purgeStaticDevis(id: string): boolean {
+  const target = devisStore.find((item) => item.id === id && item.deletedAt);
+  if (!target) return false;
+  devisStore = devisStore.filter((item) => item.id !== id);
+  return true;
+}
+
+export function listStaticTrashedDevis(): TrashableDevis[] {
+  return devisStore.filter((item) => item.deletedAt);
+}
+
+function stripTrashFields<T extends TrashFields>(item: T): Omit<T, keyof TrashFields> {
+  const { deletedAt, deleteExpiresAt, ...rest } = item;
+  void deletedAt;
+  void deleteExpiresAt;
+  return rest;
+}
 
 function mapDevisInput(input: CreateDevisInput, id: string): AdminDevisRequest {
   const snapshot = input.sessionSnapshot as { dateRange?: string } | null;
@@ -70,15 +147,17 @@ export const staticSubmissionsRepository: SubmissionsRepository = {
   },
 
   async listDevisRequests() {
-    return [...devisStore].sort(
-      (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
-    );
+    return devisStore
+      .filter((item) => !item.deletedAt)
+      .map((item): AdminDevisRequest => stripTrashFields(item))
+      .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
   },
 
   async listPreinscriptions() {
-    return [...preinscriptionStore].sort(
-      (a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime(),
-    );
+    return preinscriptionStore
+      .filter((item) => !item.deletedAt)
+      .map((item): AdminPreinscription => stripTrashFields(item))
+      .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
   },
 
   async updateDevisStatus(id, status) {

@@ -99,6 +99,8 @@ export interface DevisRequestRow {
   status: DevisRequestStatusRow;
   submitted_at: string;
   updated_at: string;
+  deleted_at?: string | null;
+  delete_expires_at?: string | null;
 }
 
 export type PreinscriptionStatusRow = "pending" | "validated" | "refused" | "archived";
@@ -118,6 +120,8 @@ export interface PreinscriptionRow {
   status: PreinscriptionStatusRow;
   submitted_at: string;
   updated_at: string;
+  deleted_at?: string | null;
+  delete_expires_at?: string | null;
 }
 
 export type ContactMessageStatusRow = "unread" | "answered" | "archived";
@@ -132,6 +136,8 @@ export interface ContactMessageRow {
   status: ContactMessageStatusRow;
   submitted_at: string;
   updated_at: string;
+  deleted_at?: string | null;
+  delete_expires_at?: string | null;
 }
 
 export interface NotificationEventRow {
@@ -157,4 +163,6 @@ export interface EntityDocumentRow {
   size_bytes: number;
   uploaded_by: EntityDocumentUploaderRow;
   uploaded_at: string;
+  deleted_at?: string | null;
+  delete_expires_at?: string | null;
 }

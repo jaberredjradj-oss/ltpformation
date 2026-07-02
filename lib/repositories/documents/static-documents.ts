@@ -33,3 +33,17 @@ export const staticDocumentsRepository: DocumentsRepository = {
     return document;
   },
 };
+
+/** Purge définitive (démo) — retire les documents des entités supprimées. */
+export function purgeStaticDocumentsForEntities(
+  entityType: EntityDocument["entityType"],
+  entityIds: string[],
+): void {
+  if (entityIds.length === 0) return;
+  const ids = new Set(entityIds);
+  for (let index = store.length - 1; index >= 0; index -= 1) {
+    if (store[index].entityType === entityType && ids.has(store[index].entityId)) {
+      store.splice(index, 1);
+    }
+  }
+}

@@ -8,6 +8,8 @@ export type {
   AdminDevisRequest,
   AdminPlanningRow,
   AdminPreinscription,
+  AdminTrashedItem,
+  TrashEntityType,
   ContactMessageStatus,
   DevisRequestStatus,
   PreinscriptionStatus,
@@ -25,4 +27,5 @@ export {
   updatePreinscriptionStatus,
   updateSessionSeats,
 } from "@/lib/admin/actions";
-export { getMessagesRepository, getSubmissionsRepository } from "@/lib/repositories";
+export { purgeItem, restoreItem, trashItem } from "@/lib/admin/trash-actions";
+export { getMessagesRepository, getSubmissionsRepository, getTrashRepository } from "@/lib/repositories";

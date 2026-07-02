@@ -6,7 +6,18 @@ export const ADMIN_NAV_ITEMS = [
   { href: "/admin/preinscriptions", label: "Pré-inscriptions" },
   { href: "/admin/messages", label: "Messages" },
   { href: "/admin/communication", label: "Communication" },
+  { href: "/admin/corbeille", label: "Corbeille" },
 ] as const;
+
+/** Délai de rétention en corbeille avant suppression définitive possible. */
+export const TRASH_RETENTION_DAYS = 7;
+
+/** Libellés (singulier) par type d'entité supprimable. */
+export const TRASH_ENTITY_LABELS = {
+  preinscription: "Pré-inscription",
+  devis: "Devis",
+  message: "Message",
+} as const;
 
 export const DEVIS_STATUS_LABELS = {
   new: "Nouveau",

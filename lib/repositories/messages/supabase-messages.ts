@@ -33,10 +33,19 @@ export const supabaseMessagesRepository: MessagesRepository = {
     const client = getSupabaseServerClient();
     if (!client) throw new Error("Supabase client unavailable.");
 
-    const { data, error } = await client
+    let { data, error } = await client
       .from("contact_messages")
       .select("*")
+      .is("deleted_at", null)
       .order("submitted_at", { ascending: false });
+
+    // Migration 007 pas encore appliquée → colonne corbeille absente.
+    if (error && error.message.toLowerCase().includes("deleted_at")) {
+      ({ data, error } = await client
+        .from("contact_messages")
+        .select("*")
+        .order("submitted_at", { ascending: false }));
+    }
 
     if (error) throw error;
     return (data as ContactMessageRow[]).map(mapRowToContactMessage);
