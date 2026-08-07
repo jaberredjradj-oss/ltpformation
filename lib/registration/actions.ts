@@ -156,7 +156,7 @@ export async function submitRegistration(
       payload: { id, sessionId: payload.values.sessionId },
     });
 
-    notifyTeamOfFormSubmission({
+    await notifyTeamOfFormSubmission({
       kind: "preinscription",
       referenceId: id,
       adminPath: `/admin/preinscriptions/${id}/sheet`,

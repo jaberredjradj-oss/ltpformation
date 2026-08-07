@@ -58,7 +58,7 @@ export async function submitContactForm(
       payload: { id },
     });
 
-    notifyTeamOfFormSubmission({
+    await notifyTeamOfFormSubmission({
       kind: "contact",
       referenceId: id,
       adminPath: "/admin/messages",

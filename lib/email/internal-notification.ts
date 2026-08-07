@@ -111,7 +111,9 @@ export async function sendInternalFormNotification(
   const content = buildContent(input);
 
   if (!isEmailEnabled()) {
-    console.info("[email:internal-notification:stub]", {
+    // Avertissement (et non info) : sans fournisseur configuré, AUCUNE alerte ne
+    // part. Le cas doit sauter aux yeux dans les logs plutôt que passer inaperçu.
+    console.warn("[email:internal-notification:stub] envoi désactivé — aucun fournisseur configuré", {
       to,
       subject,
       from: getEmailFrom() || null,
@@ -150,12 +152,41 @@ export async function sendInternalFormNotification(
   return { ok: true };
 }
 
-/** Fire-and-forget wrapper — form submissions must succeed even if email fails. */
-export function notifyTeamOfFormSubmission(input: SendInternalFormNotificationInput): void {
-  void sendInternalFormNotification(input).catch((error) => {
+/** Plafond d'attente de l'envoi : au-delà, on rend la main au formulaire. */
+const NOTIFICATION_TIMEOUT_MS = 10_000;
+
+/**
+ * Envoi attendu de l'alerte interne — à `await` dans les Server Actions.
+ *
+ * Un envoi non attendu (fire-and-forget) est abandonné dès que la Server Action
+ * renvoie sa réponse : l'hébergeur clôt la requête avant la fin de la poignée de
+ * main SMTP et l'e-mail est perdu sans trace. On attend donc réellement l'envoi,
+ * borné par un délai de garde.
+ *
+ * Ne rejette jamais et ne bloque jamais l'enregistrement du formulaire : toute
+ * erreur (ou dépassement du délai) est journalisée puis avalée.
+ */
+export async function notifyTeamOfFormSubmission(
+  input: SendInternalFormNotificationInput,
+): Promise<void> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  try {
+    await Promise.race([
+      sendInternalFormNotification(input),
+      new Promise<never>((_resolve, reject) => {
+        timeoutId = setTimeout(
+          () => reject(new Error(`Délai dépassé (${NOTIFICATION_TIMEOUT_MS} ms)`)),
+          NOTIFICATION_TIMEOUT_MS,
+        );
+      }),
+    ]);
+  } catch (error) {
     console.error("[email:internal-notification:unhandled]", error, {
       referenceId: input.referenceId,
       kind: input.kind,
     });
-  });
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
 }

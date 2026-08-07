@@ -77,7 +77,7 @@ export async function submitCallbackForm(
       payload: { id },
     });
 
-    notifyTeamOfFormSubmission({
+    await notifyTeamOfFormSubmission({
       kind: "callback",
       referenceId: id,
       adminPath: "/admin/messages",
