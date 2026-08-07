@@ -135,6 +135,36 @@ export async function submitRegistration(
         payload: { id, formationSlug: payload.values.formationSlug },
       });
 
+      await notifyTeamOfFormSubmission({
+        kind: "devis",
+        referenceId: id,
+        adminPath: "/admin/demandes",
+        replyToEmail: payload.values.email.trim(),
+        details: [
+          {
+            label: "Nom",
+            value: `${payload.values.firstName.trim()} ${payload.values.lastName.trim()}`.trim(),
+          },
+          { label: "Entreprise", value: payload.values.company.trim() },
+          { label: "Email", value: payload.values.email.trim() },
+          { label: "Téléphone", value: payload.values.phone.trim() },
+          { label: "Formation", value: formation.shortTitle },
+          { label: "Session", value: formatSessionDetail(sessionSnapshot) },
+          { label: "Participants", value: String(payload.values.participantCount) },
+          {
+            label: "Effectif entreprise",
+            value: employeeCount !== null ? String(employeeCount) : "—",
+          },
+          {
+            label: "Formation sur site",
+            value: payload.values.onSiteTraining
+              ? ON_SITE_LABELS[payload.values.onSiteTraining]
+              : "—",
+          },
+          { label: "Message", value: payload.values.message.trim() || "—" },
+        ],
+      });
+
       return { ok: true, submissionId: id };
     }
 
