@@ -25,12 +25,13 @@ export function FormationsHero({ formations }: FormationsHeroProps) {
         >
           <p className="section-eyebrow">Catalogue certifié</p>
           <h1 className="mt-4 text-[2rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.5rem] lg:text-[3rem]">
-            Plateforme de formations professionnelles
+            Formations certifiées en sécurité incendie, sûreté et secourisme en Île-de-France (78)
           </h1>
           <p className="editorial-lead mx-auto mt-5 max-w-2xl text-pretty">
-            Parcourez l&apos;ensemble de nos parcours certifiants — sécurité incendie, secourisme,
-            sûreté et prévention des risques — dans un environnement institutionnel conçu pour
-            faciliter votre recherche et votre prise de décision.
+            Organisme de formation sécurité certifié Qualiopi à Voisins-le-Bretonneux, au cœur des
+            Yvelines (78). Parcourez nos parcours certifiants — formation SSIAP, secourisme, sûreté
+            et prévention des risques — éligibles au CPF et accessibles depuis Versailles,
+            Saint-Quentin-en-Yvelines, Paris et toute l&apos;Île-de-France.
           </p>
         </motion.div>
 

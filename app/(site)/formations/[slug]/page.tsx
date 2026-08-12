@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FormationDetailView } from "@/components/formations/FormationDetailView";
 import { getAllFormationSlugs } from "@/lib/formations/catalog";
+import { getFormationSeo } from "@/lib/formations/seo";
 import { loadFormation } from "@/lib/repositories/formations";
 
 interface FormationDetailPageProps {
@@ -26,9 +27,12 @@ export async function generateMetadata({ params }: FormationDetailPageProps): Pr
     return { title: "Formation introuvable" };
   }
 
+  const seo = getFormationSeo(slug);
+
   return {
-    title: formation.title,
-    description: formation.summary,
+    // `absolute` : le titre SEO porte déjà la marque, on évite le suffixe du gabarit.
+    title: seo.title ? { absolute: seo.title } : formation.title,
+    description: seo.description ?? formation.summary,
   };
 }
 

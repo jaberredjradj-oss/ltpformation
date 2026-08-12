@@ -9,6 +9,7 @@ import {
   NAV_LINKS,
   FOOTER_FORMATIONS,
 } from "@/lib/constants";
+import { isBlogPublished } from "@/lib/blog/posts";
 import { easeCinematic } from "@/lib/motion";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { CertificationMark } from "@/components/ui/CertificationMark";
@@ -145,6 +146,17 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* Le blog n'apparaît qu'à partir du premier article publié. */}
+              {isBlogPublished() && (
+                <li>
+                  <Link
+                    href="/blog"
+                    className="text-sm font-medium text-body-strong transition-colors duration-500 hover:text-blue-600"
+                  >
+                    Blog
+                  </Link>
+                </li>
+              )}
             </ul>
 
             <p className="section-eyebrow mt-8">Formations</p>

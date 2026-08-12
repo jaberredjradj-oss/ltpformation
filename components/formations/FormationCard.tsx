@@ -10,6 +10,7 @@ import { FormationMetaValue } from "@/components/formations/FormationMetaValue";
 import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
 import { formatFormationPriceEuro } from "@/lib/formations/display";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
+import { buildFormationImageAlt } from "@/lib/formations/seo";
 import { cn } from "@/lib/utils";
 
 interface FormationCardProps {
@@ -65,7 +66,10 @@ export function FormationCard({ formation, index = 0, className }: FormationCard
         <div className="relative aspect-[16/9] min-h-[190px] overflow-hidden sm:min-h-0">
           <Image
             src={getFormationCoverImage(formation)}
-            alt={formation.shortTitle ?? formation.title}
+            alt={buildFormationImageAlt(
+              formation.slug,
+              formation.shortTitle ?? formation.title,
+            )}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"

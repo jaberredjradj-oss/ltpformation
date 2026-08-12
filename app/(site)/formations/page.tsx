@@ -5,9 +5,12 @@ import { FormationsCatalog } from "@/components/formations/FormationsCatalog";
 import { loadFormations } from "@/lib/repositories/formations";
 
 export const metadata: Metadata = {
-  title: "Formations professionnelles",
+  title: {
+    absolute:
+      "Formations Sécurité Incendie, SSIAP & Secourisme en Île-de-France | LT Protect Formation",
+  },
   description:
-    "Catalogue certifié LT Protect Formation — SSIAP, SST, APS, prévention des risques et formations incendie.",
+    "Découvrez toutes les formations de LT Protect Formation à Voisins-le-Bretonneux (78) : SSIAP 1, 2, 3, CQP APS, SST, H0B0. Certifié Qualiopi, éligible CPF. Sessions régulières en Île-de-France.",
 };
 
 // Revalidate every 5 minutes; admin mutations will also revalidate on-demand.

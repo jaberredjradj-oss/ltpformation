@@ -13,6 +13,7 @@ import {
   formatFormationPriceEuro,
 } from "@/lib/formations/display";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
+import { buildFormationImageAlt, getFormationSeo } from "@/lib/formations/seo";
 import { Container } from "@/components/ui/Container";
 
 interface FormationDetailHeroProps {
@@ -22,6 +23,12 @@ interface FormationDetailHeroProps {
 export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
   const durationHours = formatFormationDurationHours(formation.durationHours);
   const priceLabel = formatFormationPriceEuro(formation);
+  const seo = getFormationSeo(formation.slug);
+  const heading = seo.h1 ?? formation.shortTitle ?? formation.title;
+  const imageAlt = buildFormationImageAlt(
+    formation.slug,
+    formation.shortTitle ?? formation.title,
+  );
 
   return (
     <section className="relative overflow-hidden section-wash-blend pb-8 pt-10 md:pb-14 md:pt-16">
@@ -47,7 +54,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             className="heading-accent-glow flex flex-col"
           >
             <h1 className="text-[1.8rem] font-semibold leading-[1.08] tracking-[-0.028em] text-navy-950 sm:text-[2.35rem] lg:text-[2.75rem]">
-              {formation.shortTitle ?? formation.title}
+              {heading}
             </h1>
 
             <p className="mt-4 text-lg font-semibold tabular-nums text-blue-600">{durationHours}</p>
@@ -57,6 +64,12 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             </p>
 
             <p className="editorial-lead mt-5 max-w-2xl text-pretty">{formation.summary}</p>
+
+            {seo.intro && (
+              <p className="mt-4 max-w-2xl text-pretty text-[0.95rem] leading-relaxed text-body-strong">
+                {seo.intro}
+              </p>
+            )}
 
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
               <p className="shrink-0 text-xl font-semibold tabular-nums text-navy-950">
@@ -83,7 +96,7 @@ export function FormationDetailHero({ formation }: FormationDetailHeroProps) {
             <div className="relative min-h-[220px] flex-1 sm:min-h-[280px]">
               <Image
                 src={getFormationCoverImage(formation)}
-                alt={formation.shortTitle ?? formation.title}
+                alt={imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 480px"
                 className="object-cover"
