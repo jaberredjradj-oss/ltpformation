@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   },
   description:
     "Découvrez toutes les formations de LT Protect Formation à Voisins-le-Bretonneux (78) : SSIAP 1, 2, 3, CQP APS, SST, H0B0. Certifié Qualiopi, éligible CPF. Sessions régulières en Île-de-France.",
+  alternates: { canonical: "/formations" },
 };
 
 // Revalidate every 5 minutes; admin mutations will also revalidate on-demand.

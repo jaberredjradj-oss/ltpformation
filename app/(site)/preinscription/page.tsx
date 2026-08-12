@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Pré-inscription",
   description:
     "Réservez votre place sur une session LT Protect Formation : planning 2026, disponibilité en temps réel.",
+  alternates: { canonical: "/preinscription" },
 };
 
 function PreinscriptionFallback() {

@@ -7,6 +7,7 @@ import { BuildMarker } from "@/components/BuildMarker";
 import { LocalBusinessJsonLd } from "@/components/seo/LocalBusinessJsonLd";
 import { PUBLIC_BUILD_ID, PUBLIC_BUILD_TIME } from "@/lib/build-info";
 import { SITE } from "@/lib/constants";
+import { getSiteUrl } from "@/lib/site-url";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -22,6 +23,9 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  // Base des URLs absolues : permet aux pages de déclarer leur adresse
+  // canonique en chemin relatif, résolu ici en URL complète.
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: `${SITE.name} | Centre de formation sécurité`,
     template: `%s | ${SITE.name}`,

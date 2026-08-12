@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Planning des sessions",
   description:
     "Calendrier 2026 des sessions LT Protect Formation : SSIAP, TFP APS, MAC APS et parcours certifiants à Voisins-le-Bretonneux.",
+  alternates: { canonical: "/planning" },
 };
 
 function PlanningFallback() {

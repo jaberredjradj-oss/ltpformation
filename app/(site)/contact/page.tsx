@@ -8,6 +8,7 @@ import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

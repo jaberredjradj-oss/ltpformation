@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Demande de devis",
   description:
     "Demandez un devis personnalisé pour vos formations LT Protect : SSIAP, SST, APS et habilitations.",
+  alternates: { canonical: "/devis" },
 };
 
 function DevisFallback() {

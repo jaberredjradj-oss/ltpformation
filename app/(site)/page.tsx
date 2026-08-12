@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     "Centre de formation agréé à Voisins-le-Bretonneux, au cœur de Saint-Quentin-en-Yvelines (78). Formations SSIAP, CQP APS, SST, habilitations électriques. Financement CPF. Certifié Qualiopi.",
+  alternates: { canonical: "/" },
 };
 
 export default function HomePage() {

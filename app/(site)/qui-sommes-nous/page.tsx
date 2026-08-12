@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   },
   description:
     "LT Protect Formation, organisme certifié Qualiopi à Voisins-le-Bretonneux (78). Spécialisé en formation sécurité incendie, sûreté et secourisme pour les Yvelines et l'Île-de-France. Formateurs issus du terrain.",
+  alternates: { canonical: "/qui-sommes-nous" },
 };
 
 export default function QuiSommesNousPage() {

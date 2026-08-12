@@ -33,6 +33,9 @@ export async function generateMetadata({ params }: FormationDetailPageProps): Pr
     // `absolute` : le titre SEO porte déjà la marque, on évite le suffixe du gabarit.
     title: seo.title ? { absolute: seo.title } : formation.title,
     description: seo.description ?? formation.summary,
+    // Adresse de référence de la fiche : évite que des variantes d'URL
+    // (paramètres de campagne, tri) soient vues comme du contenu dupliqué.
+    alternates: { canonical: `/formations/${slug}` },
   };
 }
 
