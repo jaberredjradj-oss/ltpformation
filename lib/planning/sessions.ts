@@ -117,7 +117,7 @@ const TFP_APS = {
   category: "surete" as const,
   categoryLabel: "Sûreté",
   cpfEligible: true,
-  certificationCode: "RNCP37035",
+  certificationCode: "RNCP42158",
 };
 
 const MAC_APS = {

@@ -18,7 +18,7 @@ export const formation: Formation = {
     shortLabel: "1 700,00 € TTC",
   },
   cpfEligible: true,
-  certificationCode: "RNCP37035",
+  certificationCode: "RNCP42158",
   certifications: ["Qualiopi"],
   summary: "La formation TFP APS permet d'acquérir les compétences nécessaires pour exercer en qualité d'agent de prévention et de sécurité et d'obtenir la carte professionnelle.",
   imageKey: "surete",
