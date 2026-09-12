@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { RegistrationContext } from "@/lib/registration/resolve-context";
 import { formatExamLabel, formatSessionDateRange } from "@/lib/planning/format";
+import { resolveSessionCertificationCode } from "@/lib/planning/certification";
 import { resolveSessionAvailability } from "@/lib/planning/availability";
 import { FormationCertificationBadge } from "@/components/formations/FormationCertificationBadge";
 import { SessionAvailabilityBadge } from "@/components/planning/SessionAvailabilityBadge";
@@ -12,6 +13,7 @@ interface RegistrationContextCardProps {
 
 export function RegistrationContextCard({ context }: RegistrationContextCardProps) {
   const { formation, session } = context;
+  const certificationCode = session ? resolveSessionCertificationCode(session) : null;
   const availability = session ? resolveSessionAvailability(session) : context.availability;
 
   return (
@@ -45,8 +47,8 @@ export function RegistrationContextCard({ context }: RegistrationContextCardProp
             <span className="rounded-full border border-gold-400/30 bg-gold-100/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-gold-700">
               {session.sessionType}
             </span>
-            {session.certificationCode && (
-              <FormationCertificationBadge code={session.certificationCode} />
+            {certificationCode && (
+              <FormationCertificationBadge code={certificationCode} />
             )}
             {availability && (
               <SessionAvailabilityBadge

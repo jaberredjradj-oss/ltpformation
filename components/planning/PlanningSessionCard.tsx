@@ -9,6 +9,7 @@ import { easeCinematic } from "@/lib/motion";
 import { FormationCertificationBadge } from "@/components/formations/FormationCertificationBadge";
 import { InstallmentBadge } from "@/components/formations/InstallmentBadge";
 import { hasInstallmentFacility } from "@/lib/formations/payment";
+import { resolveSessionCertificationCode } from "@/lib/planning/certification";
 import { PlanningStatusBadge } from "@/components/planning/PlanningStatusBadge";
 import { SessionAvailabilityMeter } from "@/components/planning/SessionAvailabilityMeter";
 import { cn } from "@/lib/utils";
@@ -55,6 +56,7 @@ function SessionAction({
 }
 
 export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardProps) {
+  const certificationCode = resolveSessionCertificationCode(session);
   const formationHref = session.formationSlug
     ? `/formations/${session.formationSlug}`
     : "/formations";
@@ -84,9 +86,7 @@ export function PlanningSessionCard({ session, index = 0 }: PlanningSessionCardP
           <span className="max-w-full whitespace-normal rounded-full border border-gold-400/30 bg-gold-100/60 px-3 py-1 text-center text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-gold-700">
             {session.sessionType}
           </span>
-          {session.certificationCode && (
-            <FormationCertificationBadge code={session.certificationCode} />
-          )}
+          {certificationCode && <FormationCertificationBadge code={certificationCode} />}
           {hasInstallmentFacility(session.formationSlug) && <InstallmentBadge />}
           <PlanningStatusBadge session={session} />
         </div>
