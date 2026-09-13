@@ -1,9 +1,16 @@
+// Configuration en JavaScript pur, volontairement — pas en TypeScript.
+//
+// Le serveur de compilation de l'hébergeur a une glibc trop ancienne pour le
+// compilateur natif de Next (16.3.x exige GLIBC_2.30). Next se rabat alors sur
+// sa version WebAssembly, avec deux conséquences :
+//   1. il ne sait plus transpiler un `next.config.ts` (échec de chargement) ;
+//   2. Turbopack ne peut pas tourner du tout — d'où `next build --webpack`.
+// Ne pas repasser ce fichier en .ts sans avoir vérifié que l'hébergeur a évolué.
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import type { NextConfig } from "next";
 
-function loadBuildInfo(): { id: string; time: string } {
+function loadBuildInfo() {
   if (process.env.NEXT_PUBLIC_BUILD_ID?.trim()) {
     return {
       id: process.env.NEXT_PUBLIC_BUILD_ID.trim(),
@@ -14,10 +21,7 @@ function loadBuildInfo(): { id: string; time: string } {
   const buildIdFile = path.join(process.cwd(), "build-id.json");
   if (existsSync(buildIdFile)) {
     try {
-      const parsed = JSON.parse(readFileSync(buildIdFile, "utf8")) as {
-        id?: string;
-        time?: string;
-      };
+      const parsed = JSON.parse(readFileSync(buildIdFile, "utf8"));
       if (parsed.id) {
         return {
           id: parsed.id,
@@ -44,7 +48,8 @@ function loadBuildInfo(): { id: string; time: string } {
 
 const buildInfo = loadBuildInfo();
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   env: {
     NEXT_PUBLIC_BUILD_ID: buildInfo.id,
     NEXT_PUBLIC_BUILD_TIME: buildInfo.time,

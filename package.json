@@ -6,7 +6,7 @@
     "predev": "node scripts/repair-supabase-env.mjs",
     "dev": "next dev",
     "prebuild": "node scripts/repair-supabase-env.mjs && node scripts/write-build-id.mjs",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "db:seed": "tsx scripts/seed-planning-sessions.ts",
